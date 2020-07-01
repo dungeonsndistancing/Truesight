@@ -7,9 +7,9 @@ export default {
         const url = ip + "/user/login";
         console.log(url)
         try{
-        const result = await axios.post(url,{email:user, password:pass})
-        console.log(result)
-        return result
+            const result = await axios.post(url,{email:user, password:pass})
+            console.log(result)
+            return result
         } catch(err) {
             return "error"
         }
