@@ -1,7 +1,6 @@
 import axios from 'axios'
-import dotenv from 'dotenv'
-dotenv.config()
-const ip = process.env.SERVER_IP;
+const ip = process.env.VUE_APP_SERVER_IP;
+console.log(ip);
 
 export default {
     getCharacters: async function() {
