@@ -22,8 +22,11 @@ export default {
     methods: {
         async getCharacter(id) {
             console.log(id)
-            this.character = await characterService.getCharacter(id)
-            console.log(this.character)
+            var temp = await characterService.getCharacter(id)
+            if(temp == '401') {
+                this.$router.push('/401')
+            }
+            this.character = temp;
         }
 
     },beforeMount() {

@@ -40,6 +40,11 @@ const routes = [
         component: () => import('./views/Register.vue')
     },
     {
+        path: '/401',
+        name: 'notAuthorized',
+        component: () => import('./views/NotAuthorized.vue')
+    },
+    {
         path: '/*',
         name: 'default',
         component: () => import('./views/NotFound.vue')
