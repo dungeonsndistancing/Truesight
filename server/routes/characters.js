@@ -16,7 +16,7 @@ router.get('/single',auth,async (req,res) => {
     console.log(req.query.id)
     const result = await Character.findSingleById(req.query.id)
     if(result.user != req.userData._id) {
-        res.status(401).json({error:'Not Authorized'})
+        res.status(403).json({error:'Forbidden!'})
     }
     res.status(200).json(result)
 })

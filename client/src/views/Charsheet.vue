@@ -23,8 +23,8 @@ export default {
         async getCharacter(id) {
             console.log(id)
             var temp = await characterService.getCharacter(id)
-            if(temp == '401') {
-                this.$router.push('/401')
+            if(temp == '403') {
+                this.$router.push('/403')
             }
             this.character = temp;
         }
