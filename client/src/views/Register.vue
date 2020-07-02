@@ -28,14 +28,9 @@ export default {
         async register() {
             const result = await authservice.register(this.name,this.email,this.password)
             if(result == "error") {
-                console.log("ERROR")
-                window.alert("bad credentials")
-            }
-            console.log(result.data.token)
-            let token = result.data.token
-            if(token) {
-                localStorage.setItem("token",result.data.token)
-                this.$router.push("/home")
+                window.alert("could not register for some reason")
+            } else {
+                this.$router.push("/")
             }
         }
     }

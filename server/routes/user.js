@@ -17,9 +17,9 @@ router.post('/register', async (req, res) => {
             email: req.body.email,
             password: req.body.password
         })
-        let data = await user.save();
-        const token = await user.generateAuthToken()
-        res.status(201).json({ data, token})
+        await user.save();
+        res.status(201)
+        res.send()
     }
     catch (err) {
         console.log(err)
@@ -29,8 +29,6 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async(req,res) => {
     try{
-        console.log("hi")
-        console.log(req.body)
         const email = req.body.email
         const pass = req.body.password
         console.log("hi3")

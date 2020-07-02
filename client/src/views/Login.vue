@@ -29,7 +29,6 @@ export default {
                 console.log("ERROR")
                 window.alert("bad credentials")
             }
-            console.log(result.data.token)
             let token = result.data.token
             if(token) {
                 localStorage.setItem("token",result.data.token)

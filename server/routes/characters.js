@@ -5,20 +5,20 @@ const Character = require('../model/character')
 const User = require('../model/user');
 router.use(auth)
 
-router.get('/list',auth, async (req,res) => {
+router.get('/list', async (req,res) => {
     const result = await Character.findByUser(req.userData._id)
     console.log(result)
     res.status(200).json(result)
 })
 
-router.get('/single',auth,async (req,res) => {
+router.get('/single',async (req,res) => {
     console.log("HI")
     console.log(req.query.id)
     const result = await Character.findSingleById(req.query.id)
     res.status(200).json(result)
 })
 
-router.post('/create',auth, async (req, res) => {
+router.post('/create', async (req, res) => {
     const char = req.body.character
     try{
     const result = await Character.findByUser(req.userData._id)
