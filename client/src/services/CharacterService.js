@@ -1,4 +1,3 @@
-import axios from 'axios'
 import authService from './AuthenticationService'
 const ip = process.env.VUE_APP_SERVER_IP;
 
@@ -13,10 +12,7 @@ export default {
         let url = ip + '/characters/single'
         url += "?id=" + id 
         try{
-            const token = localStorage.getItem("token")
-            console.log("getting character")
-            console.log('id:'+id)
-            const result = await axios.get(url,{headers: {"token": token}}) 
+            const result = await authService.authenticateRequest(url,"get",'')
             return result.data
         } catch(err) {
             console.log(err)
