@@ -15,8 +15,7 @@ export default {
             const result = await authService.authenticateRequest(url,"get",'')
             return result.data
         } catch(err) {
-            console.log(err)
-            return {error: err}
+            return err.response.status
         }
     }
 }
