@@ -10,7 +10,6 @@ export default {
     methods: {
         async logout() {
             await authservice.logout()
-            localStorage.removeItem('token')
             this.$router.push('/')
         },
         async home() {
