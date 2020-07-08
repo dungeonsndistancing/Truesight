@@ -27,8 +27,7 @@ export default {
             const result = await axios.get(url,{headers: {"token": token}}) 
             return result.data
         } catch(err) {
-            console.log(err)
-            return {error: err}
+            return err.response.status
         }
     }
 }
