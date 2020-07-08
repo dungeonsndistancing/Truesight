@@ -66,7 +66,7 @@ export default {
                         var res = await axios.get(ip + '/user/authenticate', {headers:{'longtoken':longtoken}})
                         localStorage.setItem("token",res.data)
                         console.log(res)
-                        return this.authenticateRequest(url,type,body)
+                        return await this.authenticateRequest(url,type,body)
                     } catch(err) {
                         localStorage.removeItem("token")
                         localStorage.removeItem("longtoken")
