@@ -6,6 +6,7 @@
                 <div id="form" @submit="login">
                     <input v-model="email" placeholder="enter your email"> <br>
                     <input v-model="password" type="password" placeholder="enter your password" v-on:keyup.enter="login"><br>
+                    <label for="long">Stay signed in: </label><br><input v-model="long" type="checkbox" id="long"><br>
                     <button @click="register">Register</button><button @click="login">Login</button>
                 </div>
             </div>
@@ -19,20 +20,24 @@ export default {
         return {
             email: '',
             password: '',
+            long: false,
             error: null
         }
     },
     methods: {
         async login() {
-            const result = await authservice.login(this.email,this.password)
+            const result = await authservice.login(this.email,this.password, this.long)
             if(result == "error") {
                 console.log("ERROR")
                 window.alert("bad credentials")
             }
-            console.log(result.data.token)
-            let token = result.data.token
+            const token = result.data.token
+            const longtoken = result.data.longtoken
+            if(longtoken) {
+                localStorage.setItem("longtoken",longtoken)
+            }
             if(token) {
-                localStorage.setItem("token",result.data.token)
+                localStorage.setItem("token",token)
                 this.$router.push("/home")
             }
         },
@@ -59,6 +64,7 @@ export default {
 }
 
 #login {
+    color: white;
     text-align:center;
     margin-top: 60px;
     background-color: #214478;

@@ -27,9 +27,11 @@ export default {
     }, 
     methods: {
         async getCharacters() {
-            this.characters = await characterService.getCharacters();
-            console.log(this.characters)
-
+            var temp = await characterService.getCharacters();
+            if(temp == "disconnect") {
+                this.$router.push('/')
+            }
+            this.characters = temp.data
         },
         makeCharacter() {
             this.$router.push('/charactercreator')

@@ -38,10 +38,10 @@ userSchema.methods.generateAuthToken = async function() {
         {
             _id: user._id, name: user.name, email: user.email
             
-        }, "secret"
+        }, process.env.SECRET
     )
     user.tokens = user.tokens.concat({token})
-    await user.save()
+    await user.save();
     return token
 }
 
@@ -76,11 +76,16 @@ userSchema.statics.removeToken = async(email,token) => {
     if(!user) {
         throw new Error({error: "cannot logout nonexisting user"})
     }
-    const index = user.tokens.findIndex(x => x.token == token)
-    if (index > -1) {
-        user.tokens.splice(index,1)
+    try{
+        const index = user.tokens.findIndex(x => x.token == token)
+        if (index > -1) {
+            user.tokens.splice(index,1)
+        }
+    } catch(err) {
+        //the token was probably already cleared so its fine
+        //lol
     }
-    user.save();
+    await user.save();
     return {result:"success"}
 }
 
