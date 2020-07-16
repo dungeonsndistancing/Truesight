@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
 })
 
 
-router.post('/add', async function (req, res) {
+router.post('/add', async (req, res) => {
     const spell = req.body.spell
     console.log(spell.components)
     try{ 
