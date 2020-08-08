@@ -1,13 +1,15 @@
 <template>
-    <div class="container">
-    </div>
+  <div id="items">
+
+  </div>
 </template>
 
 <script>
 export default {
+
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

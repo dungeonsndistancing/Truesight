@@ -13,7 +13,7 @@ var user = require('./routes/user')
 mongoose.set("useCreateIndex", true)
 mongoose.set("useUnifiedTopology", true)
 mongoose.set("useNewUrlParser", true)
-mongoose.connect(process.env.DATABSE_URL).then(() => {
+mongoose.connect(process.env.DATABASE_URL).then(() => {
     console.log("Connected to database")
 })
 const port = 5000

@@ -1,18 +1,13 @@
 <template>
     <div id="container">
-        <navbar />
         <div>{{character}}HI</div>
     </div>
 </template>
 
 <script>
-import navbar from '../components/NavBar'
 import characterService from '../services/CharacterService'
 export default {
     props: ['char'],
-    components:{
-        navbar
-    },
     data: function() {
         return {
             character: null

@@ -1,6 +1,5 @@
 <template>
   <div class="hello">
-    <navbar />
     <div class="content">
       <button @click="load('/characters')">Characters</button>
       <button @click="load('/spells')">Spells</button>
@@ -11,14 +10,10 @@
 </template>
 
 <script>
-import navbar from '../components/NavBar'
 export default {
   name: 'Home',
   props: {
     msg: String
-  },
-  components: {
-    navbar
   },
   methods: {
     load: function(direction) {
@@ -31,6 +26,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .content {
+  clear:both;
   height:80vh;
   display: grid;
   grid-template-columns:  auto auto;

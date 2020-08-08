@@ -45,6 +45,18 @@ const routes = [
         component: () => import('./views/Forbidden.vue')
     },
     {
+        path: '/items',
+        name: 'items',
+        component: () => import('./views/Items.vue'),
+        meta: {requiresAuth:true}
+    },
+    {
+        path: '/spells',
+        name: 'spells',
+        component: () => import('./views/Spells.vue'),
+        meta: {requiresAuth:true}
+    },
+    {
         path: '/*',
         name: 'default',
         component: () => import('./views/NotFound.vue')
@@ -69,7 +81,7 @@ router.beforeEach((to, from, next) => {
     } else {
         if(localStorage.getItem("token") != null) {
             if(to.path === '/' || to.path === '/register') {
-                next({path:'/home'})
+                next({path:'/characters'})
             }else{
                 next()
             }

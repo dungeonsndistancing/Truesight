@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <navbar/>
         <div class="content">
             <div class="charactercard" v-for="character in characters" :key="character._id" @click='loadCharacter(character)'>
                 <div class="cardheader"><h1>{{ character.name }}</h1></div>
@@ -14,7 +13,6 @@
     </div>
 </template>
 <script>
-import navbar from '../components/NavBar'
 import characterService from '../services/CharacterService'
 export default {
     data: function() {
@@ -22,9 +20,6 @@ export default {
             characters: []
         }
     },
-    components: {
-        navbar
-    }, 
     methods: {
         async getCharacters() {
             var temp = await characterService.getCharacters();
@@ -48,6 +43,7 @@ export default {
 
 <style scoped>
 .content{
+    clear:both;
     display:grid;
     grid-template-columns: auto auto;
 }
