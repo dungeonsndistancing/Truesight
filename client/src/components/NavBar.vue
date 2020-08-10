@@ -1,13 +1,15 @@
 <template>
     <div class="NavBar">
-        <div id='logocontainer'>
-            <img id="navbarlogo" @click="open('/home')" src='../assets/logo2.png'/>
-        </div>
-        <div id='linkcontainer'>
-            <a @click="open('/characters')">Characters</a>|
-            <a @click="open('/spells')">Spells</a> |
-            <a @click="open('/items')">items</a>
-            <div id='logout'><a @click="logout" float='right'>Logout</a></div>    
+        <div class='container'>
+            <div id='logocontainer'>
+                <img id="navbarlogo" @click="open('/home')" src='../assets/logo2.png'/>
+            </div>
+            <div id='linkcontainer'>
+                <a @click="open('/characters')">Characters</a>|
+                <a @click="open('/spells')">Spells</a> |
+                <a @click="open('/items')">items</a>
+                <div id='logout'><a @click="logout" float='right'>Logout</a></div>    
+            </div>
         </div>
     </div>
 </template>
@@ -27,6 +29,10 @@ export default {
 </script>
 
 <style>
+.container{
+    margin:auto;
+    width:90%;
+}
 .NavBar {
     top:0;
     margin-top:0px;
