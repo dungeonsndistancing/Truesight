@@ -2,14 +2,19 @@ express = require('express')
 router = express.Router()
 auth = require('../config/auth')
 const Item = require('../model/item')
-router.use(auth)
+
 
 router.get('/', async (req,res) => {
     res.status(200).json(await Item.find())
 })
 
+router.get('/count', async (req,res) => {
+    res.status(200).json(await Item.itemCount())
+})
+
 router.get('/query',async (req,res) => {
-    res.status(200).json(await Item.findByName(req.query.name))
+    console.log(req.query)
+    res.status(200).json(await Item.findByName(req.query.searchterms,req.query.page))
 })
 
 router.post('/add',async (req,res) => {

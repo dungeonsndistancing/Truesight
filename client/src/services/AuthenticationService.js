@@ -45,6 +45,8 @@ export default {
         }
     },
     authenticateRequest: async function(url,type,body) {
+        url = ip + url
+        console.log(url)
         try{
             const token = localStorage.getItem("token")
             const headers = {headers:{'token':token}}
