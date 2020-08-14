@@ -51,6 +51,12 @@ const routes = [
         meta: {requiresAuth:true}
     },
     {
+        path: '/newitem',
+        name: 'itemcreator',
+        component: () => import('./views/ItemCreator.vue'),
+        meta: {requiresAuth:true}
+    },
+    {
         path: '/spells',
         name: 'spells',
         component: () => import('./views/Spells.vue'),

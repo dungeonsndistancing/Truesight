@@ -9,37 +9,31 @@ const itemSchema = mongoose.Schema({
         type: String
     },
     cost: {
-        pp: {
-            type: Number
-        },
-        gp: {
-            type: Number
-        },
-        sp: {
-            type: Number
-        },
-        cp: {
-            type: Number
-        }
+        type: String
     },
     weight: {
-        type: Number,
+        type: String,
     },
     description: {
         type: String,
         require: [true, "items need descriptions!"]
 
     },
-    properties: [
+    notes: [
         {
-           name: {
-               type: String
-           },
-           details: {
-               type: String
-           }
+            type: String
         }
-    ]
+    ],
+    attribute: {
+        type: String
+    },
+    icon: {
+        type: String
+    },
+    color: {
+        type: String
+    }
+
 
 })
 

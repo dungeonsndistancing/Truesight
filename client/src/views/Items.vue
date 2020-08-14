@@ -5,20 +5,23 @@
       <form @submit.prevent=getItems>
         <input type='text' id='searchquery' v-model='querytext' placeholder='search based on name, type, attributes..'>
         <button type='submit'>Search</button>
-        <input type='button' value='Create Item'>
+        <input type='button' value='Create Item' @click="load('/newitem')">
       </form>
       </div>
       <div class='page-container'>
         <div class="pageselector" v-for="n in totalpages" @click='update(n)' :key='n' :class="{selected: isActive(n)}">{{n}} </div>
       </div>
+
       <div class='item-container'>
         <div class='item-card' v-for='item in items' :key='item._id'>
-          <div class="icon"><img src='../assets/potion.png'></div>
-          <div class="item-text">
-            <p class="item-name">{{item.name}}</p>
-            <p class="item-type">{{item.type}}</p>
+          <div class="card-org">
+            <div class="icon"><img src='../assets/icons/sword.png'></div>
+            <div class="item-button" @click="show(item)"><div v-if="!item.show">+</div><div v-if="item.show">-</div></div>
+            <div class="item-text">
+              <div class="item-name">{{item.name}}</div>
+              <div class="item-type">{{item.type}}</div>
+            </div>
           </div>
-          <div class="item-button" @click="show(item)"><div v-if="!item.show">+</div><div v-if="item.show">-</div></div>
           <div class="item-content" v-if="item.show">
             <div class="item-top">
               <p>cost:{{item.cost}} weight:{{item.weight}} attributes:{{item.attributes}} </p>
@@ -32,6 +35,7 @@
       <div class='page-container'>
         <div class="pageselector" v-for="n in totalpages" @click='update(n)' :key='n' :class="{selected: isActive(n)}">{{n}} </div>
       </div>
+      <div class='vertfil'></div>
     </div>
   </div>
 </template>
@@ -65,6 +69,8 @@ export default {
     show(item) {
       item.show = !item.show
       item._id +=0
+    },load(url) {
+      this.$router.push(url)
     }
   }, beforeMount: async function() {
     this.totalitems = await itemService.getCount()
@@ -77,11 +83,42 @@ export default {
 </script>
 
 <style scoped>
+.vertfil{
+  flex:1;
+  background-color: #f9f9f9ff;
+}
+.search-container{
+  padding: 1.5em;
+}
+input[type=button], button{
+  background-color: rgb(212, 212, 212);
+  padding:0.2em 0.5em;
+  margin:0.5em 1em;
+  font-size:1.2em;
+  border-style: solid;
+  border-width:1px;
+  border-color: rgb(226, 226, 226);
+  border-radius:0.5em;
+}
+input[type=button]:hover, button:hover{
+background-color: rgb(231, 231, 231);
+border-style:solid;
+border-width:1px;
+}
+input[type=text]{
+  margin: 0.5em 1em;
+  padding:0.1em 0.5em;
+  font-size:1.2em;
+  border-width:1px;
+  border-color:rgb(209, 209, 209);
+  border-style:solid;
+  border-radius: 0.5em;
+}
 .item-button{
+  float:right;
   margin:0px;
   padding:0px;
   font-size:3em;
-  float:right;
   color:rgb(85, 85, 85);
 }
 .item-button:hover {
@@ -89,9 +126,8 @@ export default {
 }
 .item-top{
   text-align-last: justify;
-
   padding:0.3em 0;
-  margin-top:4em;
+  margin-top:0.95em;
   border-top: 0.09em solid #e6e6e6;
   border-bottom: 0.09em solid #e6e6e6;
 
@@ -108,14 +144,16 @@ export default {
   clear:both;
 }
 .item-text{
-  float:left;
-  margin-left:0.5em;
-
+  display: block;
+  padding-left:3.65em;
+  text-align: left;
 }
 .item-name{
+  max-width:100%;
+  max-height:1.2em;
+  overflow: hidden;
   padding:0;
-  margin:0 0  0.2em 0;
-  font-size:1.6em;
+  font-size:1.5em;
   font-weight: 700;
 }
 .item-type{
@@ -134,6 +172,8 @@ export default {
   height:100%;
 }
 #items{
+  min-height:calc(100vh - 50px);
+  flex:1;
   margin:0;
   padding:0;
   background-color: #f9f9f9ff;
@@ -155,16 +195,15 @@ export default {
 }
 .item-container{
   justify-items: center;
-  margin:1em 2em;
   grid-template-columns: 50fr 50fr;
   display:grid;
 }
 .item-card{
   background-color: white;
   min-height:3.5em;
-  padding:0.3em;
+  padding:0.2em;
   margin:5px;
-  width:90%;
+  width:96%;
   border-style: solid;
   border-color: #e6e6e6;
   border-radius:0.7em;
@@ -175,5 +214,11 @@ export default {
   border-style: solid;
   border-color: rgb(158, 158, 158);
   border-width: 1px;
+}
+
+@media only screen and (max-width: 1100px) {
+  .item-container{
+    grid-template-columns: 100fr;
+  }
 }
 </style>

@@ -50,7 +50,9 @@ export default {
 }
 </script>
 <style scoped>
-
+.container{
+    padding-top:50em;
+}
 .center {
   margin: 0;
   position: absolute;
