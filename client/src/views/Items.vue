@@ -6,6 +6,7 @@
         <input type='text' id='searchquery' v-model='querytext' placeholder='search based on name, type, attributes..'>
         <button type='submit'>Search</button>
         <input type='button' value='Create Item' @click="load('/newitem')">
+        <input type='checkbox' v-model='editable' @change='getItems()'> Edit my entries
       </form>
       </div>
       <div class='page-container'>
@@ -13,10 +14,10 @@
       </div>
 
       <div class='item-container'>
-        <div class='item-card' v-for='item in items' :key='item._id'>
+        <div class='item-card' v-for='item in items' :key='item._id' @click="show(item)">
           <div class="card-org">
-            <div class="icon"><img src='../assets/icons/sword.png'></div>
-            <div class="item-button" @click="show(item)"><div v-if="!item.show">+</div><div v-if="item.show">-</div></div>
+            <div class="icon" :style="{backgroundColor:item.color}"><img :src='require(`../assets/icons/${item.icon}`)'></div>
+            <div class="item-button"><div @click='load(`/edititem/${item._id}`)' v-if='editable'>edit</div></div>
             <div class="item-text">
               <div class="item-name">{{item.name}}</div>
               <div class="item-type">{{item.type}}</div>
@@ -24,7 +25,7 @@
           </div>
           <div class="item-content" v-if="item.show">
             <div class="item-top">
-              <p>cost:{{item.cost}} weight:{{item.weight}} attributes:{{item.attributes}} </p>
+              <p>cost:{{item.cost}} weight:{{item.weight}} attributes:{{item.attribute}} </p>
             </div>
             <div class="item-bottom">
               {{item.description}}
@@ -45,17 +46,18 @@ import itemService from '../services/ItemService'
 export default {
   data: function () {
       return {
-        items: [{show:true}],
+        items: [],
         curpage: 1,
         totalitems: 0,
         totalpages:1,
-        querytext: ''
+        querytext: '',
+        editable: false
       }
   },
   methods: {
     async getItems() {
       console.log(this.curpage)
-      this.items = await itemService.getItems(this.querytext,this.curpage)
+      this.items = await itemService.getItems(this.querytext,this.curpage,this.editable)
     
     },
     async update(page) {
@@ -68,7 +70,8 @@ export default {
     },
     show(item) {
       item.show = !item.show
-      item._id +=0
+      item._id += '1'
+      item._id = item._id.substring(0, item._id.length -1)
     },load(url) {
       this.$router.push(url)
     }
@@ -115,10 +118,11 @@ input[type=text]{
   border-radius: 0.5em;
 }
 .item-button{
+  line-height:3.5em;
   float:right;
   margin:0px;
-  padding:0px;
-  font-size:3em;
+  padding:0em 1em;
+  font-size:1em;
   color:rgb(85, 85, 85);
 }
 .item-button:hover {
@@ -208,6 +212,11 @@ input[type=text]{
   border-color: #e6e6e6;
   border-radius:0.7em;
   border-width:0.09em;
+}
+.item-card:hover{
+  -webkit-box-shadow: 2px 3px 10px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 3px 10px -5px rgba(0,0,0,0.75);
+  box-shadow: 2px 3px 10px -5px rgba(0,0,0,0.75);
 }
 .selected{
   background-color: rgb(216, 216, 216);

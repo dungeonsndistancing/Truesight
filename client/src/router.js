@@ -57,6 +57,13 @@ const routes = [
         meta: {requiresAuth:true}
     },
     {
+        path: '/edititem/:item',
+        name: 'itemeditor',
+        props: true,
+        component: () => import('./views/ItemEditor.vue'),
+        meta: {requiresAuth:true}
+    },
+    {
         path: '/spells',
         name: 'spells',
         component: () => import('./views/Spells.vue'),

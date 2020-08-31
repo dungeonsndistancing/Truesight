@@ -1,19 +1,19 @@
 <template>
-  <div id="item-creator">
+  <div id="item-editor">
       <form v-on:submit.prevent> 
-          Name: <input v-model='item.name' type="text">
-          type: <input v-model='item.type' type="text">
-          cost: <input v-model='item.cost' type="text">
-          weight: <input v-model='item.weight' type="text">
-          attribute: <input v-model='item.attribute' type="text">
-          notes: <input v-model='item.notes' type="text">
-          description: <textarea v-model='item.description'>hi</textarea>
+          Name: <input v-model='edititem.name' type="text">
+          type: <input v-model='edititem.type' type="text">
+          cost: <input v-model='edititem.cost' type="text">
+          weight: <input v-model='edititem.weight' type="text">
+          attribute: <input v-model='edititem.attribute' type="text">
+          notes: <input v-model='edititem.notes' type="text">
+          description: <textarea v-model='edititem.description'>hi</textarea>
           <div class='icon-container'>
             <div>icon:
                 <div class="iconselection">
             
-                    <div class="iconshow" v-bind:style="{backgroundColor:item.color}" @click="show = !show">
-                        <img class='iconimg' :src="require(`../assets/icons/${item.icon}`)">
+                    <div class="iconshow" v-bind:style="{backgroundColor:edititem.color}" @click="show = !show">
+                        <img class='iconimg' :src="require(`../assets/icons/${edititem.icon}`)">
                         <img class='icondrop' src='../assets/dropdown.png'>
                     </div>
                     <div class="icondropdown" v-if="show">
@@ -23,9 +23,9 @@
                 </div>
             </div>
             <div class='colordiv'>
-            color:<br> <input class='iconcolor' v-model="item.color" type="color">
+            color:<br> <input class='iconcolor' v-model="edititem.color" type="color">
             </div>
-            <button @click='save()'>Save</button>
+            <button @click='save()'>Save</button><button @click='remove()'>Delete</button>
           </div>
       </form>
   </div>
@@ -35,13 +35,14 @@
 import itemService from '../services/ItemService'
 import icons from '../assets/icons.json'
 export default {
+    props: ['item'],
     data: function() {
         return {
             
             iconarray: [],
 
             show: false,
-            item: {
+            edititem: {
                 name: '',
                 type: '',
                 cost: '',
@@ -55,15 +56,27 @@ export default {
         }
     },methods: {
         select(path) {
-            this.item.icon = path
+            this.edititem.icon = path
             this.show = false
         },
         save() {
             console.log(this.item)
-            itemService.saveItem(this.item)
+            itemService.updateItem(this.edititem)
+            this.$router.push('/items')
+        },
+        async getItem() {
+            const temp = await itemService.getItem(this.item)
+            console.log(temp)
+            this.edititem = temp
+        },
+        remove() {
+            console.log(this.item)
+            itemService.removeItem(this.item)
+            this.$router.push('/items')
         }
     },
     beforeMount() {
+        this.getItem()
         this.iconarray = icons
         
     }
@@ -149,7 +162,7 @@ form{
     top:1.5em;
     width:1.1em;
 }
-item-creator{
+item-editor{
     align-items: center;
 }
 </style>
