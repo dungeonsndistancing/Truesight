@@ -8,11 +8,15 @@
         "path":"sword.png"
     },
     {
-        "name":"potion2",
-        "path":"potion2.png"
+        "name":"bow",
+        "path":"bow.png"
     },
     {
-        "name":"potion3",
-        "path":"potion3.png"
+        "name":"armor",
+        "path":"armor.png"
+    },
+    {
+        "name":"scroll",
+        "path":"scroll.png"
     }
 ]

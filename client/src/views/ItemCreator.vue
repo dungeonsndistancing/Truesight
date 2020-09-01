@@ -61,6 +61,7 @@ export default {
         save() {
             console.log(this.item)
             itemService.saveItem(this.item)
+            this.$router.push('/items')
         }
     },
     beforeMount() {
