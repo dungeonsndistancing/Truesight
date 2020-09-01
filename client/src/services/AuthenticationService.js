@@ -3,12 +3,9 @@ const ip = process.env.VUE_APP_SERVER_IP;
 
 export default {
     login: async function (user, pass, long) {
-        console.log(ip)
         const url = ip + "/user/login";
-        console.log(url)
         try{
             const result = await axios.post(url,{email:user, password:pass, long:long})
-            console.log(result)
             return result
         } catch(err) {
             return "error"
@@ -45,6 +42,7 @@ export default {
         }
     },
     authenticateRequest: async function(url,type,body) {
+        url = ip + url
         try{
             const token = localStorage.getItem("token")
             const headers = {headers:{'token':token}}
@@ -53,7 +51,14 @@ export default {
                     console.log("getting")
                     return await axios.get(url, headers)
                 case "post":
+                    console.log('posting')
                     return await axios.post(url,body,headers)
+                case "put":
+                    console.log("putting")
+                    return await axios.put(url,body,headers)
+                case "delete":
+                    console.log("deleting")
+                    return await axios.delete(url,headers)
                 default:
                     throw new Error("NOT IMPLEMENTED")
             }
@@ -61,11 +66,9 @@ export default {
             if(err.response.status == '401') {
                 const longtoken = localStorage.getItem("longtoken")
                 if(longtoken) {
-                    console.log("attempting with long token")
                     try{
                         var res = await axios.get(ip + '/user/authenticate', {headers:{'longtoken':longtoken}})
                         localStorage.setItem("token",res.data)
-                        console.log(res)
                         return await this.authenticateRequest(url,type,body)
                     } catch(err) {
                         localStorage.removeItem("token")

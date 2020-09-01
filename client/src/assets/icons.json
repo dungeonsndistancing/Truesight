@@ -1,0 +1,22 @@
+[
+    {
+        "name":"potion",
+        "path":"potion.png"
+    },
+    {
+        "name":"sword",
+        "path":"sword.png"
+    },
+    {
+        "name":"bow",
+        "path":"bow.png"
+    },
+    {
+        "name":"armor",
+        "path":"armor.png"
+    },
+    {
+        "name":"scroll",
+        "path":"scroll.png"
+    }
+]

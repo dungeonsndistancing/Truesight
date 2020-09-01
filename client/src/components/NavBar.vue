@@ -1,7 +1,16 @@
 <template>
     <div class="NavBar">
-        <img id="navbarlogo" @click="home" src='../assets/logo2.png'/>
-        <a @click="logout">Logout</a>
+        <div class='container'>
+            <div id='logocontainer'>
+                <img id="navbarlogo" @click="open('/home')" src='../assets/logo2.png'/>
+            </div>
+            <div id='linkcontainer'>
+                <a @click="open('/characters')">Characters</a>|
+                <a @click="open('/spells')">Spells</a> |
+                <a @click="open('/items')">items</a>
+                <div id='logout'><a @click="logout" float='right'>Logout</a></div>    
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -12,14 +21,18 @@ export default {
             await authservice.logout()
             this.$router.push('/')
         },
-        async home() {
-            this.$router.push('/home')
+        async open(loc) {
+            this.$router.push(loc)
         }
     }
 }
 </script>
 
 <style>
+.container{
+    margin:auto;
+    width:90%;
+}
 .NavBar {
     top:0;
     margin-top:0px;
@@ -29,6 +42,7 @@ export default {
     height:50px;
     margin-bottom:0px;
     background-color: #214478;
+    clear:both;
 }
 #navbarlogo {
     margin-top:0.25%;
@@ -43,8 +57,19 @@ export default {
     display: block;
     background-color:#214478;
     height: 50%;
-    width: 100px;
+    width: 70px;
     text-align: center;
     padding-top:12pt;
+}
+#logout {
+    float:right;
+}
+
+#logocontainer{
+    float:left;
+    height:50px;
+    margin-left:10px;
+    padding-top: 5px;
+    padding-right:20px;
 }
 </style>

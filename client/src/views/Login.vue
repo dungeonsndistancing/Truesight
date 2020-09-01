@@ -38,7 +38,7 @@ export default {
             }
             if(token) {
                 localStorage.setItem("token",token)
-                this.$router.push("/home")
+                this.$router.push("/characters")
             }
         },
         register() {
@@ -50,7 +50,9 @@ export default {
 }
 </script>
 <style scoped>
-
+.container{
+    padding-top:50em;
+}
 .center {
   margin: 0;
   position: absolute;
