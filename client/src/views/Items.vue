@@ -29,7 +29,7 @@
               
             </div>
               <div class="item-top">
-              <p><b v-for='stuff in item.display()' :key='stuff'></b></p>
+              <div class='item-extra'><div v-for='[key,value] in Object.entries(item.display())' :key='key'><b>{{key}}:</b><i>{{value}}</i></div></div>
               
             </div>
             <div class="item-bottom">
@@ -71,30 +71,32 @@ export default {
       var temp = await itemService.getItems(this.querytext,this.curpage,this.editable)
       for(var i = 0; i < temp.length; i++) {
         var x = temp[i]
+        var item
         console.log(x)
         switch(x.class) {
           case "item":
-            this.items.push(Item.from(temp[i]))
+            item = Item.from(temp[i])
             break;
           case 'armor':
-            this.items.push(Armor.from(temp[i]))
+            item = Armor.from(temp[i])
             break;
           case 'weapon':
-            this.items.push(Weapon.from(temp[i]))
+            item = Weapon.from(temp[i])
             break;
           case 'magicitem':
-            this.items.push(MagicItem.from(temp[i]))
+            item = MagicItem.from(temp[i])
             break;
           case 'magicarmor':
-            this.items.push(MagicArmor.from(temp[i]))
+            item = MagicArmor.from(temp[i])
             break;
           case 'magicweapon':
-            this.items.push(MagicWeapon.from(temp[i]))
+            item = MagicWeapon.from(temp[i])
             break;
           default:
-            this.items.push(Item.from(temp[i]))
+            item = Item.from(temp[i])
             break;
         }
+        this.items.push(item)
       }
     
     },
@@ -238,6 +240,13 @@ input[type=text]{
   justify-items: center;
   grid-template-columns: 50fr 50fr;
   display:grid;
+}
+.item-extra{
+  display:flex;
+  flex-wrap:wrap;
+}
+.item-extra div {
+  padding: 1px 5px 1px 5px;
 }
 .item-card{
   background-color: white;

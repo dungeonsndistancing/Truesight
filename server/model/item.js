@@ -5,6 +5,7 @@ const itemSchema = mongoose.Schema({
         type: String,
         require: [true, "items need names"]
     },
+    class: String,
     type: {
         type: String
     },
@@ -12,21 +13,21 @@ const itemSchema = mongoose.Schema({
         type: String
     },
     weight: {
-        type: String,
+        type: Number,
     },
     description: {
         type: String,
         require: [true, "items need descriptions!"]
 
     },
-    notes: [
-        {
-            type: String
-        }
-    ],
-    attribute: {
-        type: String
-    },
+    ac: String,
+    strength: Number,
+    stealth: String,
+    damage: String,
+    properties: String,
+    rarity: String,
+    attunement: String,
+    attuned: Boolean,
     icon: {
         type: String
     },
@@ -35,7 +36,8 @@ const itemSchema = mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: "User"
-    }
+    },
+
 
 })
 

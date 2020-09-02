@@ -1,12 +1,17 @@
 <template>
   <div id="item-editor">
       <form v-on:submit.prevent> 
-          Name: <input v-model='edititem.name' type="text">
-          type: <input v-model='edititem.type' type="text">
-          cost: <input v-model='edititem.cost' type="text">
-          weight: <input v-model='edititem.weight' type="text">
-          attribute: <input v-model='edititem.attribute' type="text">
-          notes: <input v-model='edititem.notes' type="text">
+            Name: <input v-model='edititem.name' type="text">
+            type: <input v-model='edititem.type' type="text">
+            cost: <input v-model='edititem.cost' type="text">
+            weight: <input v-model='edititem.weight' type="text">
+            <p v-if='armor'>Armor Class: <input v-model='edititem.ac' type="text">
+            Strength: <input v-model='edititem.strength' type="number">
+            Stealth: <input v-model='edititem.stealth' type="text"></p>
+            <p v-if='weapon'>Damage: <input v-model='edititem.damage' type="text">
+            Properties: <input v-model='edititem.properties' type="text"></p>
+            <p v-if='magic'>Rarity: <input v-model='edititem.ac' type="text">
+            Attunement: <input v-model='edititem.attunement' type="text"></p>
           description: <textarea v-model='edititem.description'>hi</textarea>
           <div class='icon-container'>
             <div>icon:
@@ -44,6 +49,7 @@ export default {
             show: false,
             edititem: {
                 name: '',
+                class: '',
                 type: '',
                 cost: '',
                 weight: '',
@@ -52,7 +58,10 @@ export default {
                 description: '',
                 icon: 'potion.png',
                 color: '#444444',
-            }
+            },
+            magic: false,
+            weapon: false,
+            armor: false,
         }
     },methods: {
         select(path) {
@@ -65,9 +74,27 @@ export default {
             this.$router.push('/items')
         },
         async getItem() {
-            const temp = await itemService.getItem(this.item)
-            console.log(temp)
-            this.edititem = temp
+            this.edititem = await itemService.getItem(this.item)
+            console.log(this.edititem.class)
+            if(typeof this.edititem.class === 'undefined') {
+                this.edititem.class = 'item'
+            }
+            if(this.edititem.class.includes('magic')) {
+                this.magic = true
+            }
+            if(this.edititem.class.includes('weapon')) {
+                this.weapon = true
+                this.armor = false
+            } else {
+                this.weapon = false
+                if(this.edititem.class.includes('armor')) {
+                    this.armor = true
+                } else {
+                    this.armor = false
+                }
+            }
+
+            
         },
         remove() {
             console.log(this.item)
@@ -110,7 +137,7 @@ textarea:focus{
     outline:none;
     border-color: black;
 }
-input[type=text] {
+input[type=text],input[type=number] {
     border-radius:1em;
     border-style:solid;
     border-width: 1px;
@@ -120,7 +147,7 @@ input[type=text] {
     width: calc(100% - 11em);
     display: inline-block;
 }
-input[type=text]:focus{
+input[type=text]:focus,input[type=number]:focus{
     outline: none;
     border-color:black;
 }

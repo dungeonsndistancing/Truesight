@@ -25,3 +25,4 @@ class MagicArmor extends MagicItem {
         return Object.assign(new MagicArmor(), json)
     }
 }
+module.exports=MagicArmor

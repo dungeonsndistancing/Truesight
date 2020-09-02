@@ -18,7 +18,7 @@
             Stealth: <input v-model='item.stealth' type="text"></p>
             <p v-if='weapon'>Damage: <input v-model='item.damage' type="text">
             Properties: <input v-model='item.properties' type="text"></p>
-            <p v-if='magic'>Rarity: <input v-model='item.ac' type="text">
+            <p v-if='magic'>Rarity: <input v-model='item.rarity' type="text">
             Attunement: <input v-model='item.attunement' type="text"></p>
           description: <textarea v-model='item.description'>hi</textarea>
           <div class='icon-container'>
@@ -59,8 +59,8 @@ export default {
 
             iconarray: [],
             show: false,
-            item: new Item('test','test2',5,0.5,'this is a test','potion.png','#444444'),
-            typestring: String,
+            item: new Item('','',0,0,'','potion.png','#444444'),
+            typestring: 'Normal Item',
             magic: false,
             weapon: false,
             armor: false
