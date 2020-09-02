@@ -25,7 +25,12 @@
           </div>
           <div class="item-content" v-if="item.show">
             <div class="item-top">
-              <p>cost:{{item.cost}} weight:{{item.weight}} attributes:{{item.attribute}} </p>
+              <p>cost:{{item.cost}} weight:{{item.weight}}</p>
+              
+            </div>
+              <div class="item-top">
+              <p><b v-for='stuff in item.display()' :key='stuff'></b></p>
+              
             </div>
             <div class="item-bottom">
               {{item.description}}
@@ -42,6 +47,12 @@
 </template>
 
 <script>
+import Item from '../../../shared/classes/items/item'
+import Weapon from '../../../shared/classes/items/weapon'
+import Armor from '../../../shared/classes/items/armor'
+import MagicItem from '../../../shared/classes/items/magicitem'
+import MagicWeapon from '../../../shared/classes/items/magicweapon'
+import MagicArmor from '../../../shared/classes/items/magicarmor'
 import itemService from '../services/ItemService'
 export default {
   data: function () {
@@ -56,14 +67,40 @@ export default {
   },
   methods: {
     async getItems() {
-      console.log(this.curpage)
-      this.items = await itemService.getItems(this.querytext,this.curpage,this.editable)
+      this.items = []
+      var temp = await itemService.getItems(this.querytext,this.curpage,this.editable)
+      for(var i = 0; i < temp.length; i++) {
+        var x = temp[i]
+        console.log(x)
+        switch(x.class) {
+          case "item":
+            this.items.push(Item.from(temp[i]))
+            break;
+          case 'armor':
+            this.items.push(Armor.from(temp[i]))
+            break;
+          case 'weapon':
+            this.items.push(Weapon.from(temp[i]))
+            break;
+          case 'magicitem':
+            this.items.push(MagicItem.from(temp[i]))
+            break;
+          case 'magicarmor':
+            this.items.push(MagicArmor.from(temp[i]))
+            break;
+          case 'magicweapon':
+            this.items.push(MagicWeapon.from(temp[i]))
+            break;
+          default:
+            this.items.push(Item.from(temp[i]))
+            break;
+        }
+      }
     
     },
     async update(page) {
       this.curpage = page
       await this.getItems()
-      console.log('updated')
     },
     isActive(n) {
       return n == this.curpage
