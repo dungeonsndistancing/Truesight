@@ -78,5 +78,7 @@ class Characterbuilder{
     build() {
         return new Character(this)
     }
-
 }
+var chab = new Characterbuilder('bob')
+
+module.exports = Characterbuilder

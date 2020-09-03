@@ -1,14 +1,20 @@
 const Modifier = require('./modifier')
 class Attribute {
 
-    constructor(base) {
+    constructor(name,base) {
+        this.name = name
         this.base = base
         this.modifiers = []
     }
 
     get value() {
-        var sum = this.modifiers.reduce(function(a,b){return a + b.value},0)
-        return sum + this.base
+        var sum = this.modifiers.reduce(function(a,b){return a + parseInt(b.value)},parseInt(0))
+        return parseInt(sum) + parseInt(this.base)
+    }
+
+    get mod() {
+        var x = Math.floor((this.value - 10)/2)
+        return x
     }
 
     addmodifier(name,value,source) {
