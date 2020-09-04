@@ -266,7 +266,8 @@ export default {
     border-width:0.09em;
     height:80vh;
     overflow-y:scroll;
-    margin:0.5em;
+    margin:0.5em 0 0.5em 0;
+    padding: 0;
 }
 textarea{
     border-radius:1em;
