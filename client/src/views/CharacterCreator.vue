@@ -228,10 +228,10 @@ export default {
     margin-bottom:-3%;
 }
 .skills{
-    width: 30em;
+    width: 23em;
 }
 .features{
-    width: 30em;
+    width: 23em;
 }
 .featurecard{
     padding:0.3em 0 0.8em 0;
