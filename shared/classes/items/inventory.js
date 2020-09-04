@@ -1,4 +1,4 @@
-const Item = require('./items/item')
+const Item = require('./item')
 class Inventory {
     constructor() {
         this.backpack = []

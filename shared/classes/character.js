@@ -21,6 +21,8 @@ class Character {
             this.maxhp = build.maxhp
             this.currenthp = build.currenthp
             this.temporaryhp = build.temporaryhp
+            this.spellsave = build.spellsave
+            this.spellattack = build.spellattack
             this.spells = build.spells
             this.effects = build.effects
             this.backgroundinfo = build.backgroundinfo

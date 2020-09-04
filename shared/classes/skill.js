@@ -1,14 +1,14 @@
-const Modifier = require('./modifier')
-class Savingthrow{
-    constructor(proficiency) {
+const Modifier = require('./stats/modifier')
+class Skill {
+    constructor(ability,proficiency) {
+        this.ability = ability
         this.proficiency = proficiency
         this.modifiers = []
     }
 
-    bonus(base,proficiency) {
-        console.log(base + "," + proficiency)
+    value(ability,proficiency) {
         var sum = this.modifiers.reduce(function(a,b){return a + parseInt(b.value)},parseInt(0))
-        return parseInt(sum) + parseInt(base) + this.proficiency * proficiency
+        return parseInt(ability) + parseInt(sum) + parseInt(this.proficiency * parseInt(proficiency))
     }
 
     addmodifier(name,value,source) {
@@ -21,5 +21,6 @@ class Savingthrow{
             this.modifiers.splice(index,1)
         }
     }
+
 }
-module.exports = Savingthrow
+module.exports = Skill
