@@ -231,7 +231,7 @@ export default {
     width: 30em;
 }
 .features{
-    width: 35em;
+    width: 30em;
 }
 .featurecard{
     padding:0.3em 0 0.8em 0;
