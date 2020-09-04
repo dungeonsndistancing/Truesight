@@ -1,18 +1,23 @@
 <template>
     <div class="container">
+        <div class="savebutton">
+            <h1>Save</h1>
+            <button @click='save()'>Save</button>
+        </div>
         <h1>Create your character</h1>         
         <div class='listorganizer'>
             <div class='list'>
-                name:<input type='text' class='wide input topside' v-model='character.class.name'><br>
+                name:<input type='text' class='wide input topside' v-model='character.name'>
                 <h1>Class</h1>
-                
+                Classname:<input type='text' class='wide input topside' v-model='character.class.name'><br>
                 subclass:<input type='text' class='wide input' v-model='character.class.subclass'><br>
                 level:<input type='number' class='small input' v-model='character.class.level'>
-                hitdice:<input type='number' class='small input' v-model='character.class.hitdice.dice'><br>
+
+                hitdice: {{character.class.level}}d<input type='number' class='small input' v-model='character.class.hitdice.dice'><br>
                 <h1>Description</h1>
                 Race:<input type='text' class='wide input' v-model='character.race'><br>
                 Background:<input type='text' class='wide input' v-model='character.background'><br>
-                Alignment:<input type='text' class='small input' v-model='character.class.subclass'>
+                Alignment:<input type='text' class='small input' v-model='character.alignment'>
                 Age:<input type='number' class='small input' v-model='character.looks.age'><br>
                 Height:<input type='text' class='medium input' v-model='character.looks.height'>
                 Weight:<input type='number' class='small input' v-model='character.looks.weight'><br>
@@ -23,10 +28,15 @@
                 <h1>Combat Stats</h1>
                 ac:<input type='number' class='small input' v-model='character.ac'>
                 initiative:<input type='number' class='small input' v-model='character.initiative'><br>
-                speed:<input type='number' class='small input' v-model='character.ac'>
+                speed:<input type='number' class='small input' v-model='character.speed'>
                 max HP:<input type='number' class='small input' v-model='character.maxhp'><br>
                 spell save:<input type='number' class='small input' v-model='character.spellsave'>
                 spell attack:<input type='number' class='small input' v-model='character.spellattack'>
+                <h1>Moneyz</h1>
+                pp:<input type='number' class='small input' v-model='character.money.pp'>
+                gp:<input type='number' class='small input' v-model='character.money.gp'>
+                sp:<input type='number' class='small input' v-model='character.money.sp'>
+                cp:<input type='number' class='small input' v-model='character.money.cp'>
             </div>
             <div class='attributes list'>
                 <h1>Abilities</h1>
@@ -60,7 +70,7 @@
                 <h1>Skills</h1>
                 <div class='skillcontainer'>
                         <div class='skill' v-for='(skill,skillid) in character.skills' :key='skillid'>
-                            <b>{{skillid}}</b>
+                            <b>{{skill.name}}</b>
                             <i>({{skill.ability.substring(0,3)}})</i><br>
                             <h4>Value: {{skill.value(character.attributes[skill.ability].mod,character.proficiency)}}</h4>
                             Proficient?<input type='checkbox' v-model='skill.proficiency'>
@@ -84,16 +94,28 @@
                 </div>
                 <button @click='newFeature()'>Add Trait/Feature</button>
             </div>
+            <div class='proficiencies list'>
+                <h1>Additional Proficiencies</h1>
+                <div class='featurecard' v-for='proficiency in character.proficiencies' :key='proficiency.id'>
+                    Name:<input class='wide input' type='text' v-model='proficiency.name'><br>
+                    Description:<textarea v-model='proficiency.description'>hi</textarea>
+                    <button @click='removeProficiency(proficiency)'>Remove Feature</button>
+                </div>
+                <button @click='newProficiency()'>Add Trait/Feature</button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import CharacterService from '../services/CharacterService'
 import BackgroundInfo from '../../../shared/classes/stats/backgroundinfo'
 import Skill from '../../../shared/classes/skill'
 import Attribute from '../../../shared/classes/stats/attribute'
 import SavingThrow from '../../../shared/classes/stats/savingthrow'
 import Feature from '../../../shared/classes/feature'
+import Money from '../../../shared/classes/money'
+import Proficiency from '../../../shared/classes/proficiency'
 export default {
     data: function() {
         return{
@@ -104,7 +126,6 @@ export default {
                     subclass:'',
                     level:1,
                     hitdice:{
-                        maximum:1,
                         current:1,
                         dice:8
                     }
@@ -123,12 +144,7 @@ export default {
                 background:'',
                 alignment:'',
                 experience:0,
-                money:{
-                    platinum:0,
-                    gold:0,
-                    silver:0,
-                    copper:0
-                },
+                money:new Money(0,0,0,0),
                 proficiency:2,
                 attributes:{
                     strength:new Attribute('str',10),
@@ -145,33 +161,28 @@ export default {
                     wisdom: new SavingThrow(0),
                     charisma: new SavingThrow(0),
                 },
-                skills:{
-                    acrobatics: new Skill('dexterity',0),
-                    animalhandling: new Skill('wisdom',0),
-                    arcana: new Skill('intelligence',0),
-                    athletics: new Skill('strength',0),
-                    deception: new Skill('charisma',0),
-                    history: new Skill('intelligence',0),
-                    insight: new Skill('wisdom',0),
-                    intimidation: new Skill('charisma',0),
-                    investigation: new Skill('intelligence',0),
-                    medicine: new Skill('wisdom',0),
-                    nature: new Skill('intelligence',0),
-                    perception: new Skill('wisdom',0),
-                    performance: new Skill('charisma',0),
-                    persuasion: new Skill('charisma',0),
-                    religion: new Skill('intelligence',0),
-                    sleightofhand: new Skill('dexterity',0),
-                    stealth: new Skill('dexterity',0),
-                    survival: new Skill('wisdom',0)
-                },
-                ac:{
-                    base:10,
-                    bonuses: []
-                },
-                initiative:{
-                    bonuses:[]
-                },
+                skills:[
+                    new Skill('Acrobatics','dexterity',0),
+                    new Skill('Animal Handling','wisdom',0),
+                    new Skill('Arcana','intelligence',0),
+                    new Skill('Athletics','strength',0),
+                    new Skill('Deception','charisma',0),
+                    new Skill('History','intelligence',0),
+                    new Skill('Insight','wisdom',0),
+                    new Skill('Intimidation','charisma',0),
+                    new Skill('Investigation','intelligence',0),
+                    new Skill('Medicine','wisdom',0),
+                    new Skill('Nature','intelligence',0),
+                    new Skill('Perception','wisdom',0),
+                    new Skill('Performance','charisma',0),
+                    new Skill('Persuasion','charisma',0),
+                    new Skill('Religion','intelligence',0),
+                    new Skill('Sleight of Hand','dexterity',0),
+                    new Skill('Stealth','dexterity',0),
+                    new Skill('Survival','wisdom',0)
+                ],
+                ac:10,
+                initiative:0,
                 movement:30,
                 maxhp:0,
                 currenthp:0,
@@ -180,14 +191,8 @@ export default {
                 spellsave:0,
                 spellattack:0,
                 effects:[],
+                proficiencies:[],
                 backgroundinfo: new BackgroundInfo(),
-                notes:'',
-                ideals:'',
-                bonds:'',
-                flaws:'',
-                story:'',
-                features:'',
-                trinket:'',
                 inventory:[],
                 attacks:[]
             }
@@ -200,6 +205,17 @@ export default {
         removeFeature(trait) {
             var x = this.character.traits.indexOf(trait)
             this.character.traits.splice(x,1)
+        },
+        newProficiency() {
+            this.character.proficiencies.push(new Proficiency())
+        },
+        removeProficiency(proficiency) {
+            var x = this.character.proficiencies.indexOf(proficiency)
+            this.character.proficiencies.splice(x,1)
+        },
+        async save() {
+            await CharacterService.makeCharacter(this.character)
+            this.$router.push('/characters')
         }
     }
 }
@@ -242,7 +258,6 @@ export default {
     float:left;
 }
 .skillcontainer{
-
     justify-content: space-around;
     width:100%;
     height:80%;
@@ -298,4 +313,11 @@ h4{
     border-radius: 8px;
     background: #c2c9d2;
   }
+.savebutton{
+    position:fixed;
+    bottom:0;
+    right:0;
+    border: 1px solid #e6e6e6;
+    border-radius:15%;
+}
 </style>

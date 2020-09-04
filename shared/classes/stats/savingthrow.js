@@ -21,5 +21,9 @@ class Savingthrow{
             this.modifiers.splice(index,1)
         }
     }
+
+    static from(json) {
+        return Object.assign(new Savingthrow(), json)
+    }
 }
 module.exports = Savingthrow

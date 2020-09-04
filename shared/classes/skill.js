@@ -1,6 +1,7 @@
 const Modifier = require('./stats/modifier')
 class Skill {
-    constructor(ability,proficiency) {
+    constructor(name,ability,proficiency) {
+        this.name=name
         this.ability = ability
         this.proficiency = proficiency
         this.modifiers = []

@@ -7,6 +7,7 @@ class Backgroundinfo{
         this.story = ''
         this.features = ''
         this.trinket = ''
+
     }
 }
 module.exports = Backgroundinfo

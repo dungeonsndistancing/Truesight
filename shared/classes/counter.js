@@ -8,9 +8,17 @@ class Counter{
     decrease() {
         this.current -= 1
     }
+
+    increase() {
+        this.current +=1
+    }
     
     reset() {
         this.current = this.max
+    }
+
+    static from(json) {
+        return Object.assign(new Counter(), json)
     }
 
 }

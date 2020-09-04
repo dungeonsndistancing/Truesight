@@ -19,7 +19,9 @@ router.get('/single',async (req,res) => {
 
 router.post('/create', async (req, res) => {
     const char = req.body.character
+    console.log(req.body.character.skills)
     const newChar = new Character(char)
+    newChar.user = req.userData._id
     const result = await newChar.save()
     res.status(201).json(result)
 

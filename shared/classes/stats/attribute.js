@@ -28,5 +28,9 @@ class Attribute {
         }
     }
 
+    static from(json) {
+        return Object.assign(new Attribute(), json)
+    }
+
 }
 module.exports = Attribute

@@ -45,6 +45,14 @@ const characterSchema = mongoose.Schema({
         }
         
     },
+    looks: {
+        age:Number,
+        weight:Number,
+        height:String,
+        eyes:String,
+        skin:String,
+        hair:String
+    },
     traits:[
         {
             name:{type:String},
@@ -54,9 +62,9 @@ const characterSchema = mongoose.Schema({
     ],
     counters:[
         {
-            name:{type:String},
-            description:{type:String},
-            source:{type:String}
+            name:String,
+            max:Number,
+            current:Number
         }
     ],
     race:{type:String},
@@ -64,63 +72,76 @@ const characterSchema = mongoose.Schema({
     alignment:{type:String},
     experience:{type:Number},
     money:{
-        platinum:{type:Number},
-        gold:{type:Number},
-        silver:{type:Number},
-        copper:{type:Number}
+        pp:{type:Number},
+        gp:{type:Number},
+        sp:{type:Number},
+        cp:{type:Number}
     },
     proficiency: { type: Number },
     attributes: {
         strength: {
+            name: String,
             base:Number,
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         },
         dexterity: {            
+            name: String,
             base:Number,
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
-            ]},
+            ]
+        },
         constitution: {
+            name: String,
             base:Number,
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         },
         intelligence: {
+            name: String,
             base:Number,
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         },
         wisdom: {
+            name: String,
             base:Number,
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         },
         charisma: {
+            name: String,
             base:Number,
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         }
@@ -132,7 +153,8 @@ const characterSchema = mongoose.Schema({
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         },
@@ -141,7 +163,8 @@ const characterSchema = mongoose.Schema({
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         },
@@ -150,7 +173,8 @@ const characterSchema = mongoose.Schema({
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         },
@@ -159,7 +183,8 @@ const characterSchema = mongoose.Schema({
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         },
@@ -168,7 +193,8 @@ const characterSchema = mongoose.Schema({
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         },
@@ -177,40 +203,27 @@ const characterSchema = mongoose.Schema({
             modifiers:[
                 {
                     name:String,
-                    value:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         }
     },skills: [
         {      
             name: String,
-            modifier: String,
-            proficient: Number,
+            ability: String,
+            proficiency: Number,
             modifiers:[
                 {
                     name:String,
-                    count:Number
+                    value:Number,
+                    source:String,
                 }
             ]
         }
     ],
-    ac: {
-        base:Number,
-        bonuses: [
-            {
-                name: String,
-                count:Number
-            }
-        ]
-    },
-    initiative: {
-        bonuses:[
-            {
-                name:String,
-                count:Number
-            }
-        ]
-    },
+    ac: Number,
+    initiative:Number,
     movement:Number,
     maxhp:Number,
     currenthp:Number,
@@ -222,6 +235,8 @@ const characterSchema = mongoose.Schema({
             }
         }
     ],
+    spellsave:Number,
+    spellattack:Number,
     effects:[
         {
             icon:String,
@@ -229,19 +244,20 @@ const characterSchema = mongoose.Schema({
             description:String
         }
     ],
-    notes: String,
     proficiencies:[
         {
             name: String,
             description: String
         }
     ],
-    ideals:String,
-    bonds:String,
-    flaws:String,
-    story:String,
-    features:String,
-    trinket:String,
+    backgroundinfo: {
+        ideals:String,
+        bonds:String,
+        flaws:String,
+        story:String,
+        features:String,
+        trinket:String,
+    },
     inventory:[
         {
             name:String,

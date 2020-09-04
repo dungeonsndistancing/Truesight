@@ -26,6 +26,7 @@ export default {
             if(temp == "disconnect") {
                 this.$router.push('/')
             }
+            console.log(temp)
             this.characters = temp.data
         },
         makeCharacter() {
