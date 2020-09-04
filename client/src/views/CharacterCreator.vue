@@ -74,8 +74,6 @@
                         </div>
                 </div>
             </div>
-        </div>
-        <div class='listorganizer'>
             <div class='features list'>
                 <h1>Traits & Features</h1>
                 <div class='featurecard' v-for='trait in character.traits' :key='trait'>
@@ -230,7 +228,7 @@ export default {
     margin-bottom:-3%;
 }
 .skills{
-    width: 35em;
+    width: 30em;
 }
 .features{
     width: 35em;
@@ -240,11 +238,11 @@ export default {
     border-bottom:1px solid rgb(170, 170, 170);
 }
 .skill{
-    width:40%;
+    width:45%;
+    float:left;
 }
 .skillcontainer{
-    display:flex;
-    flex-wrap: wrap;
+
     justify-content: space-around;
     width:100%;
     height:80%;
@@ -252,12 +250,13 @@ export default {
 .listorganizer{
     display:flex;
     flex-wrap: wrap;
-    justify-content:space-arond;
+    justify-content:space-around;
 
 }
-.attributes{
-    width:15em;
+.attributes, .savingthrows{
+    width:13em;
 }
+
 .list{
     border-radius:1%;
     overflow-x:hidden;
@@ -267,7 +266,7 @@ export default {
     border-width:0.09em;
     height:80vh;
     overflow-y:scroll;
-    margin:1em;
+    margin:0.5em;
 }
 textarea{
     border-radius:1em;
