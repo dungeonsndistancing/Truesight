@@ -1,10 +1,10 @@
 
 class Money{
     constructor(cp,sp,gp,pp) {
-        this.cp = cp
-        this.sp = sp
-        this.gp = gp
-        this.pp = pp
+        this.cp = (typeof cp != 'undefined')?cp:0
+        this.sp = (typeof sp != 'undefined')?sp:0
+        this.gp = (typeof gp != 'undefined')?gp:0
+        this.pp = (typeof pp != 'undefined')?pp:0
     }
 
     static from(json) {
