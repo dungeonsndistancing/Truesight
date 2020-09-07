@@ -1,12 +1,25 @@
 <template>
   <div id="item-creator">
       <form v-on:submit.prevent> 
-          Name: <input v-model='item.name' type="text">
-          type: <input v-model='item.type' type="text">
-          cost: <input v-model='item.cost' type="text">
-          weight: <input v-model='item.weight' type="text">
-          attribute: <input v-model='item.attribute' type="text">
-          notes: <input v-model='item.notes' type="text">
+          Item kind:<select name='items' id='items' @change='updateType()' v-model='typestring'>
+              <option value='item'>Normal Item</option>
+              <option value='magic item'>Magic Item</option>
+              <option value='weapon'>Weapon</option>
+              <option value='magic weapon'>Magic Weapon</option>
+              <option value='armor'>Armor</option>
+              <option value='magic armor'>Magic Armor</option>
+            </select><br>
+            <p>Name: <input v-model='item.name' type="text">
+            type: <input v-model='item.type' type="text">
+            cost: <input v-model='item.cost' type="text">
+            weight: <input v-model='item.weight' type="text"></p>
+            <p v-if='armor'>Armor Class: <input v-model='item.ac' type="text">
+            Strength: <input v-model='item.strength' type="number">
+            Stealth: <input v-model='item.stealth' type="text"></p>
+            <p v-if='weapon'>Damage: <input v-model='item.damage' type="text">
+            Properties: <input v-model='item.properties' type="text"></p>
+            <p v-if='magic'>Rarity: <input v-model='item.rarity' type="text">
+            Attunement: <input v-model='item.attunement' type="text"></p>
           description: <textarea v-model='item.description'>hi</textarea>
           <div class='icon-container'>
             <div>icon:
@@ -34,24 +47,23 @@
 <script>
 import itemService from '../services/ItemService'
 import icons from '../assets/icons.json'
+import Item from '../../../shared/classes/items/item'
+import Weapon from '../../../shared/classes/items/weapon'
+import Armor from '../../../shared/classes/items/armor'
+import MagicItem from '../../../shared/classes/items/magicitem'
+import MagicWeapon from '../../../shared/classes/items/magicweapon'
+import MagicArmor from '../../../shared/classes/items/magicarmor'
 export default {
     data: function() {
         return {
-            
-            iconarray: [],
 
+            iconarray: [],
             show: false,
-            item: {
-                name: '',
-                type: '',
-                cost: '',
-                weight: '',
-                attribute: '',
-                notes: '',
-                description: '',
-                icon: 'potion.png',
-                color: '#444444',
-            }
+            item: new Item('','',0,0,'','potion.png','#444444'),
+            typestring: 'Normal Item',
+            magic: false,
+            weapon: false,
+            armor: false
         }
     },methods: {
         select(path) {
@@ -62,7 +74,44 @@ export default {
             console.log(this.item)
             itemService.saveItem(this.item)
             this.$router.push('/items')
+        },
+        updateType() {
+            if(this.typestring.includes('magic')) {
+                this.magic = true
+                if(this.typestring.includes('weapon')) {
+                    this.weapon = true
+                    this.armor = false
+                    this.item = new MagicWeapon(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','','','',this.item.icon,this.item.color)
+                } else {
+                    this.weapon = false
+                    if(this.typestring.includes('armor')) {
+                        this.item = new MagicArmor(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','','','','',this.item.icon,this.item.color)
+                        this.armor = true
+                    } else {
+                        this.armor = false
+                        this.item = new MagicItem(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','',this.item.icon,this.item.color)
+                    }
+                } 
+            } else {
+                this.magic = false
+                if(this.typestring.includes('weapon')) {
+                    this.weapon = true
+                    this.armor = false
+                    this.item = new Weapon(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','',this.item.icon,this.item.color)
+                } else {
+                    this.weapon = false
+                    if(this.typestring.includes('armor')) {
+                        this.item = new Armor(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','','',this.item.icon,this.item.color)
+                        this.armor = true
+                    } else {
+                        this.armor = false
+                        this.item = new Item(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,this.item.icon,this.item.color)
+                    }
+                } 
+            }
+
         }
+
     },
     beforeMount() {
         this.iconarray = icons
@@ -98,7 +147,7 @@ textarea:focus{
     outline:none;
     border-color: black;
 }
-input[type=text] {
+input[type=text],select,input[type=number] {
     border-radius:1em;
     border-style:solid;
     border-width: 1px;
@@ -108,7 +157,11 @@ input[type=text] {
     width: calc(100% - 11em);
     display: inline-block;
 }
-input[type=text]:focus{
+select{
+    margin:0;
+    width: 10em;
+}
+input[type=text]:focus, input[type=number]:focus{
     outline: none;
     border-color:black;
 }

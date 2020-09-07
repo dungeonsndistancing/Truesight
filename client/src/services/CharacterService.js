@@ -16,5 +16,13 @@ export default {
         } catch(err) {
             return err.response.status
         }
+    },
+    makeCharacter: async function(character) {
+        let url = '/characters/create'
+        try{
+            await authService.authenticateRequest(url,"post",{character:character})
+        } catch(err) {
+            return err.response.status
+        }
     }
 }

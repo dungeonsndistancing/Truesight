@@ -25,7 +25,12 @@
           </div>
           <div class="item-content" v-if="item.show">
             <div class="item-top">
-              <p>cost:{{item.cost}} weight:{{item.weight}} attributes:{{item.attribute}} </p>
+              <p>cost:{{item.cost}} weight:{{item.weight}}</p>
+              
+            </div>
+              <div class="item-top">
+              <div class='item-extra'><div v-for='[key,value] in Object.entries(item.display())' :key='key'><b>{{key}}:</b><i>{{value}}</i></div></div>
+              
             </div>
             <div class="item-bottom">
               {{item.description}}
@@ -42,6 +47,12 @@
 </template>
 
 <script>
+import Item from '../../../shared/classes/items/item'
+import Weapon from '../../../shared/classes/items/weapon'
+import Armor from '../../../shared/classes/items/armor'
+import MagicItem from '../../../shared/classes/items/magicitem'
+import MagicWeapon from '../../../shared/classes/items/magicweapon'
+import MagicArmor from '../../../shared/classes/items/magicarmor'
 import itemService from '../services/ItemService'
 export default {
   data: function () {
@@ -56,14 +67,42 @@ export default {
   },
   methods: {
     async getItems() {
-      console.log(this.curpage)
-      this.items = await itemService.getItems(this.querytext,this.curpage,this.editable)
+      this.items = []
+      var temp = await itemService.getItems(this.querytext,this.curpage,this.editable)
+      for(var i = 0; i < temp.length; i++) {
+        var x = temp[i]
+        var item
+        console.log(x)
+        switch(x.class) {
+          case "item":
+            item = Item.from(temp[i])
+            break;
+          case 'armor':
+            item = Armor.from(temp[i])
+            break;
+          case 'weapon':
+            item = Weapon.from(temp[i])
+            break;
+          case 'magicitem':
+            item = MagicItem.from(temp[i])
+            break;
+          case 'magicarmor':
+            item = MagicArmor.from(temp[i])
+            break;
+          case 'magicweapon':
+            item = MagicWeapon.from(temp[i])
+            break;
+          default:
+            item = Item.from(temp[i])
+            break;
+        }
+        this.items.push(item)
+      }
     
     },
     async update(page) {
       this.curpage = page
       await this.getItems()
-      console.log('updated')
     },
     isActive(n) {
       return n == this.curpage
@@ -201,6 +240,13 @@ input[type=text]{
   justify-items: center;
   grid-template-columns: 50fr 50fr;
   display:grid;
+}
+.item-extra{
+  display:flex;
+  flex-wrap:wrap;
+}
+.item-extra div {
+  padding: 1px 5px 1px 5px;
 }
 .item-card{
   background-color: white;
