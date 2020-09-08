@@ -21,11 +21,7 @@ export default {
     grid-column-start:1;
     grid-column-end:2;
     grid-row-start:5;
-<<<<<<< HEAD
     grid-row-end:9;
-=======
-    grid-row-end:8;
->>>>>>> character-sheet
     row-gap: 10px;
     column-gap: 10px;
     display:grid;
