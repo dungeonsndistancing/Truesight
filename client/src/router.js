@@ -24,7 +24,7 @@ const routes = [
         meta: {requiresAuth:true}
     },
     {
-      path:'/charsheet/:char',
+      path:'/charsheet/:char/:page',
       name: 'charsheet',
       component: () => import('./views/Charsheet.vue'),
       props:true,

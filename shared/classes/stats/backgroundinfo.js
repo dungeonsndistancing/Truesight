@@ -9,5 +9,9 @@ class Backgroundinfo{
         this.trinket = ''
 
     }
+
+    static from(json) {
+        return Object.assign(new Backgroundinfo(),json)
+    }
 }
 module.exports = Backgroundinfo

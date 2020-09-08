@@ -1,10 +1,20 @@
 import authService from './AuthenticationService'
-
+import Character from '../../../shared/classes/character'
 export default {
     getCharacters: async function() {
         const url = '/characters/list'
         const result = await authService.authenticateRequest(url,"get",'');
-        return result;
+        console.log(result.data[0])
+        if(result.data != 'disconnected') {
+            var characters = []
+            for(let i = 0; i < result.data.length; i++) {
+                console.log(result.data[i])
+                characters.push(Character.from(result.data[i]));
+            }
+            return characters
+            
+        }
+        
 
     },
     getCharacter: async function(id) {
@@ -12,7 +22,7 @@ export default {
         url += "?id=" + id 
         try{
             const result = await authService.authenticateRequest(url,"get",'')
-            return result.data
+            return Character.from(result.data)
         } catch(err) {
             return err.response.status
         }

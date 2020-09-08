@@ -5,6 +5,11 @@ const SavingThrow = require('./stats/savingthrow')
 const Skill = require('./skill')
 const Feature = require('./feature')
 const Proficiency = require('./proficiency')
+const Spell = require('./spell')
+const Inventory = require('./items/inventory')
+const Attack = require('./attack')
+const Effect = require('./effect')
+const Savingthrow = require('./stats/savingthrow')
 class Character {
         constructor() {
             this.name = ''
@@ -81,7 +86,7 @@ class Character {
             this.spells = []
             this.effects = []
             this.backgroundinfo = new BackgroundInfo()
-            this.inventory = []
+            this.inventory = new Inventory()
             this.attacks = []
         } 
         newFeature() {
@@ -97,6 +102,40 @@ class Character {
         removeProficiency(proficiency) {
             var x = this.proficiencies.indexOf(proficiency)
             this.proficiencies.splice(x,1)
+        }
+
+        static from(json){
+            var character =  Object.assign(new Character(), json)
+            for(let i = 0; i< character.skills.length;i++) {
+                character.skills[i] = Skill.from(character.skills[i])
+            }
+            for(let j = 0; j< character.proficiencies.length;j++) {
+                character.proficiencies[j] = Proficiency.from(character.proficiencies[j])
+            }
+            for(let k = 0; k< character.traits.length;k++) {
+                character.traits[k] = Proficiency.from(character.traits[k])
+            }
+            for(let l = 0; l< character.counters.length;l++) {
+                character.counters[l] = Feature.from(character.counters[l])
+            }
+            for(let m = 0; m< character.spells.length;m++) {
+                character.spells[m] = Spell.from(character.spells[m])
+            }
+            for(let n = 0; n< character.effects.length;n++) {
+                character.effects[n] = Effect.from(character.effects[n])
+            }
+            for(let o = 0; o< character.attacks.length;o++) {
+                character.attacks[o] = Attack.from(character.attacks[o])
+            }
+            character.inventory = Inventory.from(character.inventory)
+            character.money = Money.from(character.money)
+            for(let attr in character.attributes) {
+                character.attributes[attr] = Attribute.from(character.attributes[attr])
+            }
+            for(let save in character.savingthrows) {
+                character.savingthrows[save] = Savingthrow.from(character.savingthrows[save])
+            }
+            return character
         }
 }
 

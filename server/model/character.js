@@ -258,18 +258,32 @@ const characterSchema = mongoose.Schema({
         features:String,
         trinket:String,
     },
-    inventory:[
-        {
-            name:String,
-            description:String,
-            weight:Number,
-            type:String,
-            count:Number,
-            equipped:Boolean,
-            battle_ready:Boolean,
-            attuned:Boolean
-        }
-    ],
+    inventory:{
+        backpack : [
+            {
+                name:String,
+                description:String,
+                weight:Number,
+                type:String,
+                count:Number,
+                equipped:Boolean,
+                battle_ready:Boolean,
+                attuned:Boolean
+            }
+        ],
+        equipped : [
+            {
+                name:String,
+                description:String,
+                weight:Number,
+                type:String,
+                count:Number,
+                equipped:Boolean,
+                battle_ready:Boolean,
+                attuned:Boolean
+            }
+        ]
+    },
     attacks:[
         {
             name:String,

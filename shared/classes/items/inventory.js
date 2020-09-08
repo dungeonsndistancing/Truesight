@@ -29,11 +29,9 @@ class Inventory {
             add(this.equipped.splice(x, 1)[0])
         }
     }
+
+    static from(json){
+        return Object.assign(new Inventory(),json)
+    }
 }
-var inv = new Inventory()
-inv.add(new Item('pony','type','cost','weight','description'))
-inv.add(new Item('pony2','type','cost','weight','description'))
-inv.add(new Item('pony3','type','cost','weight','description'))
-console.log(inv.remove(new Item('ponysd2','type','cost','weight','description')))
-console.log(inv)
 module.exports = Inventory

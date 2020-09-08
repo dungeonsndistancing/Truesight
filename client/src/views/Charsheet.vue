@@ -1,13 +1,35 @@
 <template>
     <div id="container">
-        <div>{{character}}HI</div>
+        <div class='tabcontainer'>
+            <div class='tab selected'>General</div>
+            <div class='tab'>Battle</div>
+            <div class='tab'>Inventory</div>
+            <div class='tab'>Spells</div>
+            <div class='tab'>Background</div>
+        </div>
+        <div class='content'>
+            <name :name='character.name'/>
+            <general :character='character' />
+            <attributes :attributes='character.attributes'/>
+            <savingthrows :character='character'/>
+        </div>
     </div>
 </template>
 
 <script>
 import characterService from '../services/CharacterService'
+import name from '../components/CharacterSheet/Name'
+import general from '../components/CharacterSheet/General'
+import attributes from '../components/CharacterSheet/Attributes'
+import savingthrows from '../components/CharacterSheet/Savingthrows'
 export default {
-    props: ['char'],
+    components: {
+        name,
+        general,
+        attributes,
+        savingthrows
+    },
+    props: ['char','page'],
     data: function() {
         return {
             character: null
@@ -30,7 +52,59 @@ export default {
     }
 }
 </script>
-
+<style>
+h5{
+    margin-bottom:0;
+}
+</style>
 <style scoped>
+
+.container{
+    height:100%;
+}
+.tabcontainer{
+    height:calc(3em);
+    display:grid;
+    grid-template-columns:repeat(5,20%);
+    width:100%;
+    border-bottom: 1px solid black;
+    padding:0;
+    margin:0;
+
+}
+.tab{
+    border-radius: 2em 2em 0% 0%;
+    border-style: solid solid none solid;
+    border-width: 1px;
+    height:3em;
+    padding:0;
+    margin: 0 3% 0 3%;
+    line-height: 3em;
+    z-index:0;
+    position:relative;
+}
+.tab:hover{
+    -webkit-box-shadow: 6px 3px 14px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 3px 14px -2px rgba(0,0,0,0.75);
+    box-shadow: 6px 0px 14px -2px rgba(0,0,0,0.75);
+    clip-path: inset(-5px -20px 0px -5px);
+    background-color: rgb(245, 245, 245);
+}
+.content{
+    display:grid;
+    grid-template-columns: repeat(6,16.666%); 
+    grid-template-rows: repeat(8,12.5%);
+    width:100%;
+    height:calc(100vh - 60px - 3em);
+}
+.selected{
+    border-bottom-style: none;
+    -webkit-box-shadow: 6px 3px 14px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 3px 14px -2px rgba(0,0,0,0.75);
+    box-shadow: 6px 0px 14px -2px rgba(0,0,0,0.75);
+    clip-path: inset(-5px -20px 0px -5px);
+    background-color: white;
+}
+
 
 </style>

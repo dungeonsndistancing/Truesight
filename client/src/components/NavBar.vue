@@ -5,8 +5,8 @@
                 <img id="navbarlogo" @click="open('/home')" src='../assets/logo2.png'/>
             </div>
             <div id='linkcontainer'>
-                <a @click="open('/characters')">Characters</a>|
-                <a @click="open('/spells')">Spells</a> |
+                <a @click="open('/characters')">Characters</a>
+                <a @click="open('/spells')">Spells</a> 
                 <a @click="open('/items')">items</a>
                 <div id='logout'><a @click="logout" float='right'>Logout</a></div>    
             </div>
@@ -57,9 +57,11 @@ export default {
     display: block;
     background-color:#214478;
     height: 50%;
-    width: 70px;
+    width: 80px;
     text-align: center;
+    padding:12pt 0 0 0;
     padding-top:12pt;
+    margin:0;
 }
 #logout {
     float:right;
