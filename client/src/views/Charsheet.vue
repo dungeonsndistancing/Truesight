@@ -91,11 +91,14 @@ h5{
     background-color: rgb(245, 245, 245);
 }
 .content{
+    padding:10px;
     display:grid;
-    grid-template-columns: repeat(6,16.666%); 
-    grid-template-rows: repeat(8,12.5%);
-    width:100%;
-    height:calc(100vh - 60px - 3em);
+    grid-template-columns: repeat(6,1fr); 
+    grid-template-rows: repeat(8,1fr);
+    row-gap: 10px;
+    column-gap:10px;
+    width:calc(100% - 20px);
+    height:calc(100vh - 80px - 3em);
 }
 .selected{
     border-bottom-style: none;

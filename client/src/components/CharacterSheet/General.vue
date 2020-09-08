@@ -38,7 +38,6 @@ export default {
     grid-column-end:4;
     grid-row-start:1;
     grid-row-end:3;
-    margin:10px;
     border: 1px solid black;
 }
 </style>
