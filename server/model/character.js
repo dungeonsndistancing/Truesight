@@ -149,7 +149,7 @@ const characterSchema = mongoose.Schema({
     },
     savingthrows: {
         strength: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -159,7 +159,7 @@ const characterSchema = mongoose.Schema({
             ]
         },
         dexterity: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -169,7 +169,7 @@ const characterSchema = mongoose.Schema({
             ]
         },
         constitution: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -179,7 +179,7 @@ const characterSchema = mongoose.Schema({
             ]
         },
         intelligence: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -189,7 +189,7 @@ const characterSchema = mongoose.Schema({
             ]
         },
         wisdom: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -199,7 +199,7 @@ const characterSchema = mongoose.Schema({
             ]
         },
         charisma: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,

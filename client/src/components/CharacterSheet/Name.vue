@@ -14,7 +14,6 @@ export default {
     grid-column-end:2;
     grid-row-start:1;
     grid-row-end:2;
-    margin:10px;
     border: 1px solid black;
 }
 </style>
