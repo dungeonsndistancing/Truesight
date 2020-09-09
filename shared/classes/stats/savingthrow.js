@@ -6,7 +6,6 @@ class Savingthrow{
     }
 
     bonus(base,proficiency) {
-        console.log(base + "," + proficiency)
         var sum = this.modifiers.reduce(function(a,b){return a + parseInt(b.value)},parseInt(0))
         return parseInt(sum) + parseInt(base) + this.proficiency * parseInt(proficiency)
     }

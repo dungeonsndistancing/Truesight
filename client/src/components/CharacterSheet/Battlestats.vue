@@ -3,7 +3,7 @@
       <div class='stat'><h5>Armor Class</h5><h2>{{character.ac}}</h2></div>
       <div class='stat'><h5>Initiative</h5><h2><b v-if='character.initiative > 0'>+</b>{{character.initiative}}</h2></div>
       <div class='stat'><h5>Speed</h5><h2>{{character.movement}} ft</h2></div>
-      <div class='stat'><h5>Proficiency Bonus</h5><h2>{{character.proficiency}}</h2></div>
+      <div class='stat'><h5>Proficiency Bonus</h5><h2>+{{character.proficiency}}</h2></div>
       <div class='stat'><h5>Max Health</h5><h2>{{character.maxhp}}</h2></div>
       <div class='stat'><h5>Current Health</h5><h2>{{character.currenthp}}</h2></div>
       <div class='stat'><h5>Temporary Health</h5><h2>{{character.temporaryhp}}</h2></div>

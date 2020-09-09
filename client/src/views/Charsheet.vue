@@ -14,11 +14,14 @@
             <attributes :attributes='character.attributes'/>
             <savingthrows :character='character'/>
             <battle :character='character'/>
+            <money :money='character.money' />
+            <skills :character='character' />
         </div>
     </div>
 </template>
 
 <script>
+import Character from '../../../shared/classes/character'
 import characterService from '../services/CharacterService'
 import name from '../components/CharacterSheet/Name'
 import general from '../components/CharacterSheet/General'
@@ -26,6 +29,8 @@ import attributes from '../components/CharacterSheet/Attributes'
 import savingthrows from '../components/CharacterSheet/Savingthrows'
 import cclass from '../components/CharacterSheet/Cclass'
 import battle from '../components/CharacterSheet/Battlestats'
+import money from '../components/CharacterSheet/Money'
+import skills from '../components/CharacterSheet/Skills'
 export default {
     components: {
         name,
@@ -33,18 +38,19 @@ export default {
         attributes,
         savingthrows,
         cclass,
-        battle
+        battle,
+        money,
+        skills
     },
     props: ['char','page'],
     data: function() {
         return {
-            character: null
+            character: new Character()
             }
             
     },
     methods: {
         async getCharacter(id) {
-            console.log(id)
             var temp = await characterService.getCharacter(id)
             if(temp == '403') {
                 this.$router.push('/403')
@@ -53,7 +59,6 @@ export default {
         }
 
     },beforeMount() {
-        console.log(this.char)
         this.getCharacter(this.char)
     }
 }

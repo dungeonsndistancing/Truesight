@@ -1,7 +1,7 @@
 <template>
     <div class='attributes'>
         <div class='at-title'><h3>Attributes</h3></div>
-        <div class='attr' v-for='(attribute,attrid) in attributes' :key='attribute.name'>
+        <div class='attr' v-for='(attribute,attrid) in attributes' :key='attrid'>
             <h5>{{attrid}}</h5>
             <h2>{{attribute.value}}</h2>
             <div class='mod'><b v-if='attribute.mod > 0'>+</b><b>{{attribute.mod}}</b></div>

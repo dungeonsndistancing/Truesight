@@ -12,10 +12,6 @@
             <h5>Alignment</h5>
             {{character.alignment}}
         </div>
-        <div>
-            <h5>Experience Points</h5>
-            {{character.experience}}
-        </div>
     </div>
 </template>
 
@@ -29,11 +25,10 @@ export default {
 .general{
     display:grid;
     grid-template-columns:repeat(3,33.3%);
-    grid-template-rows: 50% 50%;
     grid-column-start:3;
     grid-column-end:5;
     grid-row-start:1;
-    grid-row-end:3;
+    grid-row-end:2;
     border: 1px solid black;
 }
 </style>

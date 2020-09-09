@@ -104,11 +104,9 @@ class Character {
             this.proficiencies.splice(x,1)
         }
         get passivePerception() {
-            console.log("HI!")
             for(let skill in this.skills) {
                 let sk = this.skills[skill]
                 if(sk.name == 'Perception') {
-                    console.log("bingo")
                     return 10+sk.value(this.attributes[sk.ability].mod,this.proficiency)
                 }
             }
