@@ -1,10 +1,6 @@
 <template>
     <div class='general'>
         <div>
-            <h5>Class & Level</h5>
-            {{character.cclass.name}} {{character.cclass.level}}
-        </div>
-        <div>
             <h5>Background</h5>
             {{character.background}}
         </div>
@@ -34,8 +30,8 @@ export default {
     display:grid;
     grid-template-columns:repeat(3,33.3%);
     grid-template-rows: 50% 50%;
-    grid-column-start:2;
-    grid-column-end:4;
+    grid-column-start:3;
+    grid-column-end:5;
     grid-row-start:1;
     grid-row-end:3;
     border: 1px solid black;

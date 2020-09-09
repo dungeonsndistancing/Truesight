@@ -4,7 +4,7 @@
             <div class="charactercard" v-for="character in characters" :key="character._id" @click='loadCharacter(character)'>
                 <div class="cardheader"><h1>{{ character.name }}</h1></div>
                 <div class="details">
-                    <p>class: {{character.class.name}}</p>
+                    <p>class: {{character.cclass.name}}</p>
                     <p>level: {{character.level}}</p>
                     <p>{{character.attributes.strength.mod}}</p>
                 </div>

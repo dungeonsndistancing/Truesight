@@ -21,13 +21,13 @@ export default {
     padding:5px;
     grid-column-start:1;
     grid-column-end:2;
-    grid-row-start:1;
-    grid-row-end:5;
+    grid-row-start:5;
+    grid-row-end:9;
     row-gap: 10px;
     column-gap: 10px;
     display:grid;
     grid-template-columns: repeat(2,1fr);
-    grid-template-rows:0.5fr 2fr 2fr 2fr;
+    grid-template-rows:0.1fr 1fr 1fr 1fr;
     background-color: rgb(228, 228, 228);
 }
 .attr{

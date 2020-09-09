@@ -3,7 +3,7 @@
         <div class='save-title'><h3>Saving Throws</h3></div>
         <div class='save' v-for='(savingthrow,saveid) in character.savingthrows' :key='saveid'>
             <h5>{{saveid}}</h5>
-            <h2><b v-if='savingthrow.bonus(character.attributes[saveid].mod,character.proficiency) > 0'>+</b>{{savingthrow.bonus(character.attributes[saveid].mod,character.proficiency)}}</h2>
+            <div class='save-mod'><h2><b v-if='savingthrow.bonus(character.attributes[saveid].mod,character.proficiency) > 0'>+</b>{{savingthrow.bonus(character.attributes[saveid].mod,character.proficiency)}}</h2></div>
             <h6><i v-if='savingthrow.proficiency == 1'>Proficient</i><i v-else-if='savingthrow.proficiency == 2'>Expert</i ></h6>
         </div>
   </div>
@@ -18,19 +18,26 @@ export default {
 <style scoped>
 .savingthrows{
     padding:5px;
-    grid-column-start:1;
-    grid-column-end:2;
+    grid-column-start:2;
+    grid-column-end:3;
     grid-row-start:5;
     grid-row-end:9;
     row-gap: 10px;
     column-gap: 10px;
     display:grid;
     grid-template-columns: repeat(2,1fr);
-    grid-template-rows:0.5fr 2fr 2fr 2fr;
+    grid-template-rows:0.1fr 1fr 1fr 1fr;
     background-color: rgb(228, 228, 228);
     
 }
 .save{
+    border: 1px solid black;
+    background-color:white;
+}
+.save-mod{
+    margin:0 auto 0 auto;
+    border-radius:50%;
+    width:3.5em;
     border: 1px solid black;
     background-color:white;
 }

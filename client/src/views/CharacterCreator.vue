@@ -28,7 +28,7 @@ import Character from '../../../shared/classes/character'
 export default {
     data: function() {
         return{
-            character:new Character(),
+            character: new Character()
         }
     },
     components: {

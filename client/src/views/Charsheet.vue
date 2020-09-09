@@ -9,9 +9,11 @@
         </div>
         <div class='content'>
             <name :name='character.name'/>
+            <cclass :cclass='character.cclass'/>
             <general :character='character' />
             <attributes :attributes='character.attributes'/>
             <savingthrows :character='character'/>
+            <battle :character='character'/>
         </div>
     </div>
 </template>
@@ -22,12 +24,16 @@ import name from '../components/CharacterSheet/Name'
 import general from '../components/CharacterSheet/General'
 import attributes from '../components/CharacterSheet/Attributes'
 import savingthrows from '../components/CharacterSheet/Savingthrows'
+import cclass from '../components/CharacterSheet/Cclass'
+import battle from '../components/CharacterSheet/Battlestats'
 export default {
     components: {
         name,
         general,
         attributes,
-        savingthrows
+        savingthrows,
+        cclass,
+        battle
     },
     props: ['char','page'],
     data: function() {

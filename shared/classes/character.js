@@ -13,7 +13,7 @@ const Savingthrow = require('./stats/savingthrow')
 class Character {
         constructor() {
             this.name = ''
-            this.class = {
+            this.cclass = {
                 name:'',
                 subclass:'',
                 level:1,
@@ -102,6 +102,17 @@ class Character {
         removeProficiency(proficiency) {
             var x = this.proficiencies.indexOf(proficiency)
             this.proficiencies.splice(x,1)
+        }
+        get passivePerception() {
+            console.log("HI!")
+            for(let skill in this.skills) {
+                let sk = this.skills[skill]
+                if(sk.name == 'Perception') {
+                    console.log("bingo")
+                    return 10+sk.value(this.attributes[sk.ability].mod,this.proficiency)
+                }
+            }
+
         }
 
         static from(json){
