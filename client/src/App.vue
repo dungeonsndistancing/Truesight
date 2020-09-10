@@ -34,4 +34,21 @@ html, body {
   margin: 0px;
   padding: 0px;
 }
+.input{
+    border-radius:1em;
+    border-style:solid;
+    border-width: 1px;
+    border-color:rgb(170, 170, 170);
+    padding:0.1em 0.3em 0.1em 0.3em;
+    display: inline-block;
+}
+.small {
+    width: 2.5em;
+}
+.medium {
+    width:6em;
+}
+.wide{
+    width: 10em;
+}
 </style>

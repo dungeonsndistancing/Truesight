@@ -288,7 +288,8 @@ const characterSchema = mongoose.Schema({
         {
             name:String,
             attack:String,
-            damage:String
+            damage:String,
+            extra:String
         }
     ]
 

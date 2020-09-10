@@ -16,6 +16,8 @@
             <battle :character='character'/>
             <money :money='character.money' />
             <skills :character='character' />
+            <attacks :attacks='character.attacks' />
+            <features :features='character.traits' />
         </div>
     </div>
 </template>
@@ -31,6 +33,9 @@ import cclass from '../components/CharacterSheet/Cclass'
 import battle from '../components/CharacterSheet/Battlestats'
 import money from '../components/CharacterSheet/Money'
 import skills from '../components/CharacterSheet/Skills'
+import attacks from '../components/CharacterSheet/Attacks'
+import features from '../components/CharacterSheet/Features'
+
 export default {
     components: {
         name,
@@ -40,7 +45,9 @@ export default {
         cclass,
         battle,
         money,
-        skills
+        skills,
+        attacks,
+        features
     },
     props: ['char','page'],
     data: function() {
@@ -64,8 +71,34 @@ export default {
 }
 </script>
 <style>
+.scrollcontainer{
+    border-style:solid none solid none;
+    border-width:1px;
+    height:55%;
+    background-color:rgb(223, 223, 223);
+    overflow-y: scroll;
+}
+.mod-div{
+    padding:0.5em;
+    margin:0.3em 15% 0.3em 15%;
+    border:1px solid black;
+}
 h5{
     margin-bottom:0;
+}
+::-webkit-scrollbar {
+    /* //Width of vertical scroll bar */
+    width: 16px;
+    /* // Height of horizontal scroll bar */
+    height: 10px;
+
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: #c2c9d2;
+  }
+  .clickable:hover{
+    background-color:rgb(230, 230, 230);
 }
 </style>
 <style scoped>
@@ -104,7 +137,7 @@ h5{
 .content{
     padding:10px;
     display:grid;
-    grid-template-columns: repeat(6,1fr); 
+    grid-template-columns: repeat(8,1fr); 
     grid-template-rows: repeat(8,1fr);
     row-gap: 10px;
     column-gap:10px;

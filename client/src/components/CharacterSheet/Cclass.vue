@@ -3,11 +3,12 @@
         <div>
                     <h5>Class</h5>
                     
-        {{cclass.level}}<i v-if="cclass.level == parseInt(1)" >st</i>
+       <b> {{cclass.level}}</b><i v-if="cclass.level == parseInt(1)" >st</i>
         <i v-else-if="(cclass.level > 3 && cclass.level < 21)" >th</i>
         <i v-else-if="cclass.level == 2">nd</i>
         <i v-else>rd</i>
-        level {{cclass.name}}
+        level <i><b>{{cclass.name}}</b></i>
+        <h6><i>{{cclass.subclass}}</i></h6>
         </div>
     </div>
 </template>
@@ -33,5 +34,8 @@ export default {
 }
 .class div{
     border:1px solid black;
+}
+h6{
+    margin:0.1em;
 }
 </style>
