@@ -47,7 +47,7 @@ export default {
 }
 .popup{
     border-radius:1em;
-    padding-top:30px;
+    padding-top:10px;
     position:absolute;
     top:calc(50% - 90px);
     left:calc(50% - 150px);

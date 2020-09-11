@@ -91,14 +91,23 @@ export default {
     }
 }
 </script>
-
+<style scoped>
+h2{
+    margin:0em;
+    font-size:1.2vw;
+}
+button{
+    padding:0.2em 0.4em 0.2em 0.4em;
+    font-size:0.9vw;
+    margin:0;
+}
+</style>
 <style>
 .money{
-
     display:grid;
     grid-template-columns: repeat(4,1fr);
-    grid-template-rows: 3fr 2fr;
-    column-gap:20px;
+    grid-template-rows: 1fr 1fr;
+    column-gap:10px;
     grid-column-start: 3;
     grid-column-end:5;
     grid-row-start:2;
@@ -114,9 +123,7 @@ export default {
     grid-column-start:1;
     grid-column-end:5;
 }
-h2{
-    margin:0em;
-}
+
 .test{
     position:absolute;
     width:300px;

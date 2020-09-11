@@ -61,16 +61,19 @@ export default {
     grid-column-start:1;
     grid-column-end:3;
     grid-row-start:2;
-    grid-row-end:5;
+    grid-row-end:4;
 
 }
 .stat{
+    position:relative;
     border: 1px solid black;
 }
 h5{
+    font-size:0.8vw;
     margin-top:0.2em;
 }
 h2{
+    font-size:1.8vw;
     margin:0.2em;
 }
 input::-webkit-outer-spin-button,

@@ -2,7 +2,6 @@
     <div id="container">
         <div class='tabcontainer'>
             <div class='tab selected'>General</div>
-            <div class='tab'>Battle</div>
             <div class='tab'>Inventory</div>
             <div class='tab'>Spells</div>
             <div class='tab'>Background</div>
@@ -18,6 +17,8 @@
             <skills :character='character' />
             <attacks :attacks='character.attacks' />
             <features :features='character.traits' />
+            <proficiencies :character='character' />
+            <death :character='character' />
         </div>
     </div>
 </template>
@@ -35,7 +36,8 @@ import money from '../components/CharacterSheet/Money'
 import skills from '../components/CharacterSheet/Skills'
 import attacks from '../components/CharacterSheet/Attacks'
 import features from '../components/CharacterSheet/Features'
-
+import proficiencies from '../components/CharacterSheet/Proficiencies'
+import death from '../components/CharacterSheet/Death'
 export default {
     components: {
         name,
@@ -47,7 +49,9 @@ export default {
         money,
         skills,
         attacks,
-        features
+        features,
+        proficiencies,
+        death
     },
     props: ['char','page'],
     data: function() {
@@ -63,10 +67,13 @@ export default {
                 this.$router.push('/403')
             }
             this.character = temp;
+
         }
 
     },beforeMount() {
         this.getCharacter(this.char)
+        const size = new TextEncoder().encode(JSON.stringify(this.character)).length
+        console.log(size/1024)
     }
 }
 </script>
@@ -84,11 +91,16 @@ export default {
     border:1px solid black;
 }
 h5{
-    margin-bottom:0;
+    font-size:0.8vw;
+    margin-top:0.2em;
+}
+h2{
+    font-size:1.8vw;
+    margin:0em;
 }
 ::-webkit-scrollbar {
     /* //Width of vertical scroll bar */
-    width: 16px;
+    width: 8px;
     /* // Height of horizontal scroll bar */
     height: 10px;
 
@@ -98,7 +110,7 @@ h5{
     background: #c2c9d2;
   }
   .clickable:hover{
-    background-color:rgb(230, 230, 230);
+    background-color:rgb(240, 240, 240);
 }
 </style>
 <style scoped>

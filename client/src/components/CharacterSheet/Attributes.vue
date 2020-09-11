@@ -61,7 +61,7 @@ export default {
 .scrollcontainer{
     border-style:solid none solid none;
     border-width:1px;
-    height:55%;
+    height:50%;
     background-color:rgb(223, 223, 223);
     overflow-y: scroll;
 }
@@ -92,8 +92,9 @@ export default {
 }
 .mod{
     border: 1px solid black;
-    width:3em;
-    height:1.5em;
+    width:70%;
+    height:35%;
+    font-size:1.5vw;
     line-height:1.5em;
     border-radius:50%;
     margin:0 auto 0 auto;

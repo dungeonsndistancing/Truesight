@@ -291,7 +291,11 @@ const characterSchema = mongoose.Schema({
             damage:String,
             extra:String
         }
-    ]
+    ],
+    saves:{
+        succes:Number,
+        failure:Number
+    }
 
 })
 

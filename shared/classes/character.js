@@ -88,6 +88,10 @@ class Character {
             this.backgroundinfo = new BackgroundInfo()
             this.inventory = new Inventory()
             this.attacks = []
+            this.saves = {
+                succes:0,
+                failure:0
+            }
         } 
         newFeature() {
             this.traits.push(new Feature())

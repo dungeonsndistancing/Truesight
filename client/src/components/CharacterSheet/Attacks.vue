@@ -1,39 +1,94 @@
 <template>
   <div class='attacks'>
       <h2>Attacks</h2>
-      <div class='attack-row'>
+
+      <div class='scroll'>
+        <div class='attack-row'>
           <div><b>Name</b></div>
           <div><b>Attack</b></div>
           <div><b>Damage</b></div>
       </div>
-      <div class='attack-row' v-for='attack in attacks' :key='attack.name'>
-          <div class='attack content'>{{attack.name}}</div>
-          <div class='attack content'>{{attack.attack}}</div>
-          <div class='attack content'>{{attack.damage}}</div>
+        <div @click='edit(id)' class='attack-row clickable ' v-for='(attack,id) in attacks' :key='id'>
+            <div class='attack content'>{{attack.name}}</div>
+            <div class='attack content'>{{attack.attack}}</div>
+            <div class='attack content'>{{attack.damage}}</div>
+        </div>
       </div>
+      <button @click='newAttack()'>Add Attack</button>
+      
+      <popup v-if='pop' @close="save()">
+          <div class='popup popgrid'>
+              <h5>name:</h5> <input v-model='attacks[attackid].name' type='text'><br>
+              <h5>attack:</h5> <input v-model='attacks[attackid].attack' type='text'><br>
+              <h5>damage:</h5>: <input v-model='attacks[attackid].damage' type='text'><br>
+              <button @click='save()'>Close</button><button @click='removeAttack(attackid)'>Delete Attack</button>
+          </div>
+      </popup>
+
   </div>
 </template>
 
 <script>
+import Attack from '../../../../shared/classes/attack'
+import popup from '../Popups/Popup'
 export default {
-    props:['attacks']
+    props:['attacks'],
+    components: {
+        popup
+    },
+    data: function() {
+        return {
+            pop:false,
+            attackid:0
+        }
+    },
+    methods: {
+        save() {
+            //save
+            this.pop=false
+        },
+        edit(id) {
+            this.attackid = id
+            this.pop=true
+        },
+        newAttack() {
+            this.attacks.push(new Attack("attack","+0","-"))
+            this.edit(this.attacks.length-1)
+        },
+        removeAttack(id){
+            this.attacks.splice(id,1)
+            this.save()
+        }
+    }
 }
 </script>
 
 <style>
+.attack-but{
+    position:relative;
+    height:
+}
+.attack-but button{
+    position:absolute;
+    bottom:0;
+
+}
+.scroll{
+height:70%;
+overflow-y:scroll;
+}
 .attacks{
     grid-column-start:5;
     grid-column-end:7;
     grid-row-start:1;
     grid-row-end:3;
     border:1px solid black;
-    position:relative;
 }
 .attack-row{
     display:grid;
     grid-template-columns: 3fr 1fr 3fr;
 }
-.attack-row:nth-child(even) {
-    background-color:rgb(207, 207, 207);
+.attack-row:nth-child(odd) {
+    background-color:rgb(226, 226, 226);
 }
 </style>
