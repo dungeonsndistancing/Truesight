@@ -5,7 +5,7 @@
           Total:{{character.cclass.level}}d{{character.cclass.hitdice.dice}}
           <h5>Available</h5>
           {{character.cclass.hitdice.current}}d{{character.cclass.hitdice.dice}}
-          <button @click='character.cclass.hitdice.current++;update()'>+</button><button @click='character.cclass.hitdice.current--;update()'>-</button>
+          <button @click='plusdice()'>+</button><button @click='mindice()'>-</button>
       </div>
       <div class='death-inner'>
           <h5>Saving Throws</h5>
@@ -27,6 +27,18 @@ export default {
         update() {
             //send update
         },
+        plusdice() {
+            if(this.character.cclass.hitdice.current < this.character.cclass.level) {
+                this.character.cclass.hitdice.current++
+            }
+            this.update()
+        },
+        mindice() {
+            if(this.character.cclass.hitdice.current > 0) {
+                this.character.cclass.hitdice.current--
+            }
+            this.update()
+        }
     }
 }
 </script>

@@ -10,6 +10,7 @@ const Inventory = require('./items/inventory')
 const Attack = require('./attack')
 const Effect = require('./effect')
 const Savingthrow = require('./stats/savingthrow')
+const Counter = require('./counter')
 class Character {
         constructor() {
             this.name = ''
@@ -94,14 +95,14 @@ class Character {
             }
         } 
         newFeature() {
-            this.traits.push(new Feature())
+            this.traits.push(new Feature("","",""))
         }
         removeFeature(trait) {
             var x = this.traits.indexOf(trait)
             this.traits.splice(x,1)
         }
         newProficiency() {
-            this.proficiencies.push(new Proficiency())
+            this.proficiencies.push(new Proficiency("name",""))
         }
         removeProficiency(proficiency) {
             var x = this.proficiencies.indexOf(proficiency)
@@ -119,6 +120,7 @@ class Character {
 
         static from(json){
             var character =  Object.assign(new Character(), json)
+
             for(let i = 0; i< character.skills.length;i++) {
                 character.skills[i] = Skill.from(character.skills[i])
             }
@@ -129,7 +131,7 @@ class Character {
                 character.traits[k] = Proficiency.from(character.traits[k])
             }
             for(let l = 0; l< character.counters.length;l++) {
-                character.counters[l] = Feature.from(character.counters[l])
+                character.counters[l] = Counter.from(character.counters[l])
             }
             for(let m = 0; m< character.spells.length;m++) {
                 character.spells[m] = Spell.from(character.spells[m])

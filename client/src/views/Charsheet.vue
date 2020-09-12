@@ -19,6 +19,7 @@
             <features :features='character.traits' />
             <proficiencies :character='character' />
             <death :character='character' />
+            <counters :counters='character.counters'/>
         </div>
     </div>
 </template>
@@ -38,6 +39,7 @@ import attacks from '../components/CharacterSheet/Attacks'
 import features from '../components/CharacterSheet/Features'
 import proficiencies from '../components/CharacterSheet/Proficiencies'
 import death from '../components/CharacterSheet/Death'
+import counters from '../components/CharacterSheet/Counters'
 export default {
     components: {
         name,
@@ -51,7 +53,8 @@ export default {
         attacks,
         features,
         proficiencies,
-        death
+        death,
+        counters
     },
     props: ['char','page'],
     data: function() {
@@ -111,6 +114,9 @@ h2{
   }
   .clickable:hover{
     background-color:rgb(240, 240, 240);
+}
+p{
+    margin-bottom:0;
 }
 </style>
 <style scoped>

@@ -2,14 +2,14 @@
     <div class='skills'>
         <h2 class='top'>Skills</h2>
         <div class='skill-card number clickable' @click='skillInfo(number)'  v-for='(skill,number) in character.skills' :key='skill.name'>
-            <h5> {{skill.name}} <i>({{skill.ability.substring(0,3)}})</i></h5>
+            <h5><i v-if='skill.proficiency> 0'>&#10003; </i>  {{skill.name}} <i>({{skill.ability.substring(0,3)}})</i></h5>
             <h3 ><b v-if='skill.value(character.attributes[skill.ability].mod,character.proficiency) > 0'>+</b>
             <b>{{skill.value(character.attributes[skill.ability].mod,character.proficiency)}}</b>
             </h3>
         </div>
         <popup v-show='skillpop' @close='close'>
             <div class='popup long'>
-                <h2>{{character.skills[skillid].name}}</h2>
+                <h3>{{character.skills[skillid].name}}</h3>
                 <h3><b v-if='character.skills[skillid].value(character.attributes[character.skills[skillid].ability].mod,character.proficiency) > 0'>+</b>{{character.skills[skillid].value(character.attributes[character.skills[skillid].ability].mod,character.proficiency)}}</h3>
                 <h5>Proficiency:</h5>
                 Proficient:<input v-model='character.skills[skillid].proficiency' type='checkbox'>
@@ -90,6 +90,9 @@ h2{
 }
 h3{ margin:0}
 h5{
+    margin:0;
+}
+h4{
     margin:0;
 }
 h6{

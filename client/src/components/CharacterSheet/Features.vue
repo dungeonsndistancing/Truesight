@@ -1,14 +1,17 @@
 <template>
     <div class='features'>
         <h2>Features and Traits</h2>
-        <div @click='toggleFeature(feature)' class='feature-info clickable' v-for='(feature,id) in features' :key='feature.id'>
-            <h3>{{feature.name}}</h3>
-            <h5>{{feature.source}}</h5>
-            <div v-if='feature.show' class='feature-details'>
-                <p>{{feature.description}}</p>
-                <button class='feature-button' @click.stop='edit(id)'>edit</button>
+        <div class='scroll'>
+            <div @click='toggleFeature(feature)' class='feature-info clickable' v-for='(feature,id) in features' :key='feature.id'>
+                <h3>{{feature.name}}</h3>
+                <h5>{{feature.source}}</h5>
+                <div v-if='feature.show' class='feature-details'>
+                    <p>{{feature.description}}</p>
+                    <button class='feature-button' @click.stop='edit(id)'>edit</button>
+                </div>
             </div>
         </div>
+        <button @click='addfeature()'>Add Feature/Trait</button>
         <popup @close='close()' v-if='pop'>
             <div class='popup long'>
                 <h2>Edit Feature</h2>
@@ -23,6 +26,7 @@
 
 <script>
 import popup from '../Popups/Popup'
+import Feature from '../../../../shared/classes/feature'
 export default {
     props:['features'],
     components:{
@@ -53,15 +57,21 @@ export default {
         del() {
             this.features.splice(this.featid,1)
             this.close()
-            
+        },
+        addfeature() {
+            this.features.push(new Feature('name','source',''))
+            this.edit(this.features.length-1)
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
+.scroll{
+height:90%;
+overflow-y:scroll;
+}
 .features{
-    overflow-y:scroll;
     grid-column-start:7;
     grid-column-end:9;
     grid-row-start:3;
@@ -69,9 +79,15 @@ export default {
     border:1px solid black;
 }
 .feature-info{
+    min-height:5px;
     position: relative;
     padding:0;
     margin:0;
+}
+textarea{
+    width:90%;
+    height:40%;
+    resize:none;
 }
 .feature-info:nth-child(even){
     background-color:rgb(226, 226, 226);

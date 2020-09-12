@@ -77,6 +77,7 @@ export default {
                     }
                 } else {
                     localStorage.removeItem("token")
+                    this.$router.push('/')
                     return "disconnect"
                 }
             }

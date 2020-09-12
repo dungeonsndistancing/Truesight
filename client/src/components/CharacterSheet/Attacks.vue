@@ -18,8 +18,8 @@
       
       <popup v-if='pop' @close="save()">
           <div class='popup popgrid'>
-              <h5>name:</h5> <input v-model='attacks[attackid].name' type='text'><br>
-              <h5>attack:</h5> <input v-model='attacks[attackid].attack' type='text'><br>
+              <h5>name:</h5> <input v-model='attacks[attackid].name' type='text'>
+              <h5>attack:</h5> <input v-model='attacks[attackid].attack' type='text'>
               <h5>damage:</h5>: <input v-model='attacks[attackid].damage' type='text'><br>
               <button @click='save()'>Close</button><button @click='removeAttack(attackid)'>Delete Attack</button>
           </div>
@@ -66,7 +66,6 @@ export default {
 <style>
 .attack-but{
     position:relative;
-    height:
 }
 .attack-but button{
     position:absolute;
@@ -74,8 +73,8 @@ export default {
 
 }
 .scroll{
-height:70%;
-overflow-y:scroll;
+    height:70%;
+    overflow-y:scroll;
 }
 .attacks{
     grid-column-start:5;
@@ -90,5 +89,8 @@ overflow-y:scroll;
 }
 .attack-row:nth-child(odd) {
     background-color:rgb(226, 226, 226);
+}
+h5{
+    margin:0;
 }
 </style>

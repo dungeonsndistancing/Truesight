@@ -12,7 +12,7 @@
           <div class='popup' >
                 <h2>{{poptitle}}</h2>
               <input v-model='character[item]'>
-              <button @click='save()'>Save</button>
+              <button @click='close()'>Save</button>
           </div>
       </popup>
   </div>
@@ -34,17 +34,13 @@ export default {
         popup
     },
     methods: {
-        save() {
-            
-            //update stats to server
-            close()
-        },
         show(item,title) {
             this.pop = true
             this.item = item
             this.poptitle = title
         },
         close() {
+            //save
             this.pop = false
         }
     }

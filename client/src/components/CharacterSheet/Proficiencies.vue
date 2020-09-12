@@ -4,17 +4,17 @@
       <div class='prof-cont'>
           <div @click='edit(num)' class='prof clickable' v-for='(prof,num) in character.proficiencies' :key='prof.id'>
               <h3>{{prof.name}}</h3>
-              {{prof.description}}
+              <p>{{prof.description}}</p>
           </div>
       </div>
-      <button>Add Proficiency</button>
+      <button @click='newProf()'>Add Proficiency</button>
       <popup v-if='pop' @close='close'>
           <div class='popup long'>
               <h3>Name:</h3>
               <input type='text' v-model = character.proficiencies[profnum].name><br>
               <h3>Content:</h3>
               <textarea v-model='character.proficiencies[profnum].description'></textarea>
-              <button @click='close()'>Save</button><button @click='del()'>Delete Proficiencies</button>
+              <button @click='close()'>Close</button><button @click='del()'>Delete Proficiencies</button>
           </div>
       </popup>
 
@@ -40,47 +40,57 @@ export default {
             this.pop = true
         },
         close() {
+            //update information
             this.pop = false
         },
         del() {
             this.pop = false
             this.character.removeProficiency(this.character.proficiencies[this.profnum])
+        },
+        newProf() {
+            this.character.newProficiency()
+            this.profnum=this.character.traits.length-1
+            this.pop=true
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 .proficiencies{
     grid-column-start:7;
     grid-column-end:9;
     grid-row-start:1;
     grid-row-end:3;
     border:1px solid black;
+    row-gap:0;
+    column-gap:0;
+    margin:0;
+    padding:0;
 }
 .prof{
+    min-height:20px;
     position:relative;
-    margin:0.1em;
+    margin:0em;
     padding: 0 50px 0 0;
 }
 .prof-cont{
     height:70%;
     overflow-y:scroll;
+    margin:0;
 }
 .prof:nth-child(odd) {
     background-color:rgb(226, 226, 226);
-}
-.edit-button{
-    position:absolute;
-    right:0;
-    top:0;
-    bottom:0;
-    margin:auto;
-    height:30px;
 }
 textarea{
     width:90%;
     height:40%;
     resize:none;
+}
+p{
+    margin:0;
+}
+h3{
+    margin:0;
 }
 </style>

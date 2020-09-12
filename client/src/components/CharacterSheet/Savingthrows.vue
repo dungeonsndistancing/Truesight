@@ -6,9 +6,10 @@
             <div  class='save-mod'><h2><b v-if='savingthrow.bonus(character.attributes[saveid].mod,character.proficiency) > 0'>+</b>{{savingthrow.bonus(character.attributes[saveid].mod,character.proficiency)}}</h2></div>
             <h6><i v-if='savingthrow.proficiency == 1'>Proficient</i><i v-else-if='savingthrow.proficiency == 2'>Expert</i ></h6>
         </div>
-        <popup v-show='atpop' @close='close'>
+        <popup v-if='atpop' @close='close'>
             <div class='popup long'>
-                <h2>{{updateid}}</h2>
+                <h3>{{updateid}}</h3>
+                <h3>{{character.savingthrows[updateid].bonus(character.attributes[updateid].mod,character.proficiency)}}</h3>
                 <h5>Proficiency:</h5>
                 Proficient:<input v-model='character.savingthrows[updateid].proficiency' type='checkbox'>
                 <h5>Modifiers:</h5>

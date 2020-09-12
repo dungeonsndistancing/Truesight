@@ -92,6 +92,9 @@ export default {
 }
 </script>
 <style scoped>
+h3{
+    margin:0;
+}
 h2{
     margin:0em;
     font-size:1.2vw;
