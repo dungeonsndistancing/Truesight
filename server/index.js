@@ -30,6 +30,7 @@ app.use('/items',items)
 var server= http.createServer(app)
 websocket.createSocket()
 server.on('upgrade', (request, socket, head) => {
+    console.log("UPGRADING")
     websocket.handleUpgrade(request, socket, head)
 })
 server.listen(port, () => console.log("Listening on port " + port))
