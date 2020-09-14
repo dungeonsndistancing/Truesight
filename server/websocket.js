@@ -51,6 +51,7 @@ module.exports.handleUpgrade = async (request, socket, head) => {
     }
     if(request.headers.origin != process.env.CLIENT_IP) {
         console.log("ERROR UPGRADING ORIGIN")
+        console.log(request.headers.origin + ',' + process.env.CLIENT_IP)
         socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
         socket.destroy()
         return
