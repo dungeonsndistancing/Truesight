@@ -55,9 +55,9 @@ export default {
             this.update()
         },
         removeCounter(id){
-            this.close()
             this.popid=0
             this.counters.splice(id,1)
+            this.close()
             
         },
         edit(id) {
