@@ -50,6 +50,7 @@ module.exports.handleUpgrade = async (request, socket, head) => {
         throw new Error('create a Websocket Server first!')
     }
     if(request.headers.origin != process.env.CLIENT_IP) {
+        console.log("ERROR UPGRADING ORIGIN")
         socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
         socket.destroy()
         return
