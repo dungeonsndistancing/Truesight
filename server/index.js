@@ -1,10 +1,11 @@
 const express = require('express')
 const app = express()
-const path = require('path')
+const http = require('http')
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser");
 const cors = require('cors')
 const dotenv = require('dotenv')
+const websocket = require('./websocket')
 dotenv.config()
 var spells = require('./routes/spells')
 var characters = require('./routes/characters')
@@ -24,4 +25,11 @@ app.use('/spells', spells)
 app.use('/characters',characters)
 app.use('/user',user)
 app.use('/items',items)
-app.listen(port, () => console.log("Listening on port " + port))
+
+
+var server= http.createServer(app)
+websocket.createSocket()
+server.on('upgrade', (request, socket, head) => {
+    websocket.handleUpgrade(request, socket, head)
+})
+server.listen(port, () => console.log("Listening on port " + port))

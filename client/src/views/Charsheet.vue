@@ -7,19 +7,20 @@
             <div class='tab'>Background</div>
         </div>
         <div class='content'>
-            <name :name='character.name'/>
-            <cclass :cclass='character.cclass'/>
-            <general :character='character' />
-            <attributes :attributes='character.attributes'/>
-            <savingthrows :character='character'/>
-            <battle :character='character'/>
-            <money :money='character.money' />
-            <skills :character='character' />
-            <attacks :attacks='character.attacks' />
-            <features :features='character.traits' />
-            <proficiencies :character='character' />
-            <death :character='character' />
-            <counters :counters='character.counters'/>
+            <name @update='update' :name='character.name'/>
+            <cclass @update='update' :cclass='character.cclass'/>
+            <general @update='update' :character='character' />
+            <attributes @update='update' :attributes='character.attributes'/>
+            <savingthrows @update='update' :character='character'/>
+            <battle @update='update' :character='character'/>
+            <money @update='update' :money='character.money' />
+            <skills @update='update' :character='character' />
+            <attacks @update='update' :attacks='character.attacks' />
+            <features @update='update' :features='character.traits' />
+            <proficiencies @update='update' :character='character' />
+            <death @update='update' :character='character' />
+            <counters @update='update' :counters='character.counters'/>
+            <effects @update='update' :effects='character.effects' />
         </div>
     </div>
 </template>
@@ -40,6 +41,8 @@ import features from '../components/CharacterSheet/Features'
 import proficiencies from '../components/CharacterSheet/Proficiencies'
 import death from '../components/CharacterSheet/Death'
 import counters from '../components/CharacterSheet/Counters'
+import effects from '../components/CharacterSheet/Effects'
+import wsservice from '../services/WebsocketService'
 export default {
     components: {
         name,
@@ -54,7 +57,8 @@ export default {
         features,
         proficiencies,
         death,
-        counters
+        counters,
+        effects
     },
     props: ['char','page'],
     data: function() {
@@ -71,12 +75,21 @@ export default {
             }
             this.character = temp;
 
+        },
+        update(data) {
+            wsservice.send('update',data)
+        },
+        start() {
+            wsservice.send('character',this.char)
         }
 
-    },beforeMount() {
-        this.getCharacter(this.char)
-        const size = new TextEncoder().encode(JSON.stringify(this.character)).length
-        console.log(size/1024)
+    },async beforeMount() {
+        await this.getCharacter(this.char)
+        await wsservice.link(this)
+        console.log(wsservice)
+    },beforeDestroy() {
+        console.log('leaving charsheet')
+        wsservice.disconnect()
     }
 }
 </script>

@@ -50,6 +50,7 @@ export default {
             this.skillpop = true
         },
         close() {
+            this.$emit('update',{keys:['skills'],values:[this.character.skills]})
             this.skillpop = false
         }
     }

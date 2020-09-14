@@ -15,7 +15,12 @@
 
 <script>
 export default {
-    props:['cclass']
+    props:['cclass'],
+    methods: {
+        save() {
+            this.$emit('update',{keys:['cclass'],values:[this.cclass]})
+        }
+    }
 }
 </script>
 

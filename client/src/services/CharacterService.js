@@ -4,11 +4,9 @@ export default {
     getCharacters: async function() {
         const url = '/characters/list'
         const result = await authService.authenticateRequest(url,"get",'');
-        console.log(result.data[0])
         if(result.data != 'disconnected') {
             var characters = []
             for(let i = 0; i < result.data.length; i++) {
-                console.log(result.data[i])
                 characters.push(Character.from(result.data[i]));
             }
             return characters

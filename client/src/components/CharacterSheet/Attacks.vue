@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         save() {
-            //save
+            this.$emit('update',{keys:['attacks'],values:[this.attacks]})
             this.pop=false
         },
         edit(id) {

@@ -44,12 +44,15 @@ export default {
     methods: {
         countup(id){
             this.counters[id].increase()
+            this.update()
         },
         countdown(id){
             this.counters[id].decrease()
+            this.update()
         },
         addCounter(){
             this.counters.push(new Counter('name',1,1))
+            this.update()
         },
         removeCounter(id){
             this.close()
@@ -63,6 +66,10 @@ export default {
         },
         close(){
             this.pop=false
+            this.update()
+        },
+        update() {
+            this.$emit('update',{keys:['counters'],values:[this.counters]})
         }
     }
 
@@ -75,7 +82,7 @@ export default {
     grid-column-start: 5;
     grid-column-end:7;
     grid-row-start:3;
-    grid-row-end:9;
+    grid-row-end:7;
     background-color: rgb(228, 228, 228);
     margin:0;
     padding:0;

@@ -40,7 +40,7 @@ export default {
             this.poptitle = title
         },
         close() {
-            //save
+            this.$emit('update',{keys:[this.item],values:[this.character[this.item]]})
             this.pop = false
         }
     }

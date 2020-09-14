@@ -40,16 +40,16 @@ export default {
             this.pop = true
         },
         close() {
-            //update information
+            this.$emit('update',{keys:['proficiencies'],values:[this.character.proficiencies]})
             this.pop = false
         },
         del() {
-            this.pop = false
             this.character.removeProficiency(this.character.proficiencies[this.profnum])
+            this.close()
         },
         newProf() {
             this.character.newProficiency()
-            this.profnum=this.character.traits.length-1
+            this.profnum=this.character.proficiencies.length-1
             this.pop=true
         }
     }

@@ -63,30 +63,38 @@ export default {
         up(id) {
             console.log(this.money[id])
             this.money[id] = parseInt(this.money[id]) + 1
+            this.update()
 
         },
         down(id) {
             console.log(id)
             this.money[id] = parseInt(this.money[id]) - 1
+            this.update()
         },
         add() {
             this.money.add(this.pp,this.gp,this.sp,this.cp)
             this.pp = this.gp = this.sp = this.cp = 0
             this.popuppop = false
+            this.update()
         },
         remove() {
             
             this.money.remove(this.pp,this.gp,this.sp,this.cp)
             this.pp = this.gp = this.sp = this.cp = 0
             this.removepop = false
+            this.update()
         },
         shift() {
             this.money.shift()
             this.shiftpop=false
+            this.update()
         },
         cancel() {
             this.shiftpop = this.removepop = this.popuppop = false
             this.pp = this.gp = this.sp = this.cp = 0
+        },
+        update() {
+            this.$emit('update',{keys:['money'],values:[this.money]})
         }
     }
 }

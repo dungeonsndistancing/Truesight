@@ -52,6 +52,10 @@ export default {
             console.log('huh')
             this.updateid='strength'
             this.atpop=false
+            this.send()
+        },
+        send(){
+            this.$emit('update',{keys:['attributes'],values:[this.attributes]})
         }
     }
 }

@@ -51,7 +51,7 @@ export default {
         },
         close(){
             //save the updates
-
+            this.$emit('update',{keys:['traits'],values:[this.features]})
             this.pop=false
         },
         del() {

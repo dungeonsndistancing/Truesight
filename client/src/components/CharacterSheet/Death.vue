@@ -23,9 +23,14 @@
 <script>
 export default {
     props:['character'],
+    data:function() {
+        return {
+
+        }
+    },
     methods: {
         update() {
-            //send update
+            this.$emit('update',{keys:['saves','cclass'],values:[this.character.saves,this.character.cclass]})
         },
         plusdice() {
             if(this.character.cclass.hitdice.current < this.character.cclass.level) {

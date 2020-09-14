@@ -44,6 +44,7 @@ export default {
     },
     methods: {
         close(){
+            this.$emit('update',{keys:['savingthrows'],values:[this.character.savingthrows]})
             this.atpop=false
         },
         open(id) {
