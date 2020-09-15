@@ -20,13 +20,11 @@ async function prepareSocket() {
     }
     socket.onopen = () => {
         frontview.start()
-        console.log('opened socket')
     }
 }
 
 module.exports.send = (type,data) => {
     if(socket.readyState == WebSocket.OPEN) {
-        console.log('sending message!')
         socket.send(JSON.stringify({type:type,data:data}))
     } else {
         console.log('socket not open')

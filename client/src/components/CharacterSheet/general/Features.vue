@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import popup from '../Popups/Popup'
-import Feature from '../../../../shared/classes/feature'
+import popup from '../../Popups/Popup'
+import Feature from '../../../../../shared/classes/feature'
 export default {
     props:['features'],
     components:{

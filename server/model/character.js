@@ -1,26 +1,5 @@
 const mongoose = require('mongoose')
 
-const skills = {
-    ACROBATICS: 'acrobatics',
-    ANIMAL_HANDLING: 'animal handling',
-    ARCANA: 'arcana',
-    ATHLETICS: 'athletics',
-    DECEPTION: 'deception',
-    HISTORY: 'history',
-    INSIGHT: 'insight',
-    INTIMIDATION: 'intimidation',
-    INVESTIGATION: 'investigation',
-    MEDICINE: 'medicine',
-    NATURE: 'nature',
-    PERCEPTION: 'perception',
-    PERFORMANCE: 'performance',
-    PERSUASION: 'persuasion',
-    RELIGION: 'religion',
-    SLEIGHT_OF_HAND: 'sleight of hand',
-    STEALTH: 'stealth',
-    SURVIVAL: 'survival'
-}
-
 const characterSchema = mongoose.Schema({
     name: {
         type: String,
@@ -261,25 +240,43 @@ const characterSchema = mongoose.Schema({
     inventory:{
         backpack : [
             {
+                class:String,
                 name:String,
                 description:String,
                 weight:Number,
-                type:String,
+                cost:String,
+                type:{type:String},
+                icon:String,
+                color:String,
+                rarity:String,
+                attunement:String,
+                ac:String,
+                strength:Number,
+                damage:String,
+                properties:String,
+                stealth:String,
                 count:Number,
-                equipped:Boolean,
-                battle_ready:Boolean,
                 attuned:Boolean
             }
         ],
         equipped : [
             {
+                class:String,
                 name:String,
                 description:String,
                 weight:Number,
-                type:String,
+                cost:String,
+                type:{type:String},
+                icon:String,
+                color:String,
+                rarity:String,
+                attunement:String,
+                ac:String,
+                strength:Number,
+                damage:String,
+                properties:String,
+                stealth:String,
                 count:Number,
-                equipped:Boolean,
-                battle_ready:Boolean,
                 attuned:Boolean
             }
         ]
@@ -306,6 +303,7 @@ characterSchema.statics.findByUser = async (userid) => {
 
 characterSchema.statics.findSingleById = async (id) => {
     const char = await Character.findOne({_id:id})
+    console.log('found char')
     return char
 }
 

@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import popup from '../Popups/Popup'
-import Counter from '../../../../shared/classes/counter'
+import popup from '../../Popups/Popup'
+import Counter from '../../../../../shared/classes/counter'
 export default {
     props:['counters'],
     data: function() {

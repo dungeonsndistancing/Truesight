@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import Attack from '../../../../shared/classes/attack'
-import popup from '../Popups/Popup'
+import Attack from '../../../../../shared/classes/attack'
+import popup from '../../Popups/Popup'
 export default {
     props:['attacks'],
     components: {

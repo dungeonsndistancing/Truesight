@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import popup from '../Popups/Popup'
+import popup from '../../Popups/Popup'
 export default {
     props:['character'],
     components: {

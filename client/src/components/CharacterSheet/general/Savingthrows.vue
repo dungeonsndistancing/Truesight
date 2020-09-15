@@ -6,7 +6,7 @@
             <div  class='save-mod'><h2><b v-if='savingthrow.bonus(character.attributes[saveid].mod,character.proficiency) > 0'>+</b>{{savingthrow.bonus(character.attributes[saveid].mod,character.proficiency)}}</h2></div>
             <h6><i v-if='savingthrow.proficiency == 1'>Proficient</i><i v-else-if='savingthrow.proficiency == 2'>Expert</i ></h6>
         </div>
-        <popup v-if='atpop' @close='close'>
+        <popup v-show='atpop' @close='close'>
             <div class='popup long'>
                 <h3>{{updateid}}</h3>
                 <h3>{{character.savingthrows[updateid].bonus(character.attributes[updateid].mod,character.proficiency)}}</h3>
@@ -30,9 +30,11 @@
 </template>
 
 <script>
-import popup from '../Popups/Popup'
+import popup from '../../Popups/Popup'
 export default {
-    props:['character'],
+    props:{
+        character: Object
+    },
     components:{
         popup
     },
@@ -51,6 +53,7 @@ export default {
             this.updateid=id
             this.atpop=true
         }
+    }, created() {
     }
 
 }

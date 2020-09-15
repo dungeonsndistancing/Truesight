@@ -73,11 +73,13 @@ export default {
                     } catch(err) {
                         localStorage.removeItem("token")
                         localStorage.removeItem("longtoken")
+                        window.location.href = 'http://' + new URL(window.location.href).hostname + ":" + new URL(window.location.href).port
                         return "disconnect"
                     }
                 } else {
                     localStorage.removeItem("token")
-                    this.$router.push('/')
+                    console.log('NO LONGER CONNECTED')
+                    window.location.href = 'http://' + new URL(window.location.href).hostname + ":" + new URL(window.location.href).port
                     return "disconnect"
                 }
             }

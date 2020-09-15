@@ -63,4 +63,8 @@ export default {
     height:35vh;
     top:calc(50% - 15vh);
 }
+.superlong{
+    height:50vh;
+    top:calc(50% - 25vh)
+}
 </style>

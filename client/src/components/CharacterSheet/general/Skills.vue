@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import popup from '../Popups/Popup'
+import popup from '../../Popups/Popup'
 export default {
     props:['character'],
     data:function(){
@@ -92,7 +92,7 @@ h2{
 }
 h3{ margin:0}
 h5{
-
+    font-size:1.1vw;
     margin:0;
 }
 h4{

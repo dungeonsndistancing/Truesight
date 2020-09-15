@@ -1,4 +1,5 @@
 const Item = require('./item')
+const itemparser = require('../itemparser')
 class Inventory {
     constructor() {
         this.backpack = []
@@ -31,7 +32,15 @@ class Inventory {
     }
 
     static from(json){
-        return Object.assign(new Inventory(),json)
+        console.log(json)
+        var x =  Object.assign(new Inventory(),json)
+        for(let i = 0; i < x.equipped.length;i++) {
+            x.equipped[i] = itemparser.parse(x.equipped[i])
+        }
+        for(let i = 0; i <x.backpack.length;i++) {
+            x.backpack[i] = itemparser.parse(x.backpack[i])
+        }
+        return x
     }
 }
 module.exports = Inventory

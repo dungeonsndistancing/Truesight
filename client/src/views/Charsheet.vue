@@ -1,69 +1,32 @@
 <template>
     <div id="container">
         <div class='tabcontainer'>
-            <div class='tab selected'>General</div>
-            <div class='tab'>Inventory</div>
-            <div class='tab'>Spells</div>
-            <div class='tab'>Background</div>
+            <div class='tab' @click='load("general")' v-bind:class='{selected:page=="general"}'>General</div>
+            <div class='tab' @click='load("inventory")' v-bind:class='{selected:page=="inventory"}'>Inventory</div>
+            <div class='tab' @click='load("spells")' v-bind:class='{selected:page=="spells"}'>Spells</div>
+            <div class='tab' @click='load("background")' v-bind:class='{selected:page=="background"}'>Background</div>
         </div>
-        <div class='content'>
-            <name @update='update' :name='character.name'/>
-            <cclass @update='update' :cclass='character.cclass'/>
-            <general @update='update' :character='character' />
-            <attributes @update='update' :attributes='character.attributes'/>
-            <savingthrows @update='update' :character='character'/>
-            <battle @update='update' :character='character'/>
-            <money @update='update' :money='character.money' />
-            <skills @update='update' :character='character' />
-            <attacks @update='update' :attacks='character.attacks' />
-            <features @update='update' :features='character.traits' />
-            <proficiencies @update='update' :character='character' />
-            <death @update='update' :character='character' />
-            <counters @update='update' :counters='character.counters'/>
-            <effects @update='update' :effects='character.effects' />
-        </div>
+        <general v-if='page=="general"' class='content' @update='update' :character='character' />
+        <inventory v-if='page=="inventory"' class='content' @update='update' :inventory='character.inventory' />
     </div>
 </template>
 
 <script>
 import Character from '../../../shared/classes/character'
 import characterService from '../services/CharacterService'
-import name from '../components/CharacterSheet/Name'
-import general from '../components/CharacterSheet/General'
-import attributes from '../components/CharacterSheet/Attributes'
-import savingthrows from '../components/CharacterSheet/Savingthrows'
-import cclass from '../components/CharacterSheet/Cclass'
-import battle from '../components/CharacterSheet/Battlestats'
-import money from '../components/CharacterSheet/Money'
-import skills from '../components/CharacterSheet/Skills'
-import attacks from '../components/CharacterSheet/Attacks'
-import features from '../components/CharacterSheet/Features'
-import proficiencies from '../components/CharacterSheet/Proficiencies'
-import death from '../components/CharacterSheet/Death'
-import counters from '../components/CharacterSheet/Counters'
-import effects from '../components/CharacterSheet/Effects'
+import general from '../views/CharacterSheet/General'
+import inventory from '../views/CharacterSheet/Inventory'
 import wsservice from '../services/WebsocketService'
 export default {
     components: {
-        name,
         general,
-        attributes,
-        savingthrows,
-        cclass,
-        battle,
-        money,
-        skills,
-        attacks,
-        features,
-        proficiencies,
-        death,
-        counters,
-        effects
+        inventory
     },
     props: ['char','page'],
     data: function() {
         return {
             character: new Character()
+
             }
             
     },
@@ -81,12 +44,14 @@ export default {
         },
         start() {
             wsservice.send('character',this.char)
+        },
+        load(pg) {
+            this.$router.push('/charsheet/' +this.char +'/' + pg)
         }
 
     },async beforeMount() {
         await this.getCharacter(this.char)
         await wsservice.link(this)
-        console.log(wsservice)
     },beforeDestroy() {
         console.log('leaving charsheet')
         wsservice.disconnect()
@@ -140,6 +105,7 @@ p{
 
 .container{
     height:100%;
+    overflow:hidden;
 }
 .tabcontainer{
     height:5vh;
@@ -171,7 +137,8 @@ p{
     background-color: rgb(245, 245, 245);
 }
 .content{
-    padding:10px;
+    overflow:hidden;
+    padding:9px;
     display:grid;
     grid-template-columns: repeat(8,1fr); 
     grid-template-rows: repeat(8,1fr);

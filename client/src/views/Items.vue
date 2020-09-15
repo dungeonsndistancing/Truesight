@@ -47,13 +47,8 @@
 </template>
 
 <script>
-import Item from '../../../shared/classes/items/item'
-import Weapon from '../../../shared/classes/items/weapon'
-import Armor from '../../../shared/classes/items/armor'
-import MagicItem from '../../../shared/classes/items/magicitem'
-import MagicWeapon from '../../../shared/classes/items/magicweapon'
-import MagicArmor from '../../../shared/classes/items/magicarmor'
 import itemService from '../services/ItemService'
+import itemparser from '../../../shared/classes/itemparser'
 export default {
   data: function () {
       return {
@@ -71,31 +66,8 @@ export default {
       var temp = await itemService.getItems(this.querytext,this.curpage,this.editable)
       for(var i = 0; i < temp.length; i++) {
         var x = temp[i]
-        var item
-        console.log(x)
-        switch(x.class) {
-          case "item":
-            item = Item.from(temp[i])
-            break;
-          case 'armor':
-            item = Armor.from(temp[i])
-            break;
-          case 'weapon':
-            item = Weapon.from(temp[i])
-            break;
-          case 'magicitem':
-            item = MagicItem.from(temp[i])
-            break;
-          case 'magicarmor':
-            item = MagicArmor.from(temp[i])
-            break;
-          case 'magicweapon':
-            item = MagicWeapon.from(temp[i])
-            break;
-          default:
-            item = Item.from(temp[i])
-            break;
-        }
+        let item = itemparser.parse(x)
+
         this.items.push(item)
       }
     

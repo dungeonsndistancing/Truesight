@@ -22,7 +22,9 @@ module.exports.createSocket = () => {
                 console.log(msg)
                 switch(msg.type) {
                     case "character":
+                        console.log('found character websocket')
                         con.character = await Character.findById(msg.data)
+                        console.log(con.character.inventory)
                         break;
                     case "update":
                         for(var i = 0; i < msg.data.keys.length; i++) {
@@ -39,9 +41,15 @@ module.exports.createSocket = () => {
             }
         })
 
-        con.on('close',function closing(code) {
+        con.on('close',async function closing(code) {
             console.log("close!")
-            con.character.save()
+            console.log('saving character')
+            console.log(con.character)
+             try{
+                 await con.character.save()
+             } catch(err) {
+                console.log('error saving character')
+             }
         })
     })
 }
@@ -79,12 +87,16 @@ async function authenticate(request) {
     if(!token) {
         return false
     }
-    const decoded = await jwt.verify(token,process.env.SECRET)
-    const secondsSinceEpoch = Math.round(Date.now() / 1000)  
-    if(secondsSinceEpoch - decoded.iat >= process.env.TOKEN_TIMEOUT) {
-        await User.removeToken(decoded.email, req.headers.token)
-        return false;
+    try{
+        const decoded = await jwt.verify(token,process.env.SECRET)
+        const secondsSinceEpoch = Math.round(Date.now() / 1000)  
+        if(secondsSinceEpoch - decoded.iat >= process.env.TOKEN_TIMEOUT) {
+            await User.removeToken(decoded.email, req.headers.token)
+            return false;
+        }
+        return true
+    } catch(err) {
+        return false
     }
-    return true
 
 }

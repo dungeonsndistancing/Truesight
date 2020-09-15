@@ -10,7 +10,9 @@ router.get('/list',async (req,res) => {
 })
 
 router.get('/single',async (req,res) => {
+    console.log('finding character')
     const result = await Character.findSingleById(req.query.id)
+    
     if(result.user != req.userData._id) {
         res.status(403).json({error:'Forbidden!'})
     }
