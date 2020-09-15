@@ -1,6 +1,6 @@
 <template>
   <div class='savingthrows'>
-        <div class='save-title'><h3>Saving Throws</h3></div>
+        <div class='save-title'><h3>Savingthrows</h3></div>
         <div class='save clickable' @click='open(saveid)' v-for='(savingthrow,saveid) in character.savingthrows' :key='saveid'>
             <h5>{{saveid}}</h5>
             <div  class='save-mod'><h2><b v-if='savingthrow.bonus(character.attributes[saveid].mod,character.proficiency) > 0'>+</b>{{savingthrow.bonus(character.attributes[saveid].mod,character.proficiency)}}</h2></div>

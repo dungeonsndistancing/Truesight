@@ -69,6 +69,7 @@ export default {
     grid-template-columns: 1fr 1fr;
     grid-template-rows:0.3fr repeat(9,1fr);
     grid-gap:5px;
+    overflow-y:scroll;
 }
 .scrollcontainer{
     border-style:solid none solid none;
@@ -91,6 +92,7 @@ h2{
 }
 h3{ margin:0}
 h5{
+
     margin:0;
 }
 h4{

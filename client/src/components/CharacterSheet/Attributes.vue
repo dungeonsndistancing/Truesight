@@ -109,16 +109,11 @@ export default {
     grid-column-start:1;
     grid-column-end:3;
 }
-h3{
-    margin:0;
-}
+
 h5{
     margin-top:0.1em;
 
 }
-h2{
-    padding:0;
-    margin:0;
-}
+
 
 </style>

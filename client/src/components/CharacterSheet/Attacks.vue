@@ -76,6 +76,9 @@ export default {
     height:70%;
     overflow-y:scroll;
 }
+.attack{
+    font-size:1vw;
+}
 .attacks{
     grid-column-start:5;
     grid-column-end:7;

@@ -9,7 +9,7 @@
       <div class='stat clickable' @click='show("temporaryhp","Temporary Health")'><h5>Temporary Health</h5><h2 >{{character.temporaryhp}}</h2></div>
       <div class='stat'><h5>Passive Perception</h5><h2>{{character.passivePerception}}</h2></div>
       <popup v-show='pop' @close='close'>
-          <div class='popup' >
+          <div class='popup short' >
                 <h2>{{poptitle}}</h2>
               <input v-model='character[item]'>
               <button @click='close()'>Save</button>
@@ -69,7 +69,7 @@ h5{
     margin-top:0.2em;
 }
 h2{
-    font-size:1.8vw;
+    font-size:1.2vw;
     margin:0.2em;
 }
 input::-webkit-outer-spin-button,

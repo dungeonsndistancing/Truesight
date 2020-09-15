@@ -114,6 +114,10 @@ h2{
     font-size:1.8vw;
     margin:0em;
 }
+h3{
+    font-size:1.3vw;
+    margin:0;
+}
 ::-webkit-scrollbar {
     /* //Width of vertical scroll bar */
     width: 8px;
@@ -138,7 +142,7 @@ p{
     height:100%;
 }
 .tabcontainer{
-    height:calc(3em);
+    height:5vh;
     display:grid;
     grid-template-columns:repeat(5,20%);
     width:100%;
@@ -151,9 +155,10 @@ p{
     border-radius: 2em 2em 0% 0%;
     border-style: solid solid none solid;
     border-width: 1px;
-    height:3em;
+    font-size:1vw;
+    height:5vh;
     padding:0;
-    margin: 0 3% 0 3%;
+    margin: 0 1% 0 1%;
     line-height: 3em;
     z-index:0;
     position:relative;
@@ -173,7 +178,8 @@ p{
     row-gap: 10px;
     column-gap:10px;
     width:calc(100% - 20px);
-    height:calc(100vh - 80px - 3em);
+    height:calc(100vh - 80px - 5vh);
+    font-size:1vw;
 }
 .selected{
     border-bottom-style: none;

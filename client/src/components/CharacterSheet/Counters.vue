@@ -101,6 +101,7 @@ export default {
     align-content: center;
     align-items: center;
     height:75px;
+    min-height:8vh;
     border:1px solid black;
     background-color:white;
 }

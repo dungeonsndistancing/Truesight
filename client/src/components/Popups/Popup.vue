@@ -51,13 +51,16 @@ export default {
     position:absolute;
     top:calc(50% - 90px);
     left:calc(50% - 150px);
-    width:300px;
-    height:150px;
+    width:20vw;
+    height:20vh;
     background-color:white;
-    font-size:10pt;
+    font-size:1vw;
+}
+.short{
+    height:12vh;
 }
 .long{
-    height:300px;
-    top:calc(50% - 165px);
+    height:35vh;
+    top:calc(50% - 15vh);
 }
 </style>
