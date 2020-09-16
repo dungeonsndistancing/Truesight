@@ -16,7 +16,7 @@ class MagicArmor extends MagicItem {
     }
 
     equals(item) {
-        return item.constructor.name == "MagicArmor" &&
+        return item.class == "magicarmor" &&
         super.equals(item) && item.ac == this.ac &&
         item.strength == this.strength && item.stealth == this.stealth
     }

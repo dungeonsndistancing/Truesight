@@ -14,8 +14,7 @@ class Item{
     }
 
     equals(item) {
-        return item.constructor.name == "Item" &&
-        this.name == item.name && this.type == item.type &&
+        return this.name == item.name && this.type == item.type &&
         this.cost == item.cost && this.weight == item.weight &&
         this.description == item.description
     } 

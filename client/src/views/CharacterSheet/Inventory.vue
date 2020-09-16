@@ -1,20 +1,26 @@
 <template>
     <div class='inventory'>
-        <backpack @update='update' :backpack='inventory.backpack' />
-        <equipped @update='update' :equipped='inventory.equipped' />
+        <backpack @update='update' :inventory='inventory' />
+        <equipped @update='update' :inventory='inventory' />
+        <weight :inventory='inventory'/>
+        <attuned :inventory='inventory' />
     </div>
 </template>
 
 <script>
 import backpack from '../../components/CharacterSheet/inventory/Backpack'
 import equipped from '../../components/CharacterSheet/inventory/Equipped'
+import weight from '../../components/CharacterSheet/inventory/Weight'
+import attuned from '../../components/CharacterSheet/inventory/Attuned'
 export default {
     props:{
         inventory:Object,
     },
     components:{
         backpack,
-        equipped
+        equipped,
+        weight,
+        attuned
     },
     methods: {
         update(data) {

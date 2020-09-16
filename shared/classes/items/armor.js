@@ -16,7 +16,7 @@ class Armor extends Item {
     }
 
     equals(item) {
-        return item.constructor.name == "Armor" &&
+        return item.class == "armor" &&
         super.equals(item) && item.ac == this.ac &&
         item.strength == this.strength && item.stealth == this.stealth
     }

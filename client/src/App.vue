@@ -41,6 +41,7 @@ html, body {
     border-color:rgb(170, 170, 170);
     padding:0.1em 0.3em 0.1em 0.3em;
     display: inline-block;
+    font-size:1vw;
 }
 .small {
     width: 2.5em;
