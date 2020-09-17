@@ -209,9 +209,18 @@ const characterSchema = mongoose.Schema({
     temporaryhp:Number,
     spells: [
         {
-            spell: {
-                type: mongoose.Schema.Types.ObjectId, ref: 'Spells'
-            }
+            name:String,
+            level:Number,
+            castingtime:String,
+            duration:String,
+            distance:String,
+            attack:String,
+            school:String,
+            effect:String,
+            components:String,
+            description:String,
+            concentration:Boolean,
+            prepared:Boolean
         }
     ],
     spellsave:Number,

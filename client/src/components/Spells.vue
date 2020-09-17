@@ -1,7 +1,5 @@
 <template>
-    <div class="spells">
 
-    </div>
 </template>
 
 

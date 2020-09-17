@@ -13,10 +13,7 @@ class Inventory {
         }
     }
     remove(item){
-        console.log('removing')
-        console.log(item)
         var x = this.backpack.findIndex(o => o.equals(item))
-        console.log(x + "huh")
         if(x >= 0){
             return this.backpack.splice(x, 1)[0]
         } else {
@@ -24,7 +21,6 @@ class Inventory {
         }
     }
     equip(item) {
-        console.log("equipped!")
         var it = this.remove(item)
         if(typeof it !== 'undefined') {
             this.equipped.push(item)
@@ -63,7 +59,6 @@ class Inventory {
     }
 
     static from(json){
-        console.log(json)
         var x =  Object.assign(new Inventory(),json)
         for(let i = 0; i < x.equipped.length;i++) {
             x.equipped[i] = itemparser.parse(x.equipped[i])

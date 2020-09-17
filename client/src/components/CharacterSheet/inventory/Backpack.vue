@@ -25,9 +25,7 @@
                             </div>
                     </div>
                 </div>
-            </div>
-            <div class='item-row' style='background-color:gray;color:white'><div style='text-align:left'>Total Weight</div><div></div><div style='text-align:right'>{{inventory.weight}} lbs</div></div>
-            
+            </div>            
             <div class='buttonclass'>
                 <button @click='createItem()'>Create new item</button>
                 <div class='itemcreator' v-if='pop'>
@@ -253,7 +251,7 @@ export default {
     text-align: center;
     display:grid;
     grid-template-columns: 6fr 2fr 2fr;
-    line-height:2vh;
+    line-height:2.2vh;
     padding:0 1vw;
 
 }

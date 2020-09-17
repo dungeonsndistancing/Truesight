@@ -13,7 +13,6 @@ router.get('/count', async (req,res) => {
 })
 
 router.get('/query',auth,async (req,res) => {
-    console.log(req.query)
     res.status(200).json(await Item.findByName(req.query.searchterms,req.query.page,req.query.editable,req.userData._id))
 })
 
@@ -23,13 +22,14 @@ router.get('/get',async (req,res) => {
 router.put('/update',auth,async (req,res) => {
     try{
         var item = await Item.findById(req.body.item._id)
-        if(item.user == req.body.item.user){
+        if(item.user == req.userData._id){
             await Item.findByIdAndUpdate(req.body.item._id,req.body.item)
             res.status(201).send("success")
         } else {
-            throw new Error("not allowed")
+            res.status(403).send()
         }
     } catch(err) {
+        console.log(err)
         res.status(400).send("something went wrong")
     }
 })

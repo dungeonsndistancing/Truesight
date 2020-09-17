@@ -84,7 +84,7 @@ class Character {
             this.temporaryhp = 0
             this.spellsave = 0
             this.spellattack = 0
-            this.spells = []
+            this.spellbook = []
             this.effects = []
             this.backgroundinfo = new BackgroundInfo()
             this.inventory = new Inventory()

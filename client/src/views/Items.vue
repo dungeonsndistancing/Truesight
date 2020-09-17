@@ -14,7 +14,7 @@
       </div>
 
       <div class='item-container'>
-        <div class='item-card' v-for='item in items' :key='item._id' @click="show(item)">
+        <div class='item-card' v-for='item in items' :class='{extended:item.show}' :key='item._id' @click="show(item)">
           <div class="card-org">
             <div class="icon" :style="{backgroundColor:item.color}"><img :src='require(`../assets/icons/${item.icon}`)'></div>
             <div class="item-button"><div @click='load(`/edititem/${item._id}`)' v-if='editable'>edit</div></div>
@@ -222,7 +222,7 @@ input[type=text]{
 }
 .item-card{
   background-color: white;
-  min-height:3.5em;
+  max-height:3.5em;
   padding:0.2em;
   margin:5px;
   width:96%;
@@ -231,10 +231,16 @@ input[type=text]{
   border-radius:0.7em;
   border-width:0.09em;
 }
+.extended {
+  max-height:fit-content;
+}
 .item-card:hover{
   -webkit-box-shadow: 2px 3px 10px -5px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px 3px 10px -5px rgba(0,0,0,0.75);
   box-shadow: 2px 3px 10px -5px rgba(0,0,0,0.75);
+}
+.card-org{
+  max-height:3.5em;
 }
 .selected{
   background-color: rgb(216, 216, 216);

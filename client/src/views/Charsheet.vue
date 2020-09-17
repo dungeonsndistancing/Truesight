@@ -3,11 +3,12 @@
         <div class='tabcontainer'>
             <div class='tab' @click='load("general")' v-bind:class='{selected:page=="general"}'>General</div>
             <div class='tab' @click='load("inventory")' v-bind:class='{selected:page=="inventory"}'>Inventory</div>
-            <div class='tab' @click='load("spells")' v-bind:class='{selected:page=="spells"}'>Spells</div>
+            <div class='tab' @click='load("spells")' v-bind:class='{selected:page=="spells"}'>Spells & Abilities</div>
             <div class='tab' @click='load("background")' v-bind:class='{selected:page=="background"}'>Background</div>
         </div>
         <general v-if='page=="general"' class='content' @update='update' :character='character' />
         <inventory v-if='page=="inventory"' class='content' @update='update' :inventory='character.inventory' />
+        <spells v-if='page=="spells"' class='content' @update='update' :spells='character.spells' />
     </div>
 </template>
 
@@ -16,11 +17,13 @@ import Character from '../../../shared/classes/character'
 import characterService from '../services/CharacterService'
 import general from '../views/CharacterSheet/General'
 import inventory from '../views/CharacterSheet/Inventory'
+import spells from '../views/CharacterSheet/Spells'
 import wsservice from '../services/WebsocketService'
 export default {
     components: {
         general,
-        inventory
+        inventory,
+        spells
     },
     props: ['char','page'],
     data: function() {
@@ -145,7 +148,7 @@ p{
     row-gap: 10px;
     column-gap:10px;
     width:calc(100% - 20px);
-    height:calc(100vh - 80px - 5vh);
+    height:calc(100vh - 7.9vh - 5vh);
     font-size:1vw;
 }
 .selected{

@@ -146,7 +146,7 @@ export default {
     text-align: center;
     display:grid;
     grid-template-columns: 6fr 2fr 2fr;
-    line-height:2vh;
+    line-height:2.2vh;
     padding:0 1vw;
 
 }

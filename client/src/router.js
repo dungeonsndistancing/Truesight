@@ -64,6 +64,18 @@ const routes = [
         meta: {requiresAuth:true}
     },
     {
+        path: '/newspell',
+        name: 'test',
+        component: () => import('./views/SpellCreator.vue'),
+        meta:{requiresAuth:true}
+    },
+    {
+        path:'/editspell/:spell',
+        name:' spelleditor',
+        props:true,
+        component: () => import('./views/SpellEditor.vue')
+    },
+    {
         path: '/spells',
         name: 'spells',
         component: () => import('./views/Spells.vue'),
