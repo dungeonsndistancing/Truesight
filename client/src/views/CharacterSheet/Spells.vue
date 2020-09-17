@@ -8,7 +8,7 @@
 import known from '../../components/Spells/Known'
 export default {
     props: {
-        spells:Object
+        spells:Array
     },
     components: {
         known
