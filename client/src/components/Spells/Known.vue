@@ -41,6 +41,7 @@ export default {
             this.spells.push(this.editspell)
             this.editspell = new Spell('',1,'','','','','','','','',true)
             this.show = false
+            this.update()
         },
         update() {
             this.$emit('update',{keys:['spells'],values:[this.spells]})
