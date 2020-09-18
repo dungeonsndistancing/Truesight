@@ -41,18 +41,18 @@ export default {
     padding-bottom:0px;
     width:100%;
     height:50px;
-    max-height:9vh;
+    max-height:6vh;
     margin-bottom:0px;
     background-color: #214478;
     clear:both;
     min-height:5vh;
 }
 #navbarlogo {
-    margin-top:0.25%;
+    margin-top:0.0vh;
     margin-left:1%;
     float:left;
     height:80%;
-    max-height:8vh;
+    max-height:4vh;
     min-height:4vh;
 }
 

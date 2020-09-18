@@ -87,6 +87,12 @@ export default {
     margin:0;
     padding:0;
 }
+.spellcounters{
+    grid-column-start: 7;
+    grid-column-end:9;
+    grid-row-start:2;
+    grid-row-end:6;
+}
 .scrolldiv{
     display:grid;
     max-height:90%;

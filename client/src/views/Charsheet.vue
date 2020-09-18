@@ -8,7 +8,7 @@
         </div>
         <general v-if='page=="general"' class='content' @update='update' :character='character' />
         <inventory v-if='page=="inventory"' class='content' @update='update' :inventory='character.inventory' />
-        <spells v-if='page=="spells"' class='content' @update='update' :spells='character.spells' />
+        <spells v-if='page=="spells"' class='content' @update='update' :character='character' />
     </div>
 </template>
 
@@ -127,7 +127,7 @@ p{
     font-size:1vw;
     height:5vh;
     padding:0;
-    margin: 0 1% 0 1%;
+    margin: 0  0;
     line-height: 3em;
     z-index:0;
     position:relative;
@@ -148,7 +148,7 @@ p{
     row-gap: 10px;
     column-gap:10px;
     width:calc(100% - 20px);
-    height:calc(100vh - 7.9vh - 5vh);
+    height:calc(100vh - 9vh - 5vh);
     font-size:1vw;
 }
 .selected{
