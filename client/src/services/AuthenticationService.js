@@ -48,16 +48,12 @@ export default {
             const headers = {headers:{'token':token}}
             switch(type) {
                 case "get":
-                    console.log("getting")
                     return await axios.get(url, headers)
                 case "post":
-                    console.log('posting')
                     return await axios.post(url,body,headers)
                 case "put":
-                    console.log("putting")
                     return await axios.put(url,body,headers)
                 case "delete":
-                    console.log("deleting")
                     return await axios.delete(url,headers)
                 default:
                     throw new Error("NOT IMPLEMENTED")

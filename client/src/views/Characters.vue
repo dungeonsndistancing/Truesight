@@ -5,8 +5,7 @@
                 <div class="cardheader"><h1>{{ character.name }}</h1></div>
                 <div class="details">
                     <p>class: {{character.cclass.name}}</p>
-                    <p>level: {{character.level}}</p>
-                    <p>{{character.attributes.strength.mod}}</p>
+                    <p>level: {{character.cclass.level}}</p>
                 </div>
             </div>
             <div class="charactercard" @click="makeCharacter">Make a new Character</div>

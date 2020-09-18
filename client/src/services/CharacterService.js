@@ -5,11 +5,7 @@ export default {
         const url = '/characters/list'
         const result = await authService.authenticateRequest(url,"get",'');
         if(result.data != 'disconnected') {
-            var characters = []
-            for(let i = 0; i < result.data.length; i++) {
-                characters.push(Character.from(result.data[i]));
-            }
-            return characters
+            return result.data
             
         }
         
@@ -21,6 +17,14 @@ export default {
         try{
             const result = await authService.authenticateRequest(url,"get",'')
             return Character.from(result.data)
+        } catch(err) {
+            return err.response.status
+        }
+    },
+    updateCharacter: async function(character) {
+        let url = '/characters/update'
+        try{
+            await authService.authenticateRequest(url,'put',{character:character})
         } catch(err) {
             return err.response.status
         }

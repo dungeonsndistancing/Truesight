@@ -14,6 +14,7 @@ var items = require('./routes/items')
 mongoose.set("useCreateIndex", true)
 mongoose.set("useUnifiedTopology", true)
 mongoose.set("useNewUrlParser", true)
+mongoose.set('useFindAndModify',false)
 mongoose.connect(process.env.DATABASE_URL).then(() => {
     console.log("Connected to database")
 })

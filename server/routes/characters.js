@@ -5,7 +5,15 @@ const Character = require('../model/character')
 router.use(auth)
 
 router.get('/list',async (req,res) => {
-    const result = await Character.findByUser(req.userData._id)
+    var result = await Character.findByUser(req.userData._id)
+    for(let i = 0; i < result.length; i++) {
+        result[i] = {
+            _id:result[i]._id,
+            name:result[i].name,
+            cclass:{name:result[i].cclass.name,
+                    level:result[i].cclass.level}
+        }
+    }
     res.status(200).json(result)
 })
 
@@ -18,7 +26,15 @@ router.get('/single',async (req,res) => {
     }
     res.status(200).json(result)
 })
-
+router.put('/update', async (req,res) => {
+    console.log('HI!')
+    const char = req.body.character
+    var oldchar = await Character.findById(char._id)
+    if(oldchar.user == req.userData._id) {
+        await Character.findByIdAndUpdate(char._id,char)
+        res.status(201).json('success')
+    }
+})
 router.post('/create', async (req, res) => {
     const char = req.body.character
     console.log(req.body.character.skills)

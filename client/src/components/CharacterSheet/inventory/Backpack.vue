@@ -4,11 +4,11 @@
             <h2>Backpack</h2>
             <div class='item-container'>
                 <div class='item-row'><h4>Name</h4><h4>Amount</h4><h4>Weight</h4></div>
-                <div class='item-row' @mousedown='show(id)' v-for='(item,id) in inventory.backpack' :key='id'>
+                <div class='item-row' draggable="true" @click='show(id)' v-for='(item,id) in inventory.backpack' :key='id'>
                     <div style='text-align:left'>{{item.name}}</div>
-                    <div class='itemcount' @mousedown.stop='showcount(id);'>{{item.count}}
-                        <div v-if='countid==id' @mousedown.stop='showcount(id);update()' class='countedit'>
-                            <input type='number' @mousedown.stop="" v-model='item.count' class='input small '>
+                    <div class='itemcount' @click.stop='showcount(id);'>{{item.count}}
+                        <div v-if='countid==id' @click.stop='showcount(id);update()' class='countedit'>
+                            <input type='number' @click.stop="" v-model='item.count' class='input small '>
                             <button @click.stop='showcount(id);update();'>save</button>
                         </div>
                     </div>
@@ -18,10 +18,10 @@
                         <div class='extraitem' v-for='(info,id) in item.display()' :key='id'>{{id}}:{{info}}</div>
                         <p class='item-description'>{{item.description}}</p>
                         <div>
-                            <button @mousedown.stop='equipItem(item)'>Equip</button>
-                            <button v-if='typeof item.attunement !=="undefined" && !item.attuned' @mousedown.stop='attuneItem(item)'>Attune</button>
-                            <button v-if='typeof item.attunement !=="undefined" && item.attuned' @mousedown.stop='unattuneItem(item)'>Un-Attune</button>
-                            <button @mousedown.stop='editItem(item,id)'>Edit</button>
+                            <button @click.stop='equipItem(item)'>Equip</button>
+                            <button v-if='typeof item.attunement !=="undefined" && !item.attuned' @click.stop='attuneItem(item)'>Attune</button>
+                            <button v-if='typeof item.attunement !=="undefined" && item.attuned' @click.stop='unattuneItem(item)'>Un-Attune</button>
+                            <button @click.stop='editItem(item,id)'>Edit</button>
                             </div>
                     </div>
                 </div>
