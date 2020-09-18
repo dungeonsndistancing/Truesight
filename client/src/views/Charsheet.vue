@@ -9,6 +9,7 @@
         <general v-if='page=="general"' class='content' @update='update' :character='character' />
         <inventory v-if='page=="inventory"' class='content' @update='update' :inventory='character.inventory' />
         <spells v-if='page=="spells"' class='content' @update='update' :character='character' />
+        <background v-if='page=="background"' class='content' @update='update' :character='character' />
     </div>
 </template>
 
@@ -18,12 +19,14 @@ import characterService from '../services/CharacterService'
 import general from '../views/CharacterSheet/General'
 import inventory from '../views/CharacterSheet/Inventory'
 import spells from '../views/CharacterSheet/Spells'
+import background from '../views/CharacterSheet/Background'
 import wsservice from '../services/WebsocketService'
 export default {
     components: {
         general,
         inventory,
-        spells
+        spells,
+        background
     },
     props: ['char','page'],
     data: function() {
@@ -40,6 +43,10 @@ export default {
                 this.$router.push('/403')
             }
             this.character = temp;
+            const size = new TextEncoder().encode(JSON.stringify(this.character.inventory)).length
+            const kiloBytes = size / 1024;
+            console.log(kiloBytes)
+
 
         },
         update(data) {

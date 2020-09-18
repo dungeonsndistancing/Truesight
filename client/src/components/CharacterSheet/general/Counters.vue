@@ -91,7 +91,7 @@ export default {
     grid-column-start: 7;
     grid-column-end:9;
     grid-row-start:2;
-    grid-row-end:6;
+    grid-row-end:9;
 }
 .scrolldiv{
     display:grid;

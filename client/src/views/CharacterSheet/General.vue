@@ -1,7 +1,6 @@
 <template>
     <div>
         <name @update='update' :name='character.name' />
-        <general @update='update' :character='character' />
         <attributes @update='update' :attributes='character.attributes' />
         <savingthrows @update='update' :character='character' />
         <cclass @update='update' :cclass='character.cclass' />
@@ -19,7 +18,6 @@
 
 <script>
 import name from '../../components/CharacterSheet/general/Name'
-import general from '../../components/CharacterSheet/general/General'
 import attributes from '../../components/CharacterSheet/general/Attributes'
 import savingthrows from '../../components/CharacterSheet/general/Savingthrows'
 import cclass from '../../components/CharacterSheet/general/Cclass'
@@ -36,7 +34,6 @@ export default {
     props:['character'],
     components: {
         name,
-        general,
         attributes,
         savingthrows,
         cclass,

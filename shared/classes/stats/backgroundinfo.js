@@ -1,12 +1,14 @@
 class Backgroundinfo{
     constructor() {
-        this.notes = ''
+        this.traits = ''
         this.ideals = ''
         this.bonds = ''
         this.flaws = ''
         this.story = ''
         this.features = ''
         this.trinket = ''
+        this.allies = ''
+        this.backstory = ''
 
     }
 

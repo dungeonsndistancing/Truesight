@@ -30,7 +30,8 @@ const characterSchema = mongoose.Schema({
         height:String,
         eyes:String,
         skin:String,
-        hair:String
+        hair:String,
+        description:String
     },
     traits:[
         {
@@ -245,6 +246,9 @@ const characterSchema = mongoose.Schema({
         story:String,
         features:String,
         trinket:String,
+        allies:String,
+        backstory:String,
+        traits:String
     },
     inventory:{
         backpack : [

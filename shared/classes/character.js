@@ -29,7 +29,8 @@ class Character {
                 height:'',
                 eyes:'',
                 skin:'',
-                hair:'' 
+                hair:'' ,
+                description:''
             }
             this.traits = []
             this.counters = []
