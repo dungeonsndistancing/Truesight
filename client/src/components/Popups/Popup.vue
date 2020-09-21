@@ -49,10 +49,10 @@ export default {
     border-radius:1em;
     padding-top:10px;
     position:absolute;
-    top:calc(50% - 90px);
-    left:calc(50% - 150px);
+    top:calc(50% - 5em);
+    left:calc(50% - 10vw);
     width:20vw;
-    height:20vh;
+    height:10em;
     background-color:white;
     font-size:1vw;
 }

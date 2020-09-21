@@ -2,7 +2,7 @@
   <div class='proficiencies'>
       <h2>Proficiencies</h2>
       <div class='prof-cont'>
-          <div @click='edit(num)' class='prof clickable' v-for='(prof,num) in character.proficiencies' :key='prof.id'>
+          <div @click='edit(num)' class='prof clickable' v-for='(prof,num) in proficiencies' :key='prof.id'>
               <h3>{{prof.name}}</h3>
               <p>{{prof.description}}</p>
           </div>
@@ -32,6 +32,15 @@ export default {
         return {
             pop:false,
             profnum:0
+        }
+    },
+    computed: {
+        proficiencies : function() {
+            if(typeof this.character == 'undefined') {
+                return []
+            } else {
+                return this.character.proficiencies
+            }
         }
     },
     methods: {

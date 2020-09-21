@@ -50,6 +50,9 @@ export default {
 
         },
         update(data) {
+            for(var i = 0; i < data.keys.length; i++) {
+                this.character[data.keys[i]] = data.values[i]
+            }
             wsservice.send('update',data)
         },
         start() {

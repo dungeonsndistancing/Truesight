@@ -1,7 +1,7 @@
 <template>
   <div class='name clickable' @click='show=true'>
       <b v-if='!show'>{{name}}</b>
-      <div v-if='show'><input v-model='editname' class='input' ><button @click='show=false;update()'>Save</button></div>
+      <div v-if='show'><input v-model='editname' class='input' ><button @click.stop='show=false;update()'>Save</button></div>
     </div>
 </template>
 
@@ -18,8 +18,7 @@ export default {
     },
     methods: {
         update() {
-            this.name = this.editname
-            this.$emit('update',{keys:['name'],values:[this.name]})
+            this.$emit('update',{keys:['name'],values:[this.editname]})
         }
     }
 }

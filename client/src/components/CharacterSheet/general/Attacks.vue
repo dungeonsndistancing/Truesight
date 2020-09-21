@@ -18,9 +18,9 @@
       
       <popup v-if='pop' @close="save()">
           <div class='popup popgrid'>
-              <h5>name:</h5> <input v-model='attacks[attackid].name' type='text'>
-              <h5>attack:</h5> <input v-model='attacks[attackid].attack' type='text'>
-              <h5>damage:</h5>: <input v-model='attacks[attackid].damage' type='text'><br>
+              <h5>name:</h5> <input class='input wide' v-model='attacks[attackid].name' type='text'>
+              <h5>attack:</h5> <input class='input small' v-model='attacks[attackid].attack' type='text'>
+              <h5>damage:</h5>: <input class='input wide' v-model='attacks[attackid].damage' type='text'><br>
               <button @click='save()'>Close</button><button @click='removeAttack(attackid)'>Delete Attack</button>
           </div>
       </popup>

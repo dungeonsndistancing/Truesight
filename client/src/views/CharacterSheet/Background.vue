@@ -1,7 +1,7 @@
 <template>
   <div class='content'>
     <looks :looks='character.looks' @update='update' />
-    <name :character='character' @update='update' />
+    <name :name='character.name' @update='update' />
     <general :character='character' @update='update' />
     <backgroundinfo :backgroundinfo='character.backgroundinfo' @update='update' />
     <backstory :backgroundinfo='character.backgroundinfo' @update='update' />

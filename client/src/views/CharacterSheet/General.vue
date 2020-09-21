@@ -13,6 +13,7 @@
         <death @update='update' :character='character' />
         <counters @update='update' :counters='character.counters' />
         <effects @update='update' :effects='character.effects' />
+        <experience @update='update' :experience='character.experience' />
     </div>
 </template>
 
@@ -30,6 +31,7 @@ import proficiencies from '../../components/CharacterSheet/general/Proficiencies
 import death from '../../components/CharacterSheet/general/Death'
 import counters from '../../components/CharacterSheet/general/Counters'
 import effects from '../../components/CharacterSheet/general/Effects'
+import experience from '../../components/CharacterSheet/general/Experience'
 export default {
     props:['character'],
     components: {
@@ -45,7 +47,9 @@ export default {
         proficiencies,
         death,
         counters,
-        effects
+        effects,
+        experience
+
     },methods: {
         update(data) {
             this.$emit('update',data)

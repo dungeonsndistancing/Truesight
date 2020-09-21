@@ -1,10 +1,28 @@
 <template>
-    <div class='name'><h5>Character Name</h5>{{name}}</div>
+    <div class='name clickable' @click='show=!show;editname=name'>
+        <h5>Character Name</h5>
+        <p v-if='!show'>{{name}}</p>
+        <div v-if='show'>
+            <input @click.stop class='input medium' v-model='editname' type="text"><br>
+            <button @click.stop='show = false;update()'>Save</button>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
-    props:['name']
+    props:['name'],
+    data: function() {
+        return {
+            show:false,
+            editname:name,
+        }
+    },
+    methods:{
+        update() {
+            this.$emit('update',{keys:['name'],values:[this.editname]})
+        }
+    }
 }
 </script>
 
