@@ -2,7 +2,7 @@
     <div class="NavBar">
         <div class='container'>
             <div id='logocontainer'>
-                <img id="navbarlogo" @click="open('/home')" src='../assets/logo2.png'/>
+                <img id="navbarlogo" @click="open('/home')" src='../assets/logo.svg'/>
             </div>
             <div id='linkcontainer'>
                 <a @click="open('/characters')">Characters</a>
