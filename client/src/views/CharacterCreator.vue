@@ -7,22 +7,12 @@
         <h1>Create your character</h1>         
         <div class='listorganizer'>
             <generalInfo :character='character' class='list' />
-            <attributes :attributes='character.attributes' class='list attributes' />
-            <savingthrows :character='character' class='list savingthrows' />
-            <skills :character='character' class='list skills' />
-            <features :character='character' class='features list' />
-            <proficiencies :character='character' class='proficiencies list' />
         </div>
     </div>
 </template>
 
 <script>
 import generalInfo from '../components/CharacterCreator/GeneralInfo'
-import attributes from '../components/CharacterCreator/Attributes'
-import savingthrows from '../components/CharacterCreator/SavingThrows'
-import skills from '../components/CharacterCreator/Skills'
-import features from '../components/CharacterCreator/Features'
-import proficiencies from '../components/CharacterCreator/Proficiencies'
 import CharacterService from '../services/CharacterService'
 import Character from '../../../shared/classes/character'
 export default {
@@ -33,11 +23,6 @@ export default {
     },
     components: {
         generalInfo,
-        attributes,
-        savingthrows,
-        skills,
-        features,
-        proficiencies
     },
     methods: {
         async save() {
