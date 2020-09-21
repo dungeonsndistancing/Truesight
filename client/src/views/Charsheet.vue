@@ -1,11 +1,13 @@
 <template>
-    <div id="charcontainer">
+    <div class="charcontainer">
         <div class='tabcontainer'>
+            
             <div class='tab' @click='load("general")' v-bind:class='{selected:page=="general"}'>General</div>
             <div class='tab' @click='load("inventory")' v-bind:class='{selected:page=="inventory"}'>Inventory</div>
             <div class='tab' @click='load("spells")' v-bind:class='{selected:page=="spells"}'>Spells & Abilities</div>
             <div class='tab' @click='load("background")' v-bind:class='{selected:page=="background"}'>Background</div>
         </div>
+
         <general v-if='page=="general"' class='content' @update='update' :character='character' />
         <inventory v-if='page=="inventory"' class='content' @update='update' :inventory='character.inventory' />
         <spells v-if='page=="spells"' class='content' @update='update' :character='character' />
@@ -84,8 +86,8 @@ export default {
     margin:0.3em 15% 0.3em 15%;
     border:1px solid black;
 }
-.charcontainer{
-    h5{
+.charcontainer > *{
+    h5 {
         font-size:0.8vw;
         margin-top:0.2em;
     }
@@ -120,11 +122,6 @@ p{
 }
 </style>
 <style scoped>
-
-.charcontainer{
-    height:100%;
-    overflow:hidden;
-}
 .tabcontainer{
     height:5vh;
     display:grid;
