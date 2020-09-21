@@ -11,13 +11,13 @@
                 <h3>{{updateid}}</h3>
                 <h3>{{character.savingthrows[updateid].bonus(character.attributes[updateid].mod,character.proficiency)}}</h3>
                 <h5>Proficiency:</h5>
-                Proficient:<input v-model='character.savingthrows[updateid].proficiency' type='checkbox'>
+                Proficient:<input  v-model='character.savingthrows[updateid].proficiency' type='checkbox'>
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
                     <div class='mod-div' v-for='save in character.savingthrows[updateid].modifiers' :key='save._id'>
-                        Name:<input type='text' v-model='save.name'>
-                        Value:<input type='number' v-model='save.value'>
-                        Source:<input type='text' v-model='save.source'><br>
+                        <h5>Name:</h5><input class='input wide' type='text' v-model='save.name'>
+                        <h5>Value:</h5><input class='input small' type='number' v-model='save.value'><br>
+                        <h5>Source:</h5><input class='input wide' type='text' v-model='save.source'><br>
                         <button @click='character.savingthrows[updateid].removemodifier(save.name,save.source)'>Remove Modifier</button>
                     </div>
                 </div>

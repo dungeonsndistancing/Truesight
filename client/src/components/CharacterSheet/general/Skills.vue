@@ -12,7 +12,7 @@
                 <h3>{{character.skills[skillid].name}}</h3>
                 <h3><b v-if='character.skills[skillid].value(character.attributes[character.skills[skillid].ability].mod,character.proficiency) > 0'>+</b>{{character.skills[skillid].value(character.attributes[character.skills[skillid].ability].mod,character.proficiency)}}</h3>
                 <h5>Proficiency:</h5>
-                Proficient:<input v-model='character.skills[skillid].proficiency' type='checkbox'>
+                Proficient:<input class='checkbox' v-model='character.skills[skillid].proficiency' type='checkbox'>
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
                     <div class='mod-div' v-for='mod in character.skills[skillid].modifiers' :key='mod._id'>
@@ -58,7 +58,6 @@ export default {
 </script>
 
 <style scoped>
-
 .skills{
     grid-column-start: 3;
     grid-column-end: 5;

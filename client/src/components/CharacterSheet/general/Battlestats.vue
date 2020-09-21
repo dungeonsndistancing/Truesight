@@ -11,7 +11,7 @@
       <popup v-show='pop' @close='close'>
           <div class='popup short' >
                 <h2>{{poptitle}}</h2>
-              <input v-model='character[item]'>
+              <input class='input' v-model='character[item]'>
               <button @click='close()'>Save</button>
           </div>
       </popup>

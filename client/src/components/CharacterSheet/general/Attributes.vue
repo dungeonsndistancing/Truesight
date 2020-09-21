@@ -15,9 +15,9 @@
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
                     <div class='mod-div' v-for='mod in attributes[updateid].modifiers' :key='mod._id'>
-                        Name:<input type='text' v-model='mod.name'>
-                        Value:<input type='number' v-model='mod.value'>
-                        Source:<input type='text' v-model='mod.source'><br>
+                        Name:<input class='input' type='text' v-model='mod.name'>
+                        Value:<input class='input' type='number' v-model='mod.value'>
+                        Source:<input class='input' type='text' v-model='mod.source'><br>
                         <button @click='attributes[updateid].removemodifier(mod.name,mod.source)'>Remove Modifier</button>
                     </div>
                 </div>

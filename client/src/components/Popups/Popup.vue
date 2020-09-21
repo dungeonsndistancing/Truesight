@@ -51,16 +51,16 @@ export default {
     position:absolute;
     top:calc(50% - 5em);
     left:calc(50% - 10vw);
-    width:20vw;
+    width:20em;
     height:10em;
     background-color:white;
     font-size:1vw;
 }
 .short{
-    height:12vh;
+    height:5em;
 }
 .long{
-    height:35vh;
+    height:25em;
     top:calc(50% - 15vh);
 }
 .superlong{

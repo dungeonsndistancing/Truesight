@@ -34,6 +34,10 @@ html, body {
   margin: 0px;
   padding: 0px;
 }
+input[type=checkbox] {
+  height:1vw;
+  width:1vw;
+}
 .input{
     border-radius:1em;
     border-style:solid;

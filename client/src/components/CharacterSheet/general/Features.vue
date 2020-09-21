@@ -15,9 +15,9 @@
         <popup @close='close()' v-if='pop'>
             <div class='popup long'>
                 <h2>Edit Feature</h2>
-                <h5>name:</h5><input v-model='features[featid].name' type='text'>
-                <h5>source:</h5><input v-model='features[featid].source' type='text'>
-                <h5>description:</h5><textarea v-model='features[featid].description'></textarea>
+                <h5>name:</h5><input class='input' v-model='features[featid].name' type='text'>
+                <h5>source:</h5><input class='input' v-model='features[featid].source' type='text'>
+                <h5>description:</h5><textarea  v-model='features[featid].description'></textarea>
                 <button @click='close()'>Save</button><button @click='del()'>Delete Feature</button>
             </div>
         </popup>
@@ -88,6 +88,7 @@ textarea{
     width:90%;
     height:40%;
     resize:none;
+    font-size:0.8em;
 }
 .feature-info:nth-child(even){
     background-color:rgb(226, 226, 226);
