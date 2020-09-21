@@ -1,5 +1,5 @@
 <template>
-    <div class='general'>
+    <div class='generalinfo'>
     Character name:<input type='text' class='wide input topside' v-model='character.name'>
     <h1>Class</h1>
     Class:<input type='text' class='wide input topside' v-model='character.cclass.name'><br>

@@ -15,7 +15,6 @@ export default {
   }
 }
 </script>
-
 <style>
 
 html, body {
@@ -36,7 +35,7 @@ html, body {
 }
 input[type=checkbox] {
   height:1vw;
-  width:1vw;
+  width:1.3vw;
 }
 .input{
     border-radius:1em;

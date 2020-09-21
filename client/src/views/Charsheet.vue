@@ -1,5 +1,5 @@
 <template>
-    <div id="container">
+    <div id="charcontainer">
         <div class='tabcontainer'>
             <div class='tab' @click='load("general")' v-bind:class='{selected:page=="general"}'>General</div>
             <div class='tab' @click='load("inventory")' v-bind:class='{selected:page=="inventory"}'>Inventory</div>
@@ -71,7 +71,7 @@ export default {
     }
 }
 </script>
-<style>
+<style lang='scss'>
 .scrollcontainer{
     border-style:solid none solid none;
     border-width:1px;
@@ -84,17 +84,22 @@ export default {
     margin:0.3em 15% 0.3em 15%;
     border:1px solid black;
 }
-h5{
-    font-size:0.8vw;
-    margin-top:0.2em;
-}
-h2{
-    font-size:1.8vw;
-    margin:0em;
-}
-h3{
-    font-size:1.3vw;
-    margin:0;
+.charcontainer{
+    h5{
+        font-size:0.8vw;
+        margin-top:0.2em;
+    }
+    h2{
+        font-size:1.8vw;
+        margin:0em;
+    }
+    h3{
+        font-size:1.3vw;
+        margin:0;
+    }
+    h1{
+        margin:0;
+    }
 }
 ::-webkit-scrollbar {
     /* //Width of vertical scroll bar */
@@ -116,7 +121,7 @@ p{
 </style>
 <style scoped>
 
-.container{
+.charcontainer{
     height:100%;
     overflow:hidden;
 }

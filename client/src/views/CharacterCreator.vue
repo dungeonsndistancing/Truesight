@@ -6,7 +6,7 @@
         </div>
         <h1>Create your character</h1>         
         <div class='listorganizer'>
-            <generalInfo :character='character' class='list' />
+            <generalInfo :character='character' class='lista' />
         </div>
     </div>
 </template>
@@ -34,7 +34,7 @@ export default {
 
 </script>
 <style>
-.list{
+.lista{
     border-radius:1%;
     overflow-x:hidden;
       border-style: solid;
@@ -86,7 +86,7 @@ textarea{
     width:13em;
 }
 
-.list{
+.lista{
     border-radius:1%;
     overflow-x:hidden;
     border-style: solid;

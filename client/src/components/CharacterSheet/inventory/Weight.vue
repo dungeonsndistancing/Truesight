@@ -13,7 +13,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .weight{
     grid-column-start: 3;
     grid-column-end:5;
