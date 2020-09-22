@@ -71,7 +71,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .description{
     height:14vh;
     overflow-y:scroll;
@@ -102,8 +103,29 @@ export default {
 .image{
   color:white;
   margin:2vh auto 2vh auto;
-  height:18vw;
-  width:18vw;
+  height:17em;
+  width:17em;
   background-color:gray;
+}
+@media only screen and (max-width:$medium-screen) {
+    .looks {
+        font-size:2.3vw;
+    }
+    .description {
+        font-size:1.8vw
+    }
+
+}
+@media only screen and (max-width:$small-screen) {
+    .looks {
+        grid-column-start:1;
+        grid-column-end: 3;
+        grid-row-start:3;
+        grid-row-end: 10;
+        font-size:4vw;
+    }
+    .description {
+        font-size:3vw
+    }
 }
 </style>

@@ -48,7 +48,8 @@ export default {
     border:1px solid black;
 }
 </style>
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .spellstats {
     padding:10px;
     grid-column-start: 7;
@@ -75,5 +76,21 @@ export default {
 h4{
     margin:0.3em;
 
+}
+@media only screen and (max-width:$medium-screen) {
+    .spellstats {
+        grid-column-start: 3;
+        grid-column-end:5;
+        grid-row-start:1;
+        grid-row-end:2;
+    }
+}
+@media only screen and (max-width:$small-screen) {
+    .spellstats {
+        grid-column-start: 1;
+        grid-column-end:3;
+        grid-row-start:1;
+        grid-row-end:2;
+    }
 }
 </style>

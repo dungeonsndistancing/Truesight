@@ -134,6 +134,12 @@ h4{
         grid-row-end:15;
         font-size:2vw;
     }
+    .spellcounters{
+        grid-column-start: 3;
+        grid-column-end:5;
+        grid-row-start:2;
+        grid-row-end:9;
+    }
 }
 @media only screen and (max-width:$small-screen) {
     .counters{
@@ -142,6 +148,12 @@ h4{
         grid-row-start:19;
         grid-row-end:23;
         font-size:3.1vw;
+    }
+    .spellcounters{
+        grid-column-start: 1;
+        grid-column-end:3;
+        grid-row-start:10;
+        grid-row-end:15;
     }
 
 }

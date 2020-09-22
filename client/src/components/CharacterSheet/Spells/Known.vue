@@ -123,7 +123,8 @@ export default {
     background-color:rgb(216, 216, 216);
 }
 </style>
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .extra-upper{
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -134,7 +135,6 @@ export default {
     padding:0 0.4em;
     text-align:left;
     white-space:pre-wrap;
-    font-size:0.9vw;
     padding-bottom:0.5em;
 }
 .concentration{
@@ -223,5 +223,24 @@ textarea{
     width:90%;
     height:20vh;
     resize: none;
+}
+@media only screen and (max-width:$medium-screen) {
+    .known {
+        grid-column-start: 1;
+        grid-column-end:5;
+        grid-row-start:9;
+        grid-row-end:18;
+    }
+    .spellname{
+        font-size:2vw;
+    }
+}
+@media only screen and (max-width:$small-screen) {
+    .known {
+        grid-column-start: 1;
+        grid-column-end:3;
+        grid-row-start:15;
+        grid-row-end:33;
+    }
 }
 </style>

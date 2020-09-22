@@ -33,7 +33,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .info-text {
     text-align: left;
     padding:10px;
@@ -54,5 +55,21 @@ export default {
     grid-row-end:9;
     grid-column-start: 5;
     grid-column-end:7;
+}
+@media only screen and (max-width:$medium-screen) {
+    .backstory{
+        grid-row-start: 9;
+        grid-row-end:16;
+        grid-column-start: 1;
+        grid-column-end:3; 
+    }
+}
+@media only screen and (max-width:$small-screen) {
+    .backstory{
+        grid-row-start: 17;
+        grid-row-end:25;
+        grid-column-start: 1;
+        grid-column-end:3; 
+    }
 }
 </style>

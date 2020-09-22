@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 .input {
     text-align:center;
     width:90%;

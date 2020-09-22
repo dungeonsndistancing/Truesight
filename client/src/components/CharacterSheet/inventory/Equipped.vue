@@ -94,8 +94,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .buttonclass{
     position:absolute;
     bottom:0;
@@ -146,7 +146,7 @@ export default {
     text-align: center;
     display:grid;
     grid-template-columns: 6fr 2fr 2fr;
-    line-height:2.2vh;
+    line-height:1.5em;
     padding:0 1vw;
 
 }
@@ -188,5 +188,13 @@ textarea{
     line-height:2vh;
     white-space:pre-wrap;
     border-bottom: 1px solid black;
+}
+@media only screen and (max-width:$small-screen) {
+    .equipped{
+        grid-column-start: 1;
+        grid-column-end:3;
+        grid-row-start:9;
+        grid-row-end:13;
+    }
 }
 </style>

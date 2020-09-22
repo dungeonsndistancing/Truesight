@@ -93,6 +93,9 @@ export default {
         font-size:0.8vw;
 
     }
+    h4{
+        margin:0
+    }
     h5 {
         font-size:0.8vw;
         margin:0;
@@ -185,9 +188,10 @@ p{
 <style lang='scss' scoped>
 @import '../scss/variables';
 .tabcontainer{
-    height:5vh;
+    font-size:1vw;
+    height:3em;
     display:grid;
-    grid-template-columns:repeat(5,20%);
+    grid-template-columns:repeat(4,1fr);
     width:100%;
     border-bottom: 1px solid black;
     padding:0;
@@ -199,7 +203,7 @@ p{
     border-style: solid solid none solid;
     border-width: 1px;
     font-size:1vw;
-    height:5vh;
+    height:3em;
     padding:0;
     margin: 0  0;
     line-height: 3em;
@@ -223,7 +227,7 @@ p{
     column-gap:10px;
     width:calc(100% - 20px);
     height:calc(100vh - 9vh - 5vh);
-    font-size:1vw;
+
 }
 .selected{
     border-bottom-style: none;
@@ -236,18 +240,26 @@ p{
 
 @media only screen and (max-width:$medium-screen) {
     .content{
-        height:180em;
+        font-size:1.5vw;
+        height:130em;
         grid-template-columns: repeat(4,1fr); 
         grid-template-rows: repeat(16,1fr);
+    }
+    .tabcontainer,.tab{
+        font-size:1.5vw;
     }
 
 }
 
 @media only screen and (max-width:$small-screen) {
     .content{
-        height:500em;
+        font-size:3vw;
+        height:220em;
         grid-template-columns: repeat(2,1fr); 
         grid-template-rows: repeat(32,1fr);
+    }
+    .tabcontainer,.tab{
+        font-size:3vw;
     }
 
 }

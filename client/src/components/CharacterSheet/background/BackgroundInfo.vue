@@ -58,7 +58,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .edit-div{
     height:100%;
     max-height: stretch;
@@ -84,5 +85,13 @@ export default {
 .inner-info{
     border:1px solid black;
     background-color:white;
+}
+@media only screen and (max-width:$small-screen) {
+    .backgroundinfo {
+        grid-row-start: 10;
+        grid-row-end:17;
+        grid-column-start:1;
+        grid-column-end:3;
+    }
 }
 </style>

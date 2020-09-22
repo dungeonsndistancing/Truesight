@@ -79,7 +79,8 @@ export default {
     background-color:rgb(216, 216, 216);
 }
 </style>
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .extra-upper{
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -156,7 +157,7 @@ export default {
     grid-template-rows:1fr 1fr;
 }
 .spellname{
-    font-size:1.2vw;
+    font-size:1.1vw;
     font-weight: bold;
     padding: 0 0.2em;
     text-align: left;
@@ -178,5 +179,25 @@ textarea{
     width:90%;
     height:20vh;
     resize: none;
+}
+
+@media only screen and (max-width:$medium-screen) {
+    .prepared {
+        grid-column-start: 1;
+        grid-column-end:3;
+        grid-row-start:1;
+        grid-row-end:9
+    }
+    .spellname{
+        font-size:2vw;
+    }
+}
+@media only screen and (max-width:$small-screen) {
+    .prepared {
+        grid-column-start: 1;
+        grid-column-end:3;
+        grid-row-start:2;
+        grid-row-end:10;
+    }
 }
 </style>

@@ -43,7 +43,12 @@ export default {
 }
 @media only screen and (max-width:$medium-screen) {
     .name{
-    font-size:3.2vw;  
+        font-size:3.2vw;  
+    } 
+}
+@media only screen and (max-width:$small-screen) {
+    .name{
+        font-size:5vw;  
     } 
 }
 </style>

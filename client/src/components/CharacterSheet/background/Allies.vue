@@ -34,7 +34,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .info-text {
     text-align: left;
     padding:10px;
@@ -55,5 +56,21 @@ export default {
     grid-row-end:9;
     grid-column-start: 7;
     grid-column-end: 9;
+}
+@media only screen and (max-width:$medium-screen) {
+    .allies{
+        grid-row-start: 9;
+        grid-row-end:16;
+        grid-column-start: 3;
+        grid-column-end:5; 
+    }
+}
+@media only screen and (max-width:$small-screen) {
+    .allies{
+        grid-row-start: 25;
+        grid-row-end:33;
+        grid-column-start: 1;
+        grid-column-end:3; 
+    }
 }
 </style>

@@ -198,8 +198,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .buttonclass{
     position:absolute;
     bottom:0;
@@ -224,14 +224,15 @@ export default {
 }
 .countedit{
     padding:50px;
-    width:6vw;
-    padding:3px;
+    width:9em;
+    padding:0;
+    margin:0;
     border-radius:1vw;
     background-color:rgb(231, 231, 231);
     float:left;
     position:absolute;
-    height:2vh;
-    top:-50%;
+    height:2em;
+    bottom:1px;
     left:-10px;
     z-index:3;
 }
@@ -251,7 +252,7 @@ export default {
     text-align: center;
     display:grid;
     grid-template-columns: 6fr 2fr 2fr;
-    line-height:2.2vh;
+    line-height:1.5em;
     padding:0 1vw;
 
 }
@@ -290,8 +291,9 @@ textarea{
 }
 .item-description {
     text-align:left;
-    line-height:2vh;
+    line-height:1em;
     white-space:pre-wrap;
     border-bottom: 1px solid black;
 }
+
 </style>

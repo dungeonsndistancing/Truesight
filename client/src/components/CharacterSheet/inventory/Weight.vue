@@ -13,7 +13,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .weight{
     grid-column-start: 3;
     grid-column-end:5;
@@ -23,5 +24,13 @@ export default {
 }
 h1{
     margin:0;
+}
+@media only screen and (max-width:$small-screen) {
+    .weight{
+    grid-column-start: 1;
+    grid-column-end:3;
+    grid-row-start:13;
+    grid-row-end:14;        
+    }
 }
 </style>
