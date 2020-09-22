@@ -16,9 +16,9 @@
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
                     <div class='mod-div' v-for='mod in character.skills[skillid].modifiers' :key='mod._id'>
-                        Name:<input type='text' v-model='mod.name'>
-                        Value:<input type='number' v-model='mod.value'>
-                        Source:<input type='text' v-model='mod.source'><br>
+                        <h5>Name:</h5><input class='input wide ' type='text' v-model='mod.name'>
+                        <h5>Value:</h5><input class='input small' type='number' v-model='mod.value'>
+                        <h5>Source:</h5><input class='input wide' type='text' v-model='mod.source'><br>
                         <button @click='character.skills[skillid].removemodifier(mod.name,mod.source)'>Remove Modifier</button>
                     </div>
                 </div>
@@ -57,7 +57,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .skills{
     grid-column-start: 3;
     grid-column-end: 5;
@@ -100,5 +101,12 @@ h4{
 h6{
     margin:0;
 }
-
+@media only screen and(max-width:$small-screen) {
+    .skills {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start:11;
+        grid-row-end:17;
+    }
+}
 </style>

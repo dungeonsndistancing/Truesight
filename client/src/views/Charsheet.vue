@@ -74,6 +74,7 @@ export default {
 }
 </script>
 <style lang='scss'>
+@import '../scss/variables';
 .scrollcontainer{
     border-style:solid none solid none;
     border-width:1px;
@@ -87,9 +88,14 @@ export default {
     border:1px solid black;
 }
 .charcontainer > *{
+    h6{
+        margin:0;
+        font-size:0.8vw;
+
+    }
     h5 {
         font-size:0.8vw;
-        margin-top:0.2em;
+        margin:0;
     }
     h2{
         font-size:1.8vw;
@@ -101,6 +107,9 @@ export default {
     }
     h1{
         margin:0;
+    }
+    button{
+        font-size:1vw;
     }
 }
 ::-webkit-scrollbar {
@@ -120,8 +129,61 @@ export default {
 p{
     margin-bottom:0;
 }
+@media only screen and (max-width:$medium-screen){
+    .charcontainer > *{
+        h6{
+            margin:0;
+            font-size:1.4vw;
+        }
+        h5 {
+            font-size:1.6vw;
+            margin:0;
+        }
+        h2{
+            font-size:2.7vw;
+            margin:0em;
+        }
+        h3{
+            font-size:2.0vw;
+            margin:0;
+        }
+        h1{
+            margin:0;
+        }
+        button{
+            font-size:2vw;
+        }
+    }
+}
+@media only screen and (max-width:$small-screen){
+    .charcontainer > *{
+        h6{
+            margin:0;
+            font-size:2.4vw;
+        }
+        h5 {
+            font-size:2.8vw;
+            margin:0;
+        }
+        h2{
+            font-size:4vw;
+            margin:0em;
+        }
+        h3{
+            font-size:3.5vw;
+            margin:0;
+        }
+        h1{
+            margin:0;
+        }
+        button{
+            font-size:3.2vw;
+        }
+    }
+}
 </style>
-<style scoped>
+<style lang='scss' scoped>
+@import '../scss/variables';
 .tabcontainer{
     height:5vh;
     display:grid;
@@ -172,5 +234,21 @@ p{
     background-color: white;
 }
 
+@media only screen and (max-width:$medium-screen) {
+    .content{
+        height:180em;
+        grid-template-columns: repeat(4,1fr); 
+        grid-template-rows: repeat(16,1fr);
+    }
 
+}
+
+@media only screen and (max-width:$small-screen) {
+    .content{
+        height:500em;
+        grid-template-columns: repeat(2,1fr); 
+        grid-template-rows: repeat(32,1fr);
+    }
+
+}
 </style>

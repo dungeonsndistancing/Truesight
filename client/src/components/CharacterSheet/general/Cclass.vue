@@ -49,7 +49,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .input{
     text-align: center;
 }
@@ -71,6 +72,7 @@ export default {
 .popup {
     overflow:hidden;
     position:absolute;
+    left:-1px;
     width:100%;
     height:calc(10em);
     background-color:white;
@@ -80,6 +82,7 @@ export default {
     animation-duration: 0.5s;
 }
 .class{
+    font-size:1vw;
     position: relative;
     border:1px solid black;
     grid-row-start: 1;
@@ -89,5 +92,19 @@ export default {
 }
 h6{
     margin:0.1em;
+}
+@media only screen and (max-width:$medium-screen) {
+
+    .class{
+        font-size:2vw;
+        padding:0.3em;
+    }
+}
+@media only screen and (max-width:$small-screen) {
+
+    .class{
+        font-size:3.4vw;
+        padding:0.3em;
+    }
 }
 </style>

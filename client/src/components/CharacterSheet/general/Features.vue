@@ -66,7 +66,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .scroll{
 height:90%;
 overflow-y:scroll;
@@ -76,6 +77,7 @@ overflow-y:scroll;
     grid-column-end:9;
     grid-row-start:3;
     grid-row-end:9;
+    font-size:1vw;
     border:1px solid black;
 }
 .feature-info{
@@ -99,8 +101,22 @@ textarea{
     top:0;
     float:right;
 }
-h3, h5{
-    padding:0px;
-    margin:0em;
+@media only screen and (max-width:$medium-screen) {
+    .features{
+        grid-column-start:3;
+        grid-column-end:5;
+        grid-row-start:11;
+        grid-row-end:17;  
+        font-size:2vw;
+    }
+}
+@media only screen and (max-width:$small-screen) {
+    .features{
+        grid-column-start:1;
+        grid-column-end:3;
+        grid-row-start:25;
+        grid-row-end:31;  
+        font-size:3.5vw;
+    }
 }
 </style>

@@ -63,7 +63,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .attack-but{
     position:relative;
 }
@@ -88,12 +89,38 @@ export default {
 }
 .attack-row{
     display:grid;
+    font-size:0.9vw;
     grid-template-columns: 3fr 1fr 3fr;
 }
 .attack-row:nth-child(odd) {
     background-color:rgb(226, 226, 226);
 }
-h5{
-    margin:0;
+@media only screen and (max-width:$medium-screen) {
+    .attacks{
+        grid-column-start:1;
+        grid-column-end:3;
+        grid-row-start:9;
+        grid-row-end:11;
+    }
+    .attack{
+        font-size:2vw;
+    }
+    .attack-row{
+        font-size:1.8vw;
+    }
+}
+@media only screen and (max-width:$small-screen) {
+    .attacks{
+        grid-column-start:1;
+        grid-column-end:3;
+        grid-row-start:17;
+        grid-row-end:19;
+    }
+    .attack{
+        font-size:3.2vw;
+    }
+    .attack-row{
+        font-size:3vw;
+    }
 }
 </style>

@@ -24,7 +24,6 @@ module.exports.createSocket = () => {
                     case "character":
                         console.log('found character websocket')
                         con.character = await Character.findById(msg.data)
-                        console.log(con.character.inventory)
                         break;
                     case "update":
                         for(var i = 0; i < msg.data.keys.length; i++) {
@@ -44,7 +43,6 @@ module.exports.createSocket = () => {
         con.on('close',async function closing(code) {
             console.log("close!")
             console.log('saving character')
-            console.log(con.character)
              try{
                  await con.character.save()
              } catch(err) {

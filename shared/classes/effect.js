@@ -1,7 +1,9 @@
 
 class Effect{
-    constructor() {
-
+    constructor(name,icon,description) {
+        this.name = name
+        this.icon = icon
+        this.description = description
     }
 
     static from(json) {

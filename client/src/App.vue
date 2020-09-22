@@ -15,8 +15,8 @@ export default {
   }
 }
 </script>
-<style>
-
+<style lang='scss'>
+@import './scss/variables';
 html, body {
   height: 100%;
   width: 100%;
@@ -50,9 +50,48 @@ input[type=checkbox] {
     width: 2.5em;
 }
 .medium {
-    width:6em;
+    width:5em;
 }
 .wide{
     width: 10em;
+}
+
+@media only screen and (max-width:$medium-screen) {
+
+  .input {
+    font-size:2vw;
+  }
+  .small {
+      width: 2.5em;
+  }
+  .medium {
+      width:5em;
+  }
+  .wide{
+      width: 8em;
+  }
+  input[type="textnpx"]{
+    width:1.5em;
+    height:1.5em;
+  }
+}
+@media only screen and (max-width:$small-screen) {
+
+  .input {
+    font-size:3.4vw;
+  }
+  .small {
+      width: 2.5em;
+  }
+  .medium {
+      width:4em;
+  }
+  .wide{
+      width: 8em;
+  }
+  input[type="textnpx"]{
+    width:1.5em;
+    height:1.5em;
+  }
 }
 </style>

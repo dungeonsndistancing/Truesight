@@ -4,7 +4,7 @@
         <h2>Experience</h2>
         <h3 v-if='!show'>{{experience}}</h3>
         <div v-if='show'>
-            <input @click.stop class='input wide' v-model='editexp' type="number"><br>
+            <input @click.stop class='input wide' v-model='editexp' type="number">
             <button @click.stop='save()'>Save</button>
         </div>
       </div>
@@ -35,7 +35,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .experience{
     border:1px solid black;
     grid-row-start: 1;
@@ -43,5 +44,13 @@ export default {
     grid-column-start: 3;
     grid-column-end:5;
 
+}
+@media only screen and (max-width:$small-screen) {
+    .experience{
+        grid-row-start: 2;
+        grid-row-end:3;
+        grid-column-start: 1;
+        grid-column-end:3;
+    }
 }
 </style>

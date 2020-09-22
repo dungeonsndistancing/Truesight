@@ -47,7 +47,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .battle{
     display:grid;
     grid-template-columns: repeat(4,1fr);
@@ -90,5 +91,14 @@ input[type=number] {
     width:2em;
     font-size:1.5em;
     font-weight:bolder;
+}
+
+@media only screen and (max-width:$small-screen) {
+    .battle{
+        grid-column-start:1;
+        grid-column-end:3;
+        grid-row-start:4;
+        grid-row-end:6;        
+    }
 }
 </style>

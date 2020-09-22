@@ -59,7 +59,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .scrollcontainer{
     border-style:solid none solid none;
     border-width:1px;
@@ -91,6 +92,7 @@ export default {
     background-color:white;
 }
 .save-mod{
+    font-size:1vw;
     margin:0 auto 0 auto;
     border-radius:50%;
     width:3.5em;
@@ -107,10 +109,25 @@ h5{
     margin-top:0.1em;
 
 }
-h6{
-    margin:0;
-}
+
 h2{
     margin:0.1em auto 0.2em auto;
+}
+@media only screen and (max-width:$medium-screen) {
+    .save-mod{
+        font-size:1.5vw;
+    }
+}
+@media only screen and (max-width:$small-screen) {
+    .savingthrows {
+        grid-column-start:2;
+        grid-column-end:3;
+        grid-row-start:7;
+        grid-row-end:11;
+    }
+    .save-mod{
+        font-size:2.5vw;
+    }
+
 }
 </style>

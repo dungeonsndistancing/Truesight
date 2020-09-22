@@ -65,7 +65,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .proficiencies{
     grid-column-start:7;
     grid-column-end:9;
@@ -76,6 +77,7 @@ export default {
     column-gap:0;
     margin:0;
     padding:0;
+    font-size:1vw;
 }
 .prof{
     min-height:20px;
@@ -101,5 +103,26 @@ p{
 }
 h3{
     margin:0;
+}
+@media only screen and (max-width:$medium-screen) {
+    .proficiencies{
+        grid-column-start:3;
+        grid-column-end:5;
+        grid-row-start:9;
+        grid-row-end:11;
+        font-size:2vw;
+    }
+}
+@media only screen and (max-width:$small-screen) {
+    .proficiencies{
+        grid-column-start:1;
+        grid-column-end:3;
+        grid-row-start:31;
+        grid-row-end:33;
+        font-size:3.5vw;
+    }
+    .prof-cont{
+        height:65%;
+    }
 }
 </style>

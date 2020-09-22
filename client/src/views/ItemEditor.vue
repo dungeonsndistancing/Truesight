@@ -18,12 +18,12 @@
                 <div class="iconselection">
             
                     <div class="iconshow" v-bind:style="{backgroundColor:edititem.color}" @click="show = !show">
-                        <img class='iconimg' :src="require(`../assets/icons/${edititem.icon}`)">
+                        <img class='iconimg' :src="require(`../assets/icons/items/${edititem.icon}`)">
                         <img class='icondrop' src='../assets/dropdown.png'>
                     </div>
                     <div class="icondropdown" v-if="show">
                         <div class="iconcard"></div>
-                        <div class="iconcard" v-for='x in iconarray' :key='x.name'><img v-bind:src="require(`../assets/icons/${x.path}`)" @click="select(x.path)"></div>
+                        <div class="iconcard" v-for='x in iconarray' :key='x.name'><img v-bind:src="require(`../assets/icons/items/${x.path}`)" @click="select(x.path)"></div>
                     </div>
                 </div>
             </div>

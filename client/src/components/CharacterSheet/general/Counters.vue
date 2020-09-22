@@ -77,7 +77,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .counters{
     grid-column-start: 5;
     grid-column-end:7;
@@ -106,13 +107,12 @@ export default {
     padding:0 0 0 7%;
     align-content: center;
     align-items: center;
-    height:75px;
-    min-height:8vh;
+    height:5em;
     border:1px solid black;
     background-color:white;
 }
 .add{
-    height:75px;
+    height:5em;
 }
 .count-inner{
 
@@ -124,5 +124,25 @@ export default {
 }
 h4{
     margin:0.2em 0;
+}
+
+@media only screen and (max-width:$medium-screen) {
+    .counters{
+        grid-column-start: 1;
+        grid-column-end:3;
+        grid-row-start:11;
+        grid-row-end:15;
+        font-size:2vw;
+    }
+}
+@media only screen and (max-width:$small-screen) {
+    .counters{
+        grid-column-start: 1;
+        grid-column-end:3;
+        grid-row-start:19;
+        grid-row-end:23;
+        font-size:3.1vw;
+    }
+
 }
 </style>

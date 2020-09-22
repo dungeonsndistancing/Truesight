@@ -16,7 +16,7 @@
 			<div class='item-container'>
 				<div class='item-card' v-for='(item,id) in items' :class='{extended:item.show}' :key='item._id' @click="show(item)">
 					<div class="card-org">
-						<div class="icon" :style="{backgroundColor:item.color}"><img :src='require(`../assets/icons/${item.icon}`)'></div>
+						<div class="icon" :style="{backgroundColor:item.color}"><img :src='require(`../assets/icons/items/${item.icon}`)'></div>
 						<div class="item-button">
 							<div @click='load(`/edititem/${item._id}`)' v-if='editable'>edit</div>
 							<div @click.stop='addtoCharacter(id)' v-if='!editable'>Add to Character</div>

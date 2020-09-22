@@ -1,7 +1,7 @@
 <template>
     <div class='money'>
         <div v-for='(value,id) in money' :key='id'>
-            <h2>{{id}}:{{value}}</h2>
+            <h3>{{id}}:{{value}}</h3>
             <div>
                 <button @click='up(id)'>+</button>
                 <button @click='down(id)'>-</button>
@@ -10,25 +10,25 @@
         <div class='money-button'>
             <button @click='popuppop=true'>Add</button>
             <button @click='removepop=true'>Remove</button>
-            <button @click='shiftpop=true'>Shift up</button>
+            <button @click='shiftpop=true'>Shift</button>
         </div>
         <popup v-show='popuppop' @close='cancel'>
             <div class='popup'>
                 <h3>Add money:</h3>
-                <div>pp:<input v-model='pp' type='number'></div>
-                <div>gp:<input v-model='gp' type='number'></div>
-                <div>sp:<input v-model='sp' type='number'></div>
-                <div>cp:<input v-model='cp' type='number'></div>
+                <div>pp:<input class='input' v-model='pp' type='number'></div>
+                <div>gp:<input class='input' v-model='gp' type='number'></div>
+                <div>sp:<input class='input' v-model='sp' type='number'></div>
+                <div>cp:<input class='input' v-model='cp' type='number'></div>
                 <button @click='add()'>Add</button><button @click='cancel()'>Cancel</button>
             </div>
         </popup>
         <popup v-show='removepop' @close='cancel'>
             <div class='popup'>
                 <h3>Remove money:</h3>
-                <div>pp:<input v-model='pp' type='number'></div>
-                <div>gp:<input v-model='gp' type='number'></div>
-                <div>sp:<input v-model='sp' type='number'></div>
-                <div>cp:<input v-model='cp' type='number'></div>
+                <div>pp:<input class='input' v-model='pp' type='number'></div>
+                <div>gp:<input class='input' v-model='gp' type='number'></div>
+                <div>sp:<input class='input' v-model='sp' type='number'></div>
+                <div>cp:<input class='input' v-model='cp' type='number'></div>
                 <button @click='remove()'>Remove</button><button @click='cancel()'>Cancel</button>
             </div>
         </popup>
@@ -99,25 +99,18 @@ export default {
     }
 }
 </script>
-<style scoped>
-h3{
-    margin:0;
-}
-h2{
-    margin:0em;
-    font-size:1.2vw;
-}
+<style lang='scss' scoped>
+@import '../../../scss/variables';
+
 button{
-    padding:0.2em 0.4em 0.2em 0.4em;
+    padding:0.1em 0.2em;
     font-size:0.9vw;
     margin:0;
 }
-</style>
-<style>
 .money{
     display:grid;
     grid-template-columns: repeat(4,1fr);
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 3fr 2fr;
     column-gap:10px;
     grid-column-start: 3;
     grid-column-end:5;
@@ -127,7 +120,7 @@ button{
 }
 .money-button{
     display:grid;
-    padding:5px;
+    padding:2px;
     grid-template-columns:3fr 3fr 1fr;
     column-gap:10px;
     row-gap:10px;
@@ -140,5 +133,14 @@ button{
     width:300px;
     height:500px;
     background-color:red;
+}
+
+@media only screen and (max-width:$small-screen) {
+    .money{
+        grid-column-start: 1;
+        grid-column-end:3;
+        grid-row-start:3;
+        grid-row-end:4;        
+    }
 }
 </style>

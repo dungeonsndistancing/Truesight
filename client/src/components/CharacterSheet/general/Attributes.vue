@@ -15,9 +15,9 @@
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
                     <div class='mod-div' v-for='mod in attributes[updateid].modifiers' :key='mod._id'>
-                        Name:<input class='input' type='text' v-model='mod.name'>
-                        Value:<input class='input' type='number' v-model='mod.value'>
-                        Source:<input class='input' type='text' v-model='mod.source'><br>
+                        <h5>Name:</h5><input class='input wide' type='text' v-model='mod.name'>
+                        <h5>Value:</h5><input class='input wide' type='number' v-model='mod.value'>
+                        <h5>Source:</h5><input class='input wide' type='text' v-model='mod.source'><br>
                         <button @click='attributes[updateid].removemodifier(mod.name,mod.source)'>Remove Modifier</button>
                     </div>
                 </div>
@@ -61,7 +61,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 .scrollcontainer{
     border-style:solid none solid none;
     border-width:1px;
@@ -96,7 +97,7 @@ export default {
 }
 .mod{
     border: 1px solid black;
-    width:70%;
+    width:2.5em;
     height:35%;
     font-size:1.5vw;
     line-height:1.5em;
@@ -115,5 +116,21 @@ h5{
 
 }
 
+@media only screen and (max-width:$medium-screen) {
+    .mod {
+        font-size:2.5vw;
+    }
+}
 
+@media only screen and (max-width:$small-screen) {
+    .attributes {
+        grid-column-start:1;
+        grid-column-end:2;
+        grid-row-start:7;
+        grid-row-end:11;
+    }
+    .mod {
+        font-size:3.5vw;
+    }
+}
 </style>

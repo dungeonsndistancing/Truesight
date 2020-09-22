@@ -48,7 +48,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss' scoped>
+@import '../../../scss/variables';
 button{
     font-size:1vw;
     margin:0;
@@ -70,5 +71,26 @@ button{
 .death-inner{
     font-size:0.9vw;
     border:1px solid black;
+}
+@media only screen and (max-width:$medium-screen) {
+    .death{
+        font-size:2vw;
+    }
+    .death-inner {
+        font-size:1.8vw;
+    }
+}
+
+@media only screen and (max-width:$small-screen) {
+    .death{
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 6;
+        grid-row-end:7; 
+        font-size:3.5vw;       
+    }
+    .death-inner{
+        font-size:3vw;
+    }
 }
 </style>
