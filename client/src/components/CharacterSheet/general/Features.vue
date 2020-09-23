@@ -82,6 +82,7 @@ overflow-y:scroll;
 }
 .feature-info{
     min-height:5px;
+    overflow-x:hidden;
     position: relative;
     padding:0;
     margin:0;
@@ -91,6 +92,9 @@ textarea{
     height:40%;
     resize:none;
     font-size:0.8em;
+}
+.feature-details{
+    white-space: pre-wrap;
 }
 .feature-info:nth-child(even){
     background-color:rgb(226, 226, 226);

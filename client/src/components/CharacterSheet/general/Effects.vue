@@ -170,7 +170,7 @@ textarea{
     outline:none;
 }
 .effect-img{
-   height:4em;
+   height:2.5em;
 }
 .effects{
     font-size:1vw;
@@ -189,7 +189,7 @@ textarea{
     height:70%;
     display:grid;
     grid-template-rows: repeat(2,1fr);
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(5,1fr);
 }
 
 .effect-info{
@@ -253,13 +253,13 @@ textarea{
         grid-column-end:3;
         grid-row-start: 23;
         grid-row-end:25;   
-        font-size:2.3vw; 
+        font-size:3.8vw; 
     }
     .effect-info{
         font-size:3.2vw;
     }
     .create-div{
-        font-size:3.2vw;
+        font-size:3.8vw;
     }
 }
 </style>

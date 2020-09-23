@@ -1,19 +1,21 @@
 <template>
   <div class='proficiencies'>
-      <h2>Proficiencies</h2>
-      <div class='prof-cont'>
-          <div @click='edit(num)' class='prof clickable' v-for='(prof,num) in proficiencies' :key='prof.id'>
-              <h3>{{prof.name}}</h3>
-              <p>{{prof.description}}</p>
-          </div>
+        <div class='inner'>
+        <h2>Proficiencies</h2>
+        <div class='prof-cont'>
+            <div @click='edit(num)' class='prof clickable' v-for='(prof,num) in proficiencies' :key='prof.id'>
+                <h3>{{prof.name}}</h3>
+                <p>{{prof.description}}</p>
+            </div>
+        </div>
+        <button class='bottom-button' @click='newProf()'>Add Proficiency</button>
       </div>
-      <button @click='newProf()'>Add Proficiency</button>
       <popup v-if='pop' @close='close'>
           <div class='popup long'>
               <h3>Name:</h3>
-              <input type='text' v-model = character.proficiencies[profnum].name><br>
+              <input class='input' type='text' v-model = character.proficiencies[profnum].name><br>
               <h3>Content:</h3>
-              <textarea v-model='character.proficiencies[profnum].description'></textarea>
+              <textarea class='input' v-model='character.proficiencies[profnum].description'></textarea>
               <button @click='close()'>Close</button><button @click='del()'>Delete Proficiencies</button>
           </div>
       </popup>
@@ -67,6 +69,17 @@ export default {
 
 <style lang='scss' scoped>
 @import '../../../scss/variables';
+.inner{
+    position: relative;
+    height:100%;
+}
+.bottom-button{
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+}
 .proficiencies{
     grid-column-start:7;
     grid-column-end:9;
@@ -87,6 +100,7 @@ export default {
 }
 .prof-cont{
     height:70%;
+    overflow-x:hidden;
     overflow-y:scroll;
     margin:0;
 }

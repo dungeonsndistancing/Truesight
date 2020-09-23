@@ -1,21 +1,22 @@
 <template>
   <div class='attacks'>
-      <h2>Attacks</h2>
+        <div class='inner'>
+        <h2>Attacks</h2>
 
-      <div class='scroll'>
-        <div class='attack-row'>
-          <div><b>Name</b></div>
-          <div><b>Attack</b></div>
-          <div><b>Damage</b></div>
-      </div>
-        <div @click='edit(id)' class='attack-row clickable ' v-for='(attack,id) in attacks' :key='id'>
-            <div class='attack content'>{{attack.name}}</div>
-            <div class='attack content'>{{attack.attack}}</div>
-            <div class='attack content'>{{attack.damage}}</div>
+        <div class='scroll'>
+            <div class='attack-row'>
+            <div><b>Name</b></div>
+            <div><b>Attack</b></div>
+            <div><b>Damage</b></div>
         </div>
+            <div @click='edit(id)' class='attack-row clickable ' v-for='(attack,id) in attacks' :key='id'>
+                <div class='attack content'>{{attack.name}}</div>
+                <div class='attack content'>{{attack.attack}}</div>
+                <div class='attack content'>{{attack.damage}}</div>
+            </div>
+        </div>
+        <button class='bottom-button' @click='newAttack()'>Add Attack</button>
       </div>
-      <button @click='newAttack()'>Add Attack</button>
-      
       <popup v-if='pop' @close="save()">
           <div class='popup popgrid'>
               <h5>name:</h5> <input class='input wide' v-model='attacks[attackid].name' type='text'>
@@ -65,6 +66,17 @@ export default {
 
 <style lang='scss' scoped>
 @import '../../../scss/variables';
+.inner{
+    height:100%;
+    position: relative;
+}
+.bottom-button{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+}
 .attack-but{
     position:relative;
 }
