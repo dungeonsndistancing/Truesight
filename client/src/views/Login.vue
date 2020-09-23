@@ -1,12 +1,12 @@
 <template>
     <div class="container">
         <div class="center">
-            <img id='logo' src='../assets/logo2.png'/>
+            <img class='logo' src='../assets/logo.svg'/>
             <div id="login">
                 <div id="form" @submit="login">
-                    <input v-model="email" placeholder="enter your email"> <br>
+                    <input v-model="email" placeholder="enter your email">
                     <input v-model="password" type="password" placeholder="enter your password" v-on:keyup.enter="login"><br>
-                    <label for="long">Stay signed in: </label><br><input v-model="long" type="checkbox" id="long"><br>
+                    Stay signed in:<br><input v-model="long" type="checkbox" id="long"><br>
                     <button @click="register">Register</button><button @click="login">Login</button>
                 </div>
             </div>
@@ -51,34 +51,33 @@ export default {
 </script>
 <style scoped>
 .container{
-    padding-top:50em;
+    padding-top:0.5em;
 }
-.center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-#logo {
-    width:300px;
+
+.logo {
+    width:30vh;
 }
 
 #login {
-    color: white;
     text-align:center;
-    margin-top: 60px;
-    background-color: #214478;
-    width: 500px;
-    height: 350px;
+    text-justify: ;
+    margin-top: 2em;
+    background-color: white;
+    width: 30em;
+    max-width:90vw;
+    height: 15em;
+    left:0;
+    right:0;
+    margin:auto;
     border-radius: 5vh;
-    filter: drop-shadow(2px 2px 5px #222222)
+    border: 2px solid gray;
 }
 
 #form {
-    padding-top:30px;
+    padding-top:1em;
     margin:auto;
+    text-align:center;
+    text-justify: distribute;
     width:95%;
     height:95%;
 }
@@ -86,7 +85,7 @@ export default {
 #form button{
     height: 30px;
     width: 70px;
-    margin:20px;
+    margin:1em;
 }
 
 #login input{
@@ -96,7 +95,7 @@ export default {
     border-radius: 10px;
     border-style: solid;
     border-width: 1px;
-    margin-top:20px;
-    margin-bottom:20px;
+    margin-top:0.3em;
+    margin-bottom:0.3em;
 }
 </style>

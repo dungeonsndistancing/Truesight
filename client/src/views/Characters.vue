@@ -41,28 +41,44 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../scss/variables';
+.container{
+    height:100%;
+    background-color:rgb(247, 247, 247);
+}
 .content{
-    clear:both;
     display:grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
 }
 .charactercard{
-    height: 20vh;
+    height: 8em;
     margin: 20px;
     border-style: none;
     border-radius: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border:2px solid rgb(182, 182, 182);
+    background-color:white;
     overflow: hidden;
 }
+.charactercard:hover{
+    background-color:rgb(230, 230, 230);
+}
 .cardheader{
-    background-color: #214478;
-    color: white;
+    border-bottom: 2px solid rgb(182, 182, 182);
     padding-top:0px;
     padding-left:0px;
     padding-right:0px;
 }
 h1 {
     margin:0px;
+}
+@media screen and (max-width:$small-screen) {
+    .content{
+        font-size:2.5vw;
+    }
+    h1{
+        font-size:4vw;
+    }
+
 }
 </style>

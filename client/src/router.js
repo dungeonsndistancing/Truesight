@@ -1,16 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 //import Login from './components/Login'
-import Home from './views/Home'
 Vue.use(Router)
 
 const routes = [
-    {
-        path: '/home',
-        name: 'home',
-        component: Home,
-        meta: { requiresAuth: true}
-    } ,
     {
       path: '/characters',
       name: 'characters',

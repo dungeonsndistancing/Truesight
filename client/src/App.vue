@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <navbar/>
-      <router-view />
+      <router-view class='view' />
   </div>
 </template>
 
@@ -17,6 +17,9 @@ export default {
 </script>
 <style lang='scss'>
 @import './scss/variables';
+view{
+  height:100%;
+}
 html, body {
   height: 100%;
   width: 100%;
@@ -32,6 +35,7 @@ html, body {
   color: #2c3e50;
   margin: 0px;
   padding: 0px;
+  height:100%;
 }
 input[type=checkbox] {
   height:1vw;

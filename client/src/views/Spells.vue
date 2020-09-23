@@ -1,14 +1,12 @@
 <template>
 	<div id="spells">
 		<div class="container">
-			<div class='search-container'>
-			<form @submit.prevent=getSpells>
+			<form class='search-container' @submit.prevent=getSpells>
 				<input type='text' id='searchquery' v-model='querytext' placeholder='search based on name, type, attributes..'>
 				<button type='submit'>Search</button>
 				<input type='button' value='Create Spell' @click="load('/newspell')">
-				<input type='checkbox' v-model='editable' @change='getSpells()'> Edit my entries
+				<div class='edit'><input class='checkbox' type='checkbox' v-model='editable' @change='getSpells()'><label>Edit my entries</label></div>
 			</form>
-			</div>
 			<div class='page-container'>
 				<div class="pageselector" v-for="n in totalpages" @click='update(n)' :key='n' :class="{selected: isActive(n)}">{{n}} </div>
 			</div>
@@ -133,7 +131,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../scss/variables';
+.edit{
+	display:inline;
+}
 .concentration{
 	height:0.7em;
 	padding-top:0.2em;
@@ -144,7 +146,7 @@ export default {
 	background-color: #f9f9f9ff;
 }
 .search-container{
-	padding: 1.5em;
+	padding: 0.5em;
 }
 .popup {
 	border:1px solid rgb(212, 212, 212);
@@ -179,6 +181,10 @@ background-color: rgb(231, 231, 231);
 border-style:solid;
 border-width:1px;
 }
+.checkbox {
+	height:1em;
+	width:1em;
+}
 input[type=text]{
 	margin: 0.5em 1em;
 	padding:0.1em 0.5em;
@@ -193,7 +199,6 @@ input[type=text]{
 	float:right;
 	margin:0px;
 	padding:0em 1em;
-	font-size:1em;
 	color:rgb(85, 85, 85);
 }
 .spell-button:hover {
@@ -235,15 +240,9 @@ input[type=text]{
 .spell-type{
 	padding:0;
 	margin:0;
+	float:left;
 }
 
-#items{
-	min-height:calc(100vh - 50px);
-	flex:1;
-	margin:0;
-	padding:0;
-	background-color: #f9f9f9ff;
-}
 .container{
 	margin:auto;
 	max-width:90%;
@@ -297,9 +296,21 @@ input[type=text]{
 	border-width: 1px;
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: $medium-screen) {
 	.spell-container{
 		grid-template-columns: 100fr;
+	}
+	.edit{
+		display:block;
+	}
+}
+@media only screen and (max-width:$small-screen) {
+	.spell-button{
+		line-height:1em;
+		margin:0px;
+		padding:0.375em 0;
+		width:5em;
+		color:rgb(85, 85, 85);
 	}
 }
 </style>

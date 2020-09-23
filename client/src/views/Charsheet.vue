@@ -226,7 +226,7 @@ p{
     row-gap: 10px;
     column-gap:10px;
     width:calc(100% - 20px);
-    height:calc(100vh - 9vh - 5vh);
+    height:calc(100vh - 3em - 6em);
 
 }
 .selected{
