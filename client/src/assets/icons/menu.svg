@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="menu.svg"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 82.686996 52.473999"
+   height="52.473999mm"
+   width="82.686996mm">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     inkscape:window-maximized="1"
+     inkscape:window-y="-8"
+     inkscape:window-x="1672"
+     inkscape:window-height="1017"
+     inkscape:window-width="1920"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="416.87859"
+     inkscape:cx="501.40487"
+     inkscape:zoom="0.24748737"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <g
+       style="fill:#ffffff"
+       transform="matrix(0.26809253,0,0,0.26809253,13.193981,-12.767907)"
+       id="g856">
+      <rect
+         style="fill:#ffffff;stroke-width:12.2527;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         id="rect833"
+         width="308.42856"
+         height="34.299511"
+         x="-49.214279"
+         y="47.625"
+         ry="7.234746" />
+      <rect
+         ry="7.234746"
+         y="209.05579"
+         x="-49.214279"
+         height="34.299511"
+         width="308.42856"
+         id="rect849"
+         style="fill:#ffffff;stroke-width:12.2527;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke" />
+      <rect
+         style="fill:#ffffff;stroke-width:10.9728;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         id="rect851"
+         width="247.35762"
+         height="34.299511"
+         x="-18.67881"
+         y="128.34039"
+         ry="7.234746" />
+    </g>
+  </g>
+</svg>

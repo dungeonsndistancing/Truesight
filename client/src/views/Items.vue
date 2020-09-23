@@ -6,7 +6,7 @@
 				<input type='text' id='searchquery' v-model='querytext' placeholder='search based on name, type, attributes..'>
 				<button type='submit'>Search</button>
 				<input type='button' value='Create Item' @click="load('/newitem')">
-				<input type='checkbox' v-model='editable' @change='getItems()'> Edit my entries
+				<div class='edit'><input type='checkbox' v-model='editable' @change='getItems()'> Edit my entries</div>
 			</form>
 			</div>
 			<div class='page-container'>
@@ -54,7 +54,7 @@
 			Amount:<input class='input small' v-model='itemamount'><br>
 			<button @click.stop='save()'>Save</button><button @click.stop='cancel()'>Cancel</button>
 		</div>
-		</div>
+	</div>
 </template>
 
 <script>
@@ -134,7 +134,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '../scss/variables';
+.edit{
+	display:inline;
+}
 .popup {
 	border:1px solid rgb(212, 212, 212);
 	padding:0.5em;
@@ -153,7 +157,7 @@ export default {
 	background-color: #f9f9f9ff;
 }
 .search-container{
-	padding: 1.5em;
+	padding: 0.5em;
 }
 input[type=button], button{
 	background-color: rgb(212, 212, 212);
@@ -179,19 +183,22 @@ input[type=text]{
 	border-style:solid;
 	border-radius: 0.5em;
 }
+input[type=checkbox] {
+	width:1em;
+	height:1em;
+}
 .item-button{
 	line-height:3.5em;
 	float:right;
 	margin:0px;
 	padding:0em 1em;
-	font-size:1em;
 	color:rgb(85, 85, 85);
 }
 .item-button:hover {
 	color:rgb(172, 172, 172);
 }
 .item-top{
-	text-align-last: justify;
+	text-align: left;
 	padding:0.3em 0;
 	margin-top:0.95em;
 	border-top: 0.09em solid #e6e6e6;
@@ -205,9 +212,6 @@ input[type=text]{
 .item-bottom{
 	padding:0.3em 0;
 	text-align:left;
-}
-.item-content{
-	clear:both;
 }
 .item-text{
 	display: block;
@@ -237,13 +241,7 @@ input[type=text]{
 .icon img{
 	height:100%;
 }
-#items{
-	min-height:calc(100vh - 50px);
-	flex:1;
-	margin:0;
-	padding:0;
-	background-color: #f9f9f9ff;
-}
+
 .container{
 	margin:auto;
 	max-width:90%;
@@ -300,9 +298,21 @@ input[type=text]{
 	border-width: 1px;
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: $medium-screen) {
 	.item-container{
 		grid-template-columns: 100fr;
+	}
+	.edit{
+		display:block;
+	}
+}
+@media only screen and (max-width:$small-screen) {
+	.item-button{
+		line-height:1em;
+		margin:0px;
+		padding:0.375em 0;
+		width:5em;
+		color:rgb(85, 85, 85);
 	}
 }
 </style>

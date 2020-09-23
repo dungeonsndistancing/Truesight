@@ -11,7 +11,7 @@
       <div>Components:<br><input class='input' v-model='editspell.components' type='text'></div>
       <div>Concentration:<input class='input' v-model='editspell.concentration' type='checkbox'></div>
       <div>Description:<br><textarea v-model='editspell.description'></textarea></div>
-      <div><button @click='save()'>Save</button></div>
+      <div><button @click='save()'>Save</button><button @click='remove()'>Remove</button></div>
     </div>
 </template>
 
@@ -27,11 +27,15 @@ export default {
     },
     methods: {
         save(){
-        spellservice.updateSpell(this.editspell)
-        this.$router.push('/spells')
+          spellservice.updateSpell(this.editspell)
+          this.$router.push('/spells')
         },
         async getSpell() {
             this.editspell = Spell.from(await spellservice.getSpell(this.spell))
+        },
+        remove() {
+          spellservice.removeSpell(this.editspell._id)
+          this.$router.push('/spells')
         }
     },
     beforeMount() {
@@ -44,10 +48,8 @@ export default {
 <style scoped>
 .container{
   text-align:center;
-  background-color:red;
   display:grid;
   min-width:50%;
-  width:400px;
   grid-template-columns: 1fr;
 }
 h3{

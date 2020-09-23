@@ -115,16 +115,13 @@ export default {
     height:5em;
 }
 .count-inner{
-
     float:left;
 }
 .fill{
     margin:auto;
     width:40%;
 }
-h4{
-    margin:0.2em 0;
-}
+
 
 @media only screen and (max-width:$medium-screen) {
     .counters{

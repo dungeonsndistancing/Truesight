@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="center">
-                        <img id='logo' src='../assets/logo2.png'/>
+            <img id='logo' src='../assets/logo.svg'/>
             <div id="login">
                 <div id="form" @submit="register">
                     <input v-model="name" placeholder="enter your username"> <br>
@@ -37,31 +37,32 @@ export default {
 }
 </script>
 <style scoped>
-
-.center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+.container{
+    padding-top:0.5em;
 }
 #logo {
-    width:300px;
+    width:30vh;
 }
 #login {
     text-align:center;
-    margin-top: 60px;
-    background-color: #214478;
-    width: 500px;
-    height: 350px;
+    text-justify: ;
+    margin-top: 2em;
+    background-color: white;
+    width: 30em;
+    max-width:90vw;
+    height: 15em;
+    left:0;
+    right:0;
+    margin:auto;
     border-radius: 5vh;
-    filter: drop-shadow(2px 2px 5px #222222)
+    border: 2px solid gray;
 }
 
 #form {
-    padding-top:30px;
+    padding-top:1em;
     margin:auto;
+    text-align:center;
+    text-justify: distribute;
     width:95%;
     height:95%;
 }
@@ -69,7 +70,7 @@ export default {
 #form button{
     height: 30px;
     width: 70px;
-    margin:20px;
+    margin:1em;
 }
 
 #login input{
@@ -79,7 +80,7 @@ export default {
     border-radius: 10px;
     border-style: solid;
     border-width: 1px;
-    margin-top:20px;
-    margin-bottom:20px;
+    margin-top:1em;
+    margin-bottom:1em;
 }
 </style>

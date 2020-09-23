@@ -55,4 +55,18 @@ router.post('/add',auth, async (req, res) => {
     }
 
 })
+router.delete('/remove',auth,async (req,res) => {
+    try{
+        var spell = await Spell.findById(req.query.id)
+        if(spell.user == req.userData._id){
+            await Spell.findByIdAndDelete(req.query.id)
+            
+        res.status(201).send("success")
+        } else {
+            throw new Error("not allowed")
+        }
+    } catch(err) {
+        res.status(400).send("something went wrong")
+    }
+})
 module.exports = router
