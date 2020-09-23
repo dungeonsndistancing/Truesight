@@ -1,10 +1,14 @@
 import authService from './AuthenticationService'
-
+import Character from '../../../shared/classes/character'
 export default {
     getCharacters: async function() {
         const url = '/characters/list'
         const result = await authService.authenticateRequest(url,"get",'');
-        return result;
+        if(result.data != 'disconnected') {
+            return result.data
+            
+        }
+        
 
     },
     getCharacter: async function(id) {
@@ -12,7 +16,15 @@ export default {
         url += "?id=" + id 
         try{
             const result = await authService.authenticateRequest(url,"get",'')
-            return result.data
+            return Character.from(result.data)
+        } catch(err) {
+            return err.response.status
+        }
+    },
+    updateCharacter: async function(character) {
+        let url = '/characters/update'
+        try{
+            await authService.authenticateRequest(url,'put',{character:character})
         } catch(err) {
             return err.response.status
         }

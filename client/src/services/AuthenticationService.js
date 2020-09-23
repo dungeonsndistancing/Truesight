@@ -48,16 +48,12 @@ export default {
             const headers = {headers:{'token':token}}
             switch(type) {
                 case "get":
-                    console.log("getting")
                     return await axios.get(url, headers)
                 case "post":
-                    console.log('posting')
                     return await axios.post(url,body,headers)
                 case "put":
-                    console.log("putting")
                     return await axios.put(url,body,headers)
                 case "delete":
-                    console.log("deleting")
                     return await axios.delete(url,headers)
                 default:
                     throw new Error("NOT IMPLEMENTED")
@@ -73,10 +69,13 @@ export default {
                     } catch(err) {
                         localStorage.removeItem("token")
                         localStorage.removeItem("longtoken")
+                        window.location.href = 'http://' + new URL(window.location.href).hostname + ":" + new URL(window.location.href).port
                         return "disconnect"
                     }
                 } else {
                     localStorage.removeItem("token")
+                    console.log('NO LONGER CONNECTED')
+                    window.location.href = 'http://' + new URL(window.location.href).hostname + ":" + new URL(window.location.href).port
                     return "disconnect"
                 }
             }

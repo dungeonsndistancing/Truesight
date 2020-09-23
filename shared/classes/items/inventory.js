@@ -1,4 +1,5 @@
 const Item = require('./item')
+const itemparser = require('../itemparser')
 class Inventory {
     constructor() {
         this.backpack = []
@@ -15,6 +16,8 @@ class Inventory {
         var x = this.backpack.findIndex(o => o.equals(item))
         if(x >= 0){
             return this.backpack.splice(x, 1)[0]
+        } else {
+            console.log('cant find item to remove')
         }
     }
     equip(item) {
@@ -26,14 +29,44 @@ class Inventory {
     unequip(item) {
         var x = this.equipped.findIndex(o => o.equals(item))
         if(x >= 0){
-            add(this.equipped.splice(x, 1)[0])
+            this.add(this.equipped.splice(x, 1)[0])
         }
     }
+
+    get weight() {
+        var x = 0;
+        for(var i = 0;i < this.backpack.length;i++){
+            x += this.backpack[i].count * this.backpack[i].weight
+        }
+        for(var i = 0;i < this.equipped.length;i++){
+            x += this.backpack[i].count * this.equipped[i].weight
+        }
+        return x
+    }
+    get attuned() {
+        var attun = []
+        for(var i = 0;i < this.backpack.length;i++){
+           if(this.backpack[i].attuned) {
+               attun.push(this.backpack[i])
+           }
+        }
+        for(var i = 0;i < this.equipped.length;i++){
+            if(this.equipped[i].attuned) {
+                attun.push(this.equipped[i])
+            }
+        }
+        return attun
+    }
+
+    static from(json){
+        var x =  Object.assign(new Inventory(),json)
+        for(let i = 0; i < x.equipped.length;i++) {
+            x.equipped[i] = itemparser.parse(x.equipped[i])
+        }
+        for(let i = 0; i <x.backpack.length;i++) {
+            x.backpack[i] = itemparser.parse(x.backpack[i])
+        }
+        return x
+    }
 }
-var inv = new Inventory()
-inv.add(new Item('pony','type','cost','weight','description'))
-inv.add(new Item('pony2','type','cost','weight','description'))
-inv.add(new Item('pony3','type','cost','weight','description'))
-console.log(inv.remove(new Item('ponysd2','type','cost','weight','description')))
-console.log(inv)
 module.exports = Inventory

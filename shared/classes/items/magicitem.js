@@ -16,8 +16,7 @@ class MagicItem extends Item {
     }
 
     equals(item) {
-        return item.constructor.name == "MagicItem" &&
-        super.equals(item) && item.rarity == this.rarity &&
+        return super.equals(item) && item.rarity == this.rarity &&
         item.attunement == this.attunement
     }
 

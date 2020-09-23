@@ -4,8 +4,8 @@
             <div class="charactercard" v-for="character in characters" :key="character._id" @click='loadCharacter(character)'>
                 <div class="cardheader"><h1>{{ character.name }}</h1></div>
                 <div class="details">
-                    <p>class: {{character.class}}</p>
-                    <p>level: {{character.level}}</p>
+                    <p>class: {{character.cclass.name}}</p>
+                    <p>level: {{character.cclass.level}}</p>
                 </div>
             </div>
             <div class="charactercard" @click="makeCharacter">Make a new Character</div>
@@ -26,14 +26,13 @@ export default {
             if(temp == "disconnect") {
                 this.$router.push('/')
             }
-            console.log(temp)
-            this.characters = temp.data
+            this.characters = temp
         },
         makeCharacter() {
             this.$router.push('/charactercreator')
         },
         loadCharacter(char) {
-            this.$router.push('/charsheet/'+char._id)
+            this.$router.push('/charsheet/'+char._id + '/general')
         }
     },beforeMount() {
         this.getCharacters()

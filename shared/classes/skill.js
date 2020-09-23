@@ -22,6 +22,9 @@ class Skill {
             this.modifiers.splice(index,1)
         }
     }
+    static from(json) {
+        return Object.assign(new Skill(), json)
+    }
 
 }
 module.exports = Skill

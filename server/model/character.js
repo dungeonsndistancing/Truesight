@@ -1,26 +1,5 @@
 const mongoose = require('mongoose')
 
-const skills = {
-    ACROBATICS: 'acrobatics',
-    ANIMAL_HANDLING: 'animal handling',
-    ARCANA: 'arcana',
-    ATHLETICS: 'athletics',
-    DECEPTION: 'deception',
-    HISTORY: 'history',
-    INSIGHT: 'insight',
-    INTIMIDATION: 'intimidation',
-    INVESTIGATION: 'investigation',
-    MEDICINE: 'medicine',
-    NATURE: 'nature',
-    PERCEPTION: 'perception',
-    PERFORMANCE: 'performance',
-    PERSUASION: 'persuasion',
-    RELIGION: 'religion',
-    SLEIGHT_OF_HAND: 'sleight of hand',
-    STEALTH: 'stealth',
-    SURVIVAL: 'survival'
-}
-
 const characterSchema = mongoose.Schema({
     name: {
         type: String,
@@ -51,7 +30,8 @@ const characterSchema = mongoose.Schema({
         height:String,
         eyes:String,
         skin:String,
-        hair:String
+        hair:String,
+        description:String
     },
     traits:[
         {
@@ -149,7 +129,7 @@ const characterSchema = mongoose.Schema({
     },
     savingthrows: {
         strength: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -159,7 +139,7 @@ const characterSchema = mongoose.Schema({
             ]
         },
         dexterity: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -169,7 +149,7 @@ const characterSchema = mongoose.Schema({
             ]
         },
         constitution: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -179,7 +159,7 @@ const characterSchema = mongoose.Schema({
             ]
         },
         intelligence: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -189,7 +169,7 @@ const characterSchema = mongoose.Schema({
             ]
         },
         wisdom: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -199,7 +179,7 @@ const characterSchema = mongoose.Schema({
             ]
         },
         charisma: {
-            proficient:Number,
+            proficiency:Number,
             modifiers:[
                 {
                     name:String,
@@ -230,9 +210,18 @@ const characterSchema = mongoose.Schema({
     temporaryhp:Number,
     spells: [
         {
-            spell: {
-                type: mongoose.Schema.Types.ObjectId, ref: 'Spells'
-            }
+            name:String,
+            level:Number,
+            castingtime:String,
+            duration:String,
+            distance:String,
+            attack:String,
+            school:String,
+            effect:String,
+            components:String,
+            description:String,
+            concentration:Boolean,
+            prepared:Boolean
         }
     ],
     spellsave:Number,
@@ -257,26 +246,66 @@ const characterSchema = mongoose.Schema({
         story:String,
         features:String,
         trinket:String,
+        allies:String,
+        backstory:String,
+        traits:String
     },
-    inventory:[
-        {
-            name:String,
-            description:String,
-            weight:Number,
-            type:String,
-            count:Number,
-            equipped:Boolean,
-            battle_ready:Boolean,
-            attuned:Boolean
-        }
-    ],
+    inventory:{
+        backpack : [
+            {
+                class:String,
+                name:String,
+                description:String,
+                weight:Number,
+                cost:String,
+                type:{type:String},
+                icon:String,
+                color:String,
+                rarity:String,
+                attunement:String,
+                ac:String,
+                strength:Number,
+                damage:String,
+                properties:String,
+                stealth:String,
+                count:Number,
+                attuned:Boolean
+            }
+        ],
+        equipped : [
+            {
+                class:String,
+                name:String,
+                description:String,
+                weight:Number,
+                cost:String,
+                type:{type:String},
+                icon:String,
+                color:String,
+                rarity:String,
+                attunement:String,
+                ac:String,
+                strength:Number,
+                damage:String,
+                properties:String,
+                stealth:String,
+                count:Number,
+                attuned:Boolean
+            }
+        ]
+    },
     attacks:[
         {
             name:String,
             attack:String,
-            damage:String
+            damage:String,
+            extra:String
         }
-    ]
+    ],
+    saves:{
+        succes:Number,
+        failure:Number
+    }
 
 })
 
@@ -287,6 +316,7 @@ characterSchema.statics.findByUser = async (userid) => {
 
 characterSchema.statics.findSingleById = async (id) => {
     const char = await Character.findOne({_id:id})
+    console.log('found char')
     return char
 }
 

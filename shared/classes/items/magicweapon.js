@@ -16,7 +16,7 @@ class MagicWeapon extends MagicItem {
     }
 
     equals(item) {
-        return item.constructor.name == "MagicWeapon" &&
+        return item.class == "magicweapon" &&
         super.equals(item) && this.damage == item.damage &&
         this.properties == item.properties
     }

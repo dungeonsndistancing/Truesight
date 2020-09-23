@@ -24,7 +24,7 @@ const routes = [
         meta: {requiresAuth:true}
     },
     {
-      path:'/charsheet/:char',
+      path:'/charsheet/:char/:page',
       name: 'charsheet',
       component: () => import('./views/Charsheet.vue'),
       props:true,
@@ -62,6 +62,18 @@ const routes = [
         props: true,
         component: () => import('./views/ItemEditor.vue'),
         meta: {requiresAuth:true}
+    },
+    {
+        path: '/newspell',
+        name: 'test',
+        component: () => import('./views/SpellCreator.vue'),
+        meta:{requiresAuth:true}
+    },
+    {
+        path:'/editspell/:spell',
+        name:' spelleditor',
+        props:true,
+        component: () => import('./views/SpellEditor.vue')
     },
     {
         path: '/spells',

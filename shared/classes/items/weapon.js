@@ -14,7 +14,7 @@ class Weapon extends Item{
     }
 
     equals(item) {
-        return item.constructor.name == "Weapon" &&
+        return item.class == "weapon" &&
         super.equals(item) && this.damage == item.damage &&
         this.properties == item.properties
     }

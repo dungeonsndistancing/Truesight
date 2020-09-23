@@ -1,0 +1,33 @@
+[
+    {
+        "name":"Charmed",
+        "icon":"charmed.svg",
+        "description":"You are now charmed and consider this person a friend. Check with your DM what this means."
+    },
+    {
+        "name":"Blinded",
+        "icon":"blinded.svg",
+        "description":"You are now blinded and cannot visually see. Check with your DM what this means."
+    },
+    {
+        "name":"Deafened",
+        "icon":"deafened.svg",
+        "description":"You are now deafened and cannot hear. Check with your DM what this means."
+    },
+    {
+        "name":"Grappled",
+        "icon":"grappled.svg",
+        "description":"You are grappled. Your movement is 0."
+    },
+    {
+        "name":"Stunned",
+        "icon":"stunned.svg",
+        "description":"You are stunned. You are incapacitated, you fail strength and dex saving throws. Attacks against you have advantage"
+    },
+    {
+        "name":"Poisoned",
+        "icon":"poisoned.svg",
+        "description":"You are poisoned, Check with your DM what this means."
+    }
+
+]

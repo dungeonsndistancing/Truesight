@@ -6,38 +6,23 @@
         </div>
         <h1>Create your character</h1>         
         <div class='listorganizer'>
-            <generalInfo :character='character' class='list' />
-            <attributes :attributes='character.attributes' class='list attributes' />
-            <savingthrows :character='character' class='list savingthrows' />
-            <skills :character='character' class='list skills' />
-            <features :character='character' class='features list' />
-            <proficiencies :character='character' class='proficiencies list' />
+            <generalInfo :character='character' class='lista' />
         </div>
     </div>
 </template>
 
 <script>
 import generalInfo from '../components/CharacterCreator/GeneralInfo'
-import attributes from '../components/CharacterCreator/Attributes'
-import savingthrows from '../components/CharacterCreator/SavingThrows'
-import skills from '../components/CharacterCreator/Skills'
-import features from '../components/CharacterCreator/Features'
-import proficiencies from '../components/CharacterCreator/Proficiencies'
 import CharacterService from '../services/CharacterService'
 import Character from '../../../shared/classes/character'
 export default {
     data: function() {
         return{
-            character:new Character(),
+            character: new Character()
         }
     },
     components: {
         generalInfo,
-        attributes,
-        savingthrows,
-        skills,
-        features,
-        proficiencies
     },
     methods: {
         async save() {
@@ -49,24 +34,7 @@ export default {
 
 </script>
 <style>
-.input{
-    border-radius:1em;
-    border-style:solid;
-    border-width: 1px;
-    border-color:rgb(170, 170, 170);
-    padding:0.1em 0.3em 0.1em 0.3em;
-    display: inline-block;
-}
-.small {
-    width: 2.5em;
-}
-.medium {
-    width:6em;
-}
-.wide{
-    width: 10em;
-}
-.list{
+.lista{
     border-radius:1%;
     overflow-x:hidden;
       border-style: solid;
@@ -118,7 +86,7 @@ textarea{
     width:13em;
 }
 
-.list{
+.lista{
     border-radius:1%;
     overflow-x:hidden;
     border-style: solid;
