@@ -18,11 +18,11 @@
                         <h5>Name:</h5><input class='input wide' type='text' v-model='mod.name'>
                         <h5>Value:</h5><input class='input wide' type='number' v-model='mod.value'>
                         <h5>Source:</h5><input class='input wide' type='text' v-model='mod.source'><br>
-                        <button @click='attributes[updateid].removemodifier(mod.name,mod.source)'>Remove Modifier</button>
+                        <button @click='removemodifier(updateid,mod.name,mod.source)'>Remove Modifier</button>
                     </div>
                 </div>
                 <br>
-                <button @click='attributes[updateid].addmodifier("",0,"")' >Add modifier</button>
+                <button @click='addmodifier(updateid)' >Add modifier</button>
                 <button @click='close()'>Close</button>
             </div>
         </popup>
@@ -44,18 +44,24 @@ export default {
     },
     methods: {
         update(id) {
-            console.log(this.attributes[id])
             this.updateid=id
             this.atpop=true
         },
         close() {
-            console.log('huh')
             this.updateid='strength'
             this.atpop=false
             this.send()
         },
         send(){
             this.$emit('update',{keys:['attributes'],values:[this.attributes]})
+        },
+        addmodifier(updateid) {
+            this.attributes[updateid].addmodifier("",0,"")
+            this.send()
+        },
+        removemodifier(updateid,name,source) {
+            this.attributes[updateid].removemodifier(name,source)
+            this.send()
         }
     }
 }

@@ -3,19 +3,17 @@ var socket = {}
 var frontview = {}
 async function prepareSocket() {
     socket.onmessage = function(message) {
-        console.log("message received2")
         var data = JSON.parse(message.data)
         switch(data.type) {
             case "update":
-                update(data)
+                update(data.data)
                 break
             default:
                 console.log(data)
                 break
         }
     }
-    socket.onclose = (code) => {
-        console.log(code)
+    socket.onclose = () => {
         frontview.connected = false
     }
     socket.onopen = () => {
@@ -39,6 +37,5 @@ module.exports.disconnect = () => {
     socket.close()
 }
 function update(data) {
-    console.log('updating')
-    frontview.character[data.key] = data.value
+    frontview.updateCharacter(data)
 }

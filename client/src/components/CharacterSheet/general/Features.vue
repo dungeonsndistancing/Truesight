@@ -51,8 +51,11 @@ export default {
         },
         close(){
             //save the updates
-            this.$emit('update',{keys:['traits'],values:[this.features]})
+            this.update()
             this.pop=false
+        },
+        update() {
+            this.$emit('update',{keys:['traits'],values:[this.features]})
         },
         del() {
             this.features.splice(this.featid,1)
@@ -60,6 +63,7 @@ export default {
         },
         addfeature() {
             this.features.push(new Feature('name','source',''))
+            this.update()
             this.edit(this.features.length-1)
         }
     }

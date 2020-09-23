@@ -3,11 +3,11 @@ const jwt = require("jsonwebtoken")
 const Character = require('./model/character')
 const User = require('./model/user')
 const dotenv = require('dotenv')
-const { request } = require('express')
 const Message = require('../shared/classes/data/Message')
+const { update } = require('./model/user')
 dotenv.config()
-var websockets = {}
 var wss = {}
+var connections = new Map()
 console.log(process.env.CLIENT_IP)
 module.exports.createSocket = () => {
     console.log()
@@ -19,17 +19,18 @@ module.exports.createSocket = () => {
         con.on('message',async function incoming(message){
             try{
                 var msg = Message.from(JSON.parse(message))
-                console.log(msg)
                 switch(msg.type) {
                     case "character":
-                        console.log('found character websocket')
                         con.character = await Character.findById(msg.data)
+                        addConnection(msg.data,con)
                         break;
                     case "update":
+                        let character = await Character.findById(con.character)
                         for(var i = 0; i < msg.data.keys.length; i++) {
-                            con.character[msg.data.keys[i]] = msg.data.values[i]
+                            character[msg.data.keys[i]] = msg.data.values[i]
                         }
-                        con.character.save()
+                        updateConnections(''+con.character._id+'',message,con)
+                        character.save()
                         break;
                     default: 
                         console.log("message type not recognized")
@@ -43,6 +44,7 @@ module.exports.createSocket = () => {
         con.on('close',async function closing(code) {
             console.log("close!")
             console.log('saving character')
+            removeConnection(con.character._id,con)
              try{
                  await con.character.save()
              } catch(err) {
@@ -71,6 +73,38 @@ module.exports.handleUpgrade = async (request, socket, head) => {
         console.log("ERROR UPGRADING")
         socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
         socket.destroy()
+    }
+}
+
+function addConnection(id,con) {
+    console.log(typeof id)
+    var conn = connections.get(id)
+    if(typeof conn != 'undefined') {
+        conn.push(con)
+    }else {
+        connections.set(id,new Array())
+        connections.get(id).push(con)
+    } 
+}
+function updateConnections(id,msg,con) {
+    var cons = connections.get(id)
+    for(let i = 0; i < cons.length; i++) {
+        cons[i].send(msg)
+    }
+}
+function removeConnection(id,con) {
+    id = '' + id
+    var conn = connections.get(id)
+    if(typeof conn != 'undefined') {
+        var index = conn.indexOf(con)
+        if(index >= 0) {
+            conn.splice(index,1)
+            console.log('removing connection')
+        }
+        if(conn.length == 0) {
+            console.log('clearing log')
+            connections.delete(id)
+        }
     }
 }
 

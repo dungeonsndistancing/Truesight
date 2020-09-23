@@ -34,9 +34,13 @@ export default {
     data: function() {
         return {
             character: new Character()
-
             }
             
+    },
+    computed: {
+        tempchar: function() {
+            return Object.assign({},this.character)
+        }
     },
     methods: {
         async getCharacter(id) {
@@ -48,14 +52,18 @@ export default {
             const size = new TextEncoder().encode(JSON.stringify(this.character.inventory)).length
             const kiloBytes = size / 1024;
             console.log(kiloBytes)
-
-
         },
         update(data) {
             for(var i = 0; i < data.keys.length; i++) {
                 this.character[data.keys[i]] = data.values[i]
             }
             wsservice.send('update',data)
+        },
+        updateCharacter(data) { 
+            for(let i = 0; i < data.keys.length;i++) {
+                this.tempchar[data.keys[i]] = data.values[i]
+            }
+            this.character = Character.from(this.tempchar)
         },
         start() {
             wsservice.send('character',this.char)

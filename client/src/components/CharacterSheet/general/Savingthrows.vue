@@ -18,11 +18,11 @@
                         <h5>Name:</h5><input class='input wide' type='text' v-model='save.name'>
                         <h5>Value:</h5><input class='input small' type='number' v-model='save.value'><br>
                         <h5>Source:</h5><input class='input wide' type='text' v-model='save.source'><br>
-                        <button @click='character.savingthrows[updateid].removemodifier(save.name,save.source)'>Remove Modifier</button>
+                        <button @click='removemodifier(updateid,save.name,save.source)'>Remove Modifier</button>
                     </div>
                 </div>
                 <br>
-                <button @click='character.savingthrows[updateid].addmodifier("",0,"")' >Add modifier</button>
+                <button @click='addmodifier(updateid)' >Add modifier</button>
                 <button @click='close()'>Close</button>
             </div>
         </popup>
@@ -46,12 +46,21 @@ export default {
     },
     methods: {
         close(){
-            this.$emit('update',{keys:['savingthrows'],values:[this.character.savingthrows]})
+            this.update()
             this.atpop=false
+        },
+        update() {
+            this.$emit('update',{keys:['savingthrows'],values:[this.character.savingthrows]})
         },
         open(id) {
             this.updateid=id
             this.atpop=true
+        },
+        addmodifier(updateid) {
+            this.character.savingthrows[updateid].addmodifier("",0,"")
+        },
+        removemodifier(updateid,name,source) {
+            this.character.savingthrows[updateid].removemodifier(name,source)            
         }
     }, created() {
     }
