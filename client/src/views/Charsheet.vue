@@ -8,10 +8,10 @@
             <div class='tab' @click='load("background")' v-bind:class='{selected:page=="background"}'>Background</div>
         </div>
 
-        <general v-if='page=="general"' class='content' @update='update' :character='character' />
-        <inventory v-if='page=="inventory"' class='content' @update='update' :inventory='character.inventory' />
-        <spells v-if='page=="spells"' class='content' @update='update' :character='character' />
-        <background v-if='page=="background"' class='content' @update='update' :character='character' />
+        <general v-if='page=="general"' class='content' @remove='remove' @update='update' :character.sync='character' />
+        <inventory v-if='page=="inventory"' class='content' @remove='remove' @update='update' :inventory.sync='character.inventory' />
+        <spells v-if='page=="spells"' class='content' @remove='remove' @update='update' :character.sync='character' />
+        <background v-if='page=="background"' class='content' @remove='remove' @update='update' :character.sync='character' />
     </div>
 </template>
 
@@ -34,7 +34,7 @@ export default {
     data: function() {
         return {
             character: new Character()
-            }
+        }
             
     },
     computed: {
@@ -54,14 +54,37 @@ export default {
             console.log(kiloBytes)
         },
         update(data) {
-            for(var i = 0; i < data.keys.length; i++) {
-                this.character[data.keys[i]] = data.values[i]
-            }
             wsservice.send('update',data)
         },
+        remove(data) {
+            wsservice.send('remove',data)
+        },
         updateCharacter(data) { 
+            console.log(data)
             for(let i = 0; i < data.keys.length;i++) {
-                this.tempchar[data.keys[i]] = data.values[i]
+                if(Array.isArray(this.character[data.keys[i]])) {
+                    Object.keys(data.values[i]).forEach(
+                        key => {
+                            this.character[data.keys[i]].splice(key,1,data.values[i][key])
+                        }
+                    )
+                } else if(typeof data.values[i] == 'object') {
+                    Object.keys(data.values[i]).forEach(
+                        key => {
+                            this.character[data.keys[i]][key] = data.values[i][key]
+                        }
+                    )
+                } else {
+                    this.character[data.keys[i]] = data.values[i]
+                }
+            }
+            this.character = Character.from(this.character)
+        },
+        removeCharacter(data) {
+            console.log(data)
+            for(let i = 0; i<data.keys.length;i++) {
+                console.log(data.values[i])
+                this.tempchar[data.keys[i]].splice(data.values[i],1)
             }
             this.character = Character.from(this.tempchar)
         },

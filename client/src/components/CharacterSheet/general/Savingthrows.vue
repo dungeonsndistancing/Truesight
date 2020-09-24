@@ -38,6 +38,14 @@ export default {
     components:{
         popup
     },
+    computed: {
+        savingthrows: function() {
+            if(typeof this.character == 'undefined') {
+                return new Array()
+            } 
+            return this.characters.savingthrows
+        }
+    },
     data: function() {
         return {
             atpop:false,
@@ -50,19 +58,22 @@ export default {
             this.atpop=false
         },
         update() {
-            this.$emit('update',{keys:['savingthrows'],values:[this.character.savingthrows]})
+            var tempthrows = {}
+            tempthrows[this.updateid] = this.savingthrows[this.updateid]
+            this.$emit('update',{keys:['savingthrows'],values:[tempthrows]})
         },
         open(id) {
             this.updateid=id
             this.atpop=true
         },
         addmodifier(updateid) {
-            this.character.savingthrows[updateid].addmodifier("",0,"")
+            this.savingthrows[updateid].addmodifier("",0,"")
+            this.update()
         },
         removemodifier(updateid,name,source) {
-            this.character.savingthrows[updateid].removemodifier(name,source)            
+            this.savingthrows[updateid].removemodifier(name,source) 
+            this.update()           
         }
-    }, created() {
     }
 
 }

@@ -1,7 +1,7 @@
 <template>
     <div class='attributes'>
         <div class='at-title'><h3>Attributes</h3></div>
-        <div class='attr clickable' @click='update(attrid)' v-for='(attribute,attrid) in attributes' :key='attrid'>
+        <div class='attr clickable' @click='change(attrid)' v-for='(attribute,attrid) in attributes' :key='attrid'>
             <h5>{{attrid}}</h5>
             <h2>{{attribute.value}}</h2>
             <div class='mod'><b v-if='attribute.mod > 0'>+</b><b>{{attribute.mod}}</b></div>
@@ -9,12 +9,12 @@
         <popup v-show='atpop' @close='close'>
             <div class='popup long'>
                 <h2>{{updateid}}</h2>
-                <h3>{{attributes[updateid].value}}</h3>
+                <h3>{{realattributes[updateid].value}}</h3>
                 <h5>Base:</h5>
-                <input class='input small' type='text' v-model='attributes[updateid].base'>
+                <input class='input small' type='text' v-model='realattributes[updateid].base'>
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
-                    <div class='mod-div' v-for='mod in attributes[updateid].modifiers' :key='mod._id'>
+                    <div class='mod-div' v-for='mod in realattributes[updateid].modifiers' :key='mod._id'>
                         <h5>Name:</h5><input class='input wide' type='text' v-model='mod.name'>
                         <h5>Value:</h5><input class='input wide' type='number' v-model='mod.value'>
                         <h5>Source:</h5><input class='input wide' type='text' v-model='mod.source'><br>
@@ -23,7 +23,7 @@
                 </div>
                 <br>
                 <button @click='addmodifier(updateid)' >Add modifier</button>
-                <button @click='close()'>Close</button>
+                <button @click='close()'>Save</button>
             </div>
         </popup>
     </div>
@@ -42,26 +42,37 @@ export default {
             updateid:'strength',
         }
     },
+    computed: {
+        realattributes: function() {
+            if(typeof this.attributes != 'undefined') {
+                return Object.assign({},this.attributes)
+            }
+            return {}
+        }
+    },
     methods: {
-        update(id) {
+        change(id) {
             this.updateid=id
             this.atpop=true
         },
         close() {
+            this.update()
             this.updateid='strength'
             this.atpop=false
-            this.send()
         },
-        send(){
-            this.$emit('update',{keys:['attributes'],values:[this.attributes]})
+        update(){
+            var tempatt = {}
+            tempatt[this.updateid] = this.realattributes[this.updateid]
+            console.log(JSON.stringify(tempatt))
+            this.$emit('update',{keys:['attributes'],values:[tempatt]})
         },
         addmodifier(updateid) {
-            this.attributes[updateid].addmodifier("",0,"")
-            this.send()
+            this.realattributes[updateid].addmodifier("",0,"")
+            this.update()
         },
         removemodifier(updateid,name,source) {
-            this.attributes[updateid].removemodifier(name,source)
-            this.send()
+            this.realattributes[updateid].removemodifier(name,source)
+            this.update()
         }
     }
 }

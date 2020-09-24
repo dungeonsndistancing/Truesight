@@ -8,6 +8,9 @@ async function prepareSocket() {
             case "update":
                 update(data.data)
                 break
+            case "remove":
+                remove(data.data)
+                break
             default:
                 console.log(data)
                 break
@@ -38,4 +41,7 @@ module.exports.disconnect = () => {
 }
 function update(data) {
     frontview.updateCharacter(data)
+}
+function remove(data) {
+    frontview.removeCharacter(data)
 }

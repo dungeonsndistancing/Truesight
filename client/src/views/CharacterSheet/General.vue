@@ -1,18 +1,18 @@
 <template>
     <div>
         <name @update='update' :name='character.name' />
-        <attributes @update='update' :attributes='character.attributes' />
-        <savingthrows @update='update' :character='character' />
-        <cclass @update='update' :cclass='character.cclass' />
+        <attributes @remove='remove' @update='update' :attributes='character.attributes' />
+        <savingthrows @remove='remove' @update='update' :character='character' />
+        <cclass @remove='remove' @update='update' :cclass='character.cclass' />
         <battle @update='update' :character='character' />
         <money @update='update' :money='character.money' />
-        <skills @update='update' :character='character' />
-        <attacks @update='update' :attacks='character.attacks'/>
-        <features @update='update' :features='character.traits' />
-        <proficiencies @update='update' :character='character' />
-        <death @update='update' :character='character' />
-        <counters @update='update' :counters='character.counters' />
-        <effects @update='update' :effects='character.effects' />
+        <skills @remove='remove' @update='update' :character='character' />
+        <attacks @remove='remove' @update='update' :attacks.sync='character.attacks'/>
+        <features @remove='remove' @update='update' :features='character.traits' />
+        <proficiencies @remove='remove' @update='update' :character='character' />
+        <death @remove='remove' @update='update' :character='character' />
+        <counters @remove='remove' @update='update' :counters='character.counters' />
+        <effects @remove='remove' @update='update' :effects='character.effects' />
         <experience @update='update' :experience='character.experience' />
     </div>
 </template>
@@ -53,6 +53,9 @@ export default {
     },methods: {
         update(data) {
             this.$emit('update',data)
+        },
+        remove(data) {
+            this.$emit('remove',data)
         }
     }
 }

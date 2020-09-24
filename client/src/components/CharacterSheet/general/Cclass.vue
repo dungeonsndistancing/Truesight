@@ -26,12 +26,20 @@
 </template>
 
 <script>
+import Cclass from '../../../../../shared/classes/cclass'
 export default {
     props:['cclass'],
     data: function() {
         return {
             show:false,
-            editcclass:{}
+        }
+    },
+    computed: {
+        editcclass: function() {
+            if(typeof this.cclass !== 'undefined') {
+                return Cclass.from(this.cclass)
+            }
+            return new Cclass()
         }
     },
     methods: {
@@ -39,7 +47,6 @@ export default {
             this.$emit('update',{keys:['cclass'],values:[this.editcclass]})
         },
         edit() {
-                this.editcclass = Object.assign({},this.cclass)
                 this.show= !this.show
         },
         update() {

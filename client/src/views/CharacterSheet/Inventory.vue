@@ -1,7 +1,7 @@
 <template>
     <div class='inventory'>
-        <backpack @update='update' :inventory='inventory' />
-        <equipped @update='update' :inventory='inventory' />
+        <backpack @remove='remove' @update='update' :inventory='inventory' />
+        <equipped @remove='remove' @update='update' :inventory='inventory' />
         <weight :inventory='inventory'/>
         <attuned :inventory='inventory' />
     </div>
@@ -25,6 +25,9 @@ export default {
     methods: {
         update(data) {
             this.$emit('update',data)
+        },
+        remove(data) {
+            this.$emit('remove',data)
         }
     }
 }

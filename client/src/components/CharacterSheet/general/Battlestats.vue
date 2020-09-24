@@ -11,7 +11,7 @@
       <popup v-show='pop' @close='close'>
           <div class='popup short' >
                 <h2>{{poptitle}}</h2>
-              <input class='input' v-model='character[item]'>
+              <input class='input' v-model='item'>
               <button @click='close()'>Save</button>
           </div>
       </popup>
@@ -26,8 +26,8 @@ export default {
         return {
             pop:false,
             poptitle:'',
-            item:''
-
+            item:'',
+            identifier:''
         }
     },
     components: {
@@ -36,11 +36,14 @@ export default {
     methods: {
         show(item,title) {
             this.pop = true
-            this.item = item
+            this.identifier = item
+            console.log(this.character[item])
+            this.item = this.character[item]
+            console.log(this.item)
             this.poptitle = title
         },
         close() {
-            this.$emit('update',{keys:[this.item],values:[this.character[this.item]]})
+            this.$emit('update',{keys:[this.identifier],values:[this.item]})
             this.pop = false
         }
     }

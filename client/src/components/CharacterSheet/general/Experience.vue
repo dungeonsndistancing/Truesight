@@ -17,7 +17,7 @@ export default {
     data: function() {
         return {
             show:false,
-            editexp:0
+            editexp:this.experience
         }
     },
     methods: {

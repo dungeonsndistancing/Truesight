@@ -1,7 +1,7 @@
 <template>
     <div class='skills'>
         <h2 class='top'>Skills</h2>
-        <div class='skill-card number clickable' @click='skillInfo(number)'  v-for='(skill,number) in character.skills' :key='skill.name'>
+        <div class='skill-card number clickable' @click='skillInfo(number)'  v-for='(skill,number) in skills' :key='skill.name'>
             <h5><i v-if='skill.proficiency> 0'>&#10003; </i>  {{skill.name}} <i>({{skill.ability.substring(0,3)}})</i></h5>
             <h3 ><b v-if='skill.value(character.attributes[skill.ability].mod,character.proficiency) > 0'>+</b>
             <b>{{skill.value(character.attributes[skill.ability].mod,character.proficiency)}}</b>
@@ -10,20 +10,20 @@
         <popup v-show='skillpop' @close='close'>
             <div class='popup long'>
                 <h3>{{character.skills[skillid].name}}</h3>
-                <h3><b v-if='character.skills[skillid].value(character.attributes[character.skills[skillid].ability].mod,character.proficiency) > 0'>+</b>{{character.skills[skillid].value(character.attributes[character.skills[skillid].ability].mod,character.proficiency)}}</h3>
+                <h3><b v-if='character.skills[skillid].value(character.attributes[skills[skillid].ability].mod,character.proficiency) > 0'>+</b>{{skills[skillid].value(character.attributes[skills[skillid].ability].mod,character.proficiency)}}</h3>
                 <h5>Proficiency:</h5>
-                Proficient:<input class='checkbox' v-model='character.skills[skillid].proficiency' type='checkbox'>
+                Proficient:<input class='checkbox' v-model='skills[skillid].proficiency' type='checkbox'>
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
-                    <div class='mod-div' v-for='mod in character.skills[skillid].modifiers' :key='mod._id'>
+                    <div class='mod-div' v-for='mod in skills[skillid].modifiers' :key='mod._id'>
                         <h5>Name:</h5><input class='input wide ' type='text' v-model='mod.name'>
                         <h5>Value:</h5><input class='input small' type='number' v-model='mod.value'>
                         <h5>Source:</h5><input class='input wide' type='text' v-model='mod.source'><br>
-                        <button @click='character.skills[skillid].removemodifier(mod.name,mod.source)'>Remove Modifier</button>
+                        <button @click='removemodifier(skillid,mod.name,mod.source)'>Remove Modifier</button>
                     </div>
                 </div>
                 <br>
-                <button @click='character.skills[skillid].addmodifier("",0,"")' >Add modifier</button>
+                <button @click='addmodifier(skillid)' >Add modifier</button>
                 <button @click='close()'>Close</button>
             </div>
         </popup>
@@ -41,6 +41,14 @@ export default {
         }
 
     },
+    computed: {
+        skills: function() {
+            if(typeof this.character != 'undefined') {
+                return Array.from(this.character.skills)
+            }
+            return new Array()
+        }
+    },
     components:{
         popup
     },
@@ -49,9 +57,22 @@ export default {
             this.skillid = id
             this.skillpop = true
         },
+        addmodifier(skillid) {
+            this.skills[skillid].addmodifier("",0,"")
+            this.update()
+        },
+        removemodifier(skillid,name,source) {
+            this.skills[skillid].removemodifier(name,source)
+            this.update()
+        },
         close() {
-            this.$emit('update',{keys:['skills'],values:[this.character.skills]})
+            this.update()
             this.skillpop = false
+        },
+        update() {
+            var tempskills = {}
+            tempskills[this.skillid] = this.skills[this.skillid]
+            this.$emit('update',{keys:['skills'],values:[tempskills]})
         }
     }
 }

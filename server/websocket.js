@@ -26,11 +26,31 @@ module.exports.createSocket = () => {
                         break;
                     case "update":
                         let character = await Character.findById(con.character)
+                        console.log('updating character')
                         for(var i = 0; i < msg.data.keys.length; i++) {
-                            character[msg.data.keys[i]] = msg.data.values[i]
+                            if(typeof msg.data.values[i] == 'object' || typeof msg.data.values[i] =='array'){
+                                Object.keys(msg.data.values[i]).forEach(
+                                    key => {
+                                        character[msg.data.keys[i]][key] = msg.data.values[i][key]
+                                    }
+                                )
+                            } else {
+                                character[msg.data.keys[i]] = msg.data.values[i]
+                            }
                         }
-                        updateConnections(''+con.character._id+'',message,con)
                         character.save()
+                        updateConnections(''+con.character._id+'',message,con)
+                        break;
+                    case "remove":
+                        console.log('removing character')
+                        let removechar = await Character.findById(con.character)
+                        for(let i = 0; i<msg.data.keys.length;i++) {
+                            console.log('test')
+                            console.log(typeof removechar[msg.data.keys[i]])
+                            removechar[msg.data.keys[i]].splice(msg.data.values[i],1)
+                        }  
+                        removechar.save() 
+                        updateConnections(''+con.character._id+'',message,con)
                         break;
                     default: 
                         console.log("message type not recognized")
@@ -70,6 +90,7 @@ module.exports.handleUpgrade = async (request, socket, head) => {
         })
 
     } else {
+        console.log
         console.log("ERROR UPGRADING")
         socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
         socket.destroy()
