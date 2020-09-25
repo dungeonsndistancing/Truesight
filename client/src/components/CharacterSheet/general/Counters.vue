@@ -63,10 +63,12 @@ export default {
             this.update(this.editcounters.length-1)
         },
         removeCounter(id){
+            var temp = {counters:[]}
+            temp.counters.push(id)
+            console.log(temp)
+            this.$emit('update',[{task:'remove',data:temp}])
             this.pop=false
-            this.$emit('remove',{keys:['counters'],values:[id]})
             this.popid = 0;
-            
         },
         edit(id) {
             this.pop=true
@@ -77,10 +79,9 @@ export default {
             this.update(this.popid)
         },
         update(id) {
-            var tempcounters = {}
-            tempcounters[id] = this.editcounters[id]
-            console.log(tempcounters)
-            this.$emit('update',{keys:['counters'],values:[tempcounters]})
+            var temp = {counters:{}}
+            temp['counters'][id] = this.editcounters[id]
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 

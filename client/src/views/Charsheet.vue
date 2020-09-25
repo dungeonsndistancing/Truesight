@@ -49,44 +49,70 @@ export default {
                 this.$router.push('/403')
             }
             this.character = temp;
-            const size = new TextEncoder().encode(JSON.stringify(this.character.inventory)).length
-            const kiloBytes = size / 1024;
-            console.log(kiloBytes)
         },
-        update(data) {
-            wsservice.send('update',data)
-        },
-        remove(data) {
-            wsservice.send('remove',data)
-        },
-        updateCharacter(data) { 
-            console.log(data)
-            for(let i = 0; i < data.keys.length;i++) {
-                if(Array.isArray(this.character[data.keys[i]])) {
-                    Object.keys(data.values[i]).forEach(
-                        key => {
-                            this.character[data.keys[i]].splice(key,1,data.values[i][key])
-                        }
-                    )
-                } else if(typeof data.values[i] == 'object') {
-                    Object.keys(data.values[i]).forEach(
-                        key => {
-                            this.character[data.keys[i]][key] = data.values[i][key]
-                        }
-                    )
-                } else {
-                    this.character[data.keys[i]] = data.values[i]
+        async update(data) {
+            if(!wsservice.send('update',data)) {
+                await wsservice.link(this)
+                await this.start()
+                if(!wsservice.send('update',data)) {
+                    console.log("COULD NO LONGER TRANSMIT DATA")
                 }
             }
+        },
+        async remove(data) {
+            if(!wsservice.send('remove',data)) {
+                await wsservice.link(this)
+                await this.start()
+                if(!wsservice.send('remove',data)) {
+                    console.log("COULD NO LONGER TRANSMIT DATA")
+                }
+            }
+        },
+        updateCharacter(data) { 
+            data.forEach(element => {
+                if(element.task ==='update') { 
+                    this.deepMerge(this.character,element.data)
+                } else if(element.task ==='remove') {
+                    this.deepRemove(this.character,element.data)
+                }
+            })
             this.character = Character.from(this.character)
         },
-        removeCharacter(data) {
-            console.log(data)
-            for(let i = 0; i<data.keys.length;i++) {
-                console.log(data.values[i])
-                this.tempchar[data.keys[i]].splice(data.values[i],1)
+        deepMerge(object,attributes) {
+            var keys = Object.keys(attributes)
+            for(let i = 0; i < keys.length;i++) {
+                if(typeof object[keys[i]] === 'undefined') {
+                    object[keys[i]] = {}
+                }
+                if(Array.isArray(object)) {  
+                    this.deepMerge(object[keys[i]],attributes[keys[i]])
+                    object.splice(keys[i],1,object[keys[i]])
+                }
+                else if(typeof attributes[keys[i]] === 'object') {
+                    this.deepMerge(object[keys[i]],attributes[keys[i]])
+                } else {
+                    object[keys[i]] = attributes[keys[i]]
+                }
             }
+        },
+        removeCharacter(data) {
+            this.deepRemove(this.character,data)
             this.character = Character.from(this.tempchar)
+        },
+        deepRemove(object,attributes) {
+            var keys = Object.keys(attributes)
+            for(let i = 0; i < keys.length;i++) {
+                if(Array.isArray(attributes)) {
+                    if(Array.isArray(object)) {
+                        object.splice(attributes[keys[i]],1)
+                    } else {
+                        console.log('cannot remove from non-array currently')
+                        throw Error("cannot remove attribute")
+                    }
+                } else {
+                    this.deepRemove(object[keys[i]],attributes[keys[i]])
+                }
+            }
         },
         start() {
             wsservice.send('character',this.char)
@@ -99,7 +125,6 @@ export default {
         await this.getCharacter(this.char)
         await wsservice.link(this)
     },beforeDestroy() {
-        console.log('leaving charsheet')
         wsservice.disconnect()
     }
 }

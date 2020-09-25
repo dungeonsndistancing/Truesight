@@ -1,9 +1,9 @@
 <template>
     <div class='spells'>
-        <known @remove='remove' @update='update' :spells='character.spells'/>
+        <known  @update='update' :spells='character.spells'/>
         <prepared @update='update' :spells='character.spells'/>
         <spellstats @update='update' :character='character'/>
-        <counters @remove='remove' class='spellcounters' @update='update' :counters='character.counters'/>
+        <counters class='spellcounters' @update='update' :counters='character.counters'/>
     </div>
 </template>
 
@@ -24,10 +24,8 @@ export default {
     },
     methods: {
         update(data){
+            console.log(data)
             this.$emit('update',data)
-        },
-        remove(data) {
-            this.$emit('remove',data)
         }
     }
 }

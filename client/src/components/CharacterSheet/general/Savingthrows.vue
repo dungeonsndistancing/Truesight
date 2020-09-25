@@ -1,7 +1,7 @@
 <template>
   <div class='savingthrows'>
         <div class='save-title'><h3>Savingthrows</h3></div>
-        <div class='save clickable' @click='open(saveid)' v-for='(savingthrow,saveid) in character.savingthrows' :key='saveid'>
+        <div class='save clickable' @click='open(saveid)' v-for='(savingthrow,saveid) in savingthrows' :key='saveid'>
             <h5>{{saveid}}</h5>
             <div  class='save-mod'><h2><b v-if='savingthrow.bonus(character.attributes[saveid].mod,character.proficiency) > 0'>+</b>{{savingthrow.bonus(character.attributes[saveid].mod,character.proficiency)}}</h2></div>
             <h6><i v-if='savingthrow.proficiency == 1'>Proficient</i><i v-else-if='savingthrow.proficiency == 2'>Expert</i ></h6>
@@ -14,11 +14,11 @@
                 Proficient:<input  v-model='character.savingthrows[updateid].proficiency' type='checkbox'>
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
-                    <div class='mod-div' v-for='save in character.savingthrows[updateid].modifiers' :key='save._id'>
+                    <div class='mod-div' v-for='(save,id) in character.savingthrows[updateid].modifiers' :key='save._id'>
                         <h5>Name:</h5><input class='input wide' type='text' v-model='save.name'>
                         <h5>Value:</h5><input class='input small' type='number' v-model='save.value'><br>
                         <h5>Source:</h5><input class='input wide' type='text' v-model='save.source'><br>
-                        <button @click='removemodifier(updateid,save.name,save.source)'>Remove Modifier</button>
+                        <button @click='removemodifier(updateid,id)'>Remove Modifier</button>
                     </div>
                 </div>
                 <br>
@@ -43,7 +43,7 @@ export default {
             if(typeof this.character == 'undefined') {
                 return new Array()
             } 
-            return this.characters.savingthrows
+            return this.character.savingthrows
         }
     },
     data: function() {
@@ -58,21 +58,27 @@ export default {
             this.atpop=false
         },
         update() {
-            var tempthrows = {}
-            tempthrows[this.updateid] = this.savingthrows[this.updateid]
-            this.$emit('update',{keys:['savingthrows'],values:[tempthrows]})
+            var temp = {savingthrows:{}}
+            temp.savingthrows[this.updateid] = this.savingthrows[this.updateid]
+            temp.savingthrows[this.updateid] 
+            this.$emit('update',[{task:'update',data:temp}])
         },
         open(id) {
             this.updateid=id
             this.atpop=true
         },
         addmodifier(updateid) {
-            this.savingthrows[updateid].addmodifier("",0,"")
-            this.update()
+            console.log('adding')
+            var temp = {savingthrows:{}}
+            temp.savingthrows[updateid] = {modifiers:{}}
+            temp.savingthrows[updateid].modifiers[this.savingthrows[updateid].modifiers.length] = {name: "",value:0,source:''}
+            console.log(temp)
+            this.$emit('update',[{task:'update',data:temp}])
         },
-        removemodifier(updateid,name,source) {
-            this.savingthrows[updateid].removemodifier(name,source) 
-            this.update()           
+        removemodifier(updateid,id) { 
+            var temp = {savingthrows:{}}
+            temp.savingthrows[updateid] = {modifiers:[id]}
+            this.$emit('update',[{task:'remove',data:temp}])      
         }
     }
 

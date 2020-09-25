@@ -2,20 +2,20 @@
   <div class='death'>
       <div class='death-inner'>
           <h5>Hit Dice</h5>
-          Total:{{character.cclass.level}}d{{character.cclass.hitdice.dice}}
+          Total:{{character.cclass.level}}d{{hitdice.dice}}
           <h5>Available</h5>
-          {{character.cclass.hitdice.current}}d{{character.cclass.hitdice.dice}}
+          {{hitdice.current}}d{{hitdice.dice}}
           <button @click='plusdice()'>+</button><button @click='mindice()'>-</button>
       </div>
       <div class='death-inner'>
           <h5>Saving Throws</h5>
           <div>
-            <div>successes:{{character.saves.succes}}</div>
-            <div>failures:{{character.saves.failure}}</div>
+            <div>successes:{{saves.succes}}</div>
+            <div>failures:{{saves.failure}}</div>
           </div>
-          <button @click='character.saves.succes++;update()'>Succes</button>
-          <button @click='character.saves.failure++;update()'>Failure</button>
-          <button @click='character.saves.failure = character.saves.succes = 0;update()'>Reset</button>
+          <button @click='saves.succes++;updateSaves()'>Succes</button>
+          <button @click='saves.failure++;updateSaves()'>Failure</button>
+          <button @click='saves.failure = saves.succes = 0;updateSaves()'>Reset</button>
       </div>
   </div>
 </template>
@@ -28,21 +28,40 @@ export default {
 
         }
     },
+    computed: {
+        saves: function() {
+            if(typeof this.character !== 'undefined') {
+                return Object.assign({},this.character.saves)
+            }
+            return {}
+        },
+        hitdice: function() {
+            if(typeof this.character !== 'undefined') {
+                return Object.assign({},this.character.cclass.hitdice)
+            }
+            return {}            
+        }
+    },
     methods: {
-        update() {
-            this.$emit('update',{keys:['saves','cclass'],values:[this.character.saves,this.character.cclass]})
+        updateSaves() {
+            var temp = {saves:this.saves}
+            this.$emit('update',[{task:'update',data:temp}])
+        },
+        updateHitDice() {
+            var temp = {cclass:{hitdice:this.hitdice}}
+            this.$emit('update',[{task:'update',data:temp}])
         },
         plusdice() {
-            if(this.character.cclass.hitdice.current < this.character.cclass.level) {
-                this.character.cclass.hitdice.current++
+            if(this.hitdice.current < this.character.cclass.level) {
+                this.hitdice.current++
             }
-            this.update()
+            this.update("cclass",this.cclass)
         },
         mindice() {
-            if(this.character.cclass.hitdice.current > 0) {
-                this.character.cclass.hitdice.current--
+            if(this.hitdice.current > 0) {
+                this.hitdice.current--
             }
-            this.update()
+            this.updateHitDice()
         }
     }
 }

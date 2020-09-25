@@ -21,7 +21,8 @@ export default {
     },
     methods:{
         update() {
-            this.$emit('update',{keys:['backgroundinfo'],values:[this.backgroundinfo]})
+            var temp = {backgroundinfo:{allies:this.backgroundinfo.allies}}
+            this.$emit('update',[{task:'update',data:temp}])
         },
         edit() {
             this.show = true

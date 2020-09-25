@@ -27,7 +27,8 @@ export default {
         },
         save() {
             this.show = false
-            this.$emit('update',{keys:['experience'],values:[this.editexp]})
+            var temp = {experience:this.editexp}
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 

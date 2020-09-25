@@ -70,15 +70,14 @@ export default {
     },
     methods: {
         up(id) {
-            console.log(this.money[id])
             this.realmoney[id] = parseInt(this.realmoney[id]) + 1
-            this.update()
+            this.update(id)
 
         },
         down(id) {
             console.log(id)
             this.realmoney[id] = parseInt(this.realmoney[id]) - 1
-            this.update()
+            this.update(id)
         },
         add() {
             this.realmoney.add(this.pp,this.gp,this.sp,this.cp)
@@ -87,7 +86,6 @@ export default {
             this.update()
         },
         remove() {
-            
             this.realmoney.remove(this.pp,this.gp,this.sp,this.cp)
             this.pp = this.gp = this.sp = this.cp = 0
             this.removepop = false
@@ -102,8 +100,17 @@ export default {
             this.shiftpop = this.removepop = this.popuppop = false
             this.pp = this.gp = this.sp = this.cp = 0
         },
-        update() {
-            this.$emit('update',{keys:['money'],values:[this.realmoney]})
+        update(id) {
+            var temp = {}
+            if(typeof id === 'undefined') {
+                temp = {money:this.realmoney}
+                this.$emit('update',[{task:'update',data:temp}])
+            } else {
+                temp = {money:{}}
+                temp.money[id] = this.realmoney[id]
+                this.$emit('update',[{task:'update',data:temp}])
+            }
+
         }
     }
 }

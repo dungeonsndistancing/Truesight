@@ -39,7 +39,7 @@ class Inventory {
             x += this.backpack[i].count * this.backpack[i].weight
         }
         for(var i = 0;i < this.equipped.length;i++){
-            x += this.backpack[i].count * this.equipped[i].weight
+            x += this.equipped[i].count * this.equipped[i].weight
         }
         return x
     }

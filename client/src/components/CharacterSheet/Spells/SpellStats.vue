@@ -1,19 +1,19 @@
 <template>
     <div class='spellstats'>
-        <div class='block clickable' @click='showsave = !showsave;if(!showsave){update()}'>
+        <div class='block clickable' @click='showsave = !showsave;if(!showsave){updatesave()}'>
             <h3>Spell Save</h3>
             <h2>{{character.spellsave}}</h2>
             <div @click.stop v-if='showsave' class='block-edit'>
                 <input class='input small' v-model='character.spellsave'>
-                <button @click.stop='showsave=false;update();'>Save</button>
+                <button @click.stop='showsave=false;updatesave();'>Save</button>
             </div>
         </div>
-        <div class='block clickable' @click='attacksave = !attacksave;if(!attacksave){update()}'>
+        <div class='block clickable' @click='showattack = !showattack;if(!showattack){updateattack()}'>
             <h3>Spell Attack</h3>
             <h2><b v-if='character.spellattack > 0'>+</b>{{character.spellattack}}</h2>
-            <div @click.stop  v-if='attacksave' class='block-edit'>
+            <div @click.stop  v-if='showattack' class='block-edit'>
                 <input class='input small'  v-model='character.spellattack'>
-                <button @click='attacksave=false;update()'>Save</button>
+                <button @click='showattack=false;updateattack()'>Save</button>
             </div>
         </div>
   </div>
@@ -27,16 +27,17 @@ export default {
     data: function() {
         return {
             showsave:false,
-            attacksave:false
+            showattack:false
         }
     },
     methods: {
-        update() {
-            console.log('update')
-            this.$emit('update',{keys:['spellsave','spellattack'],values:[this.character.spellsave,this.character.spellattack]})
+        updatesave() {
+            var temp = {spellsave:this.character.spellsave}
+            this.$emit('update',[{task:'update',data:temp}])
         },
-        save() {
-            
+        updateattack() {
+            var temp = {spellattack:this.character.spellattack}
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 }

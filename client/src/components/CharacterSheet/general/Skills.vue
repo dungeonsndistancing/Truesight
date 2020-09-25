@@ -15,11 +15,11 @@
                 Proficient:<input class='checkbox' v-model='skills[skillid].proficiency' type='checkbox'>
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
-                    <div class='mod-div' v-for='mod in skills[skillid].modifiers' :key='mod._id'>
+                    <div class='mod-div' v-for='(mod,id) in skills[skillid].modifiers' :key='mod._id'>
                         <h5>Name:</h5><input class='input wide ' type='text' v-model='mod.name'>
                         <h5>Value:</h5><input class='input small' type='number' v-model='mod.value'>
                         <h5>Source:</h5><input class='input wide' type='text' v-model='mod.source'><br>
-                        <button @click='removemodifier(skillid,mod.name,mod.source)'>Remove Modifier</button>
+                        <button @click='removemodifier(skillid,id)'>Remove Modifier</button>
                     </div>
                 </div>
                 <br>
@@ -58,21 +58,25 @@ export default {
             this.skillpop = true
         },
         addmodifier(skillid) {
-            this.skills[skillid].addmodifier("",0,"")
-            this.update()
+            var temp = {skills:{}}
+            temp.skills[skillid] = {modifiers:{}}
+            temp.skills[skillid].modifiers[this.skills[skillid].modifiers.length] = {name: "",value:0,source:''}
+            console.log(temp)
+            this.$emit('update',[{task:'update',data:temp}])
         },
-        removemodifier(skillid,name,source) {
-            this.skills[skillid].removemodifier(name,source)
-            this.update()
+        removemodifier(skillid,id) {
+            var temp = {skills:{}}
+            temp.skills[skillid] = {modifiers:[id]}
+            this.$emit('update',[{task:'remove',data:temp}])
         },
         close() {
             this.update()
             this.skillpop = false
         },
         update() {
-            var tempskills = {}
-            tempskills[this.skillid] = this.skills[this.skillid]
-            this.$emit('update',{keys:['skills'],values:[tempskills]})
+            var temp = {skills:{}}
+            temp.skills[this.skillid] = this.skills[this.skillid]
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 }

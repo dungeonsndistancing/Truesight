@@ -48,14 +48,25 @@ export default {
                         x.push(this.spells[i])
                     }
                 }
+                x.sort((a,b) => {
+                    if(a.level < b.level) {
+                        return -1
+                    }
+                    else if(b.level > a.level) {
+                        return 1
+                    }
+                    return 0
+                })
                 return x
             }
             return []
         }
     },
     methods: {
-        update() {
-            this.$emit('update',{keys:['spells'],values:[this.spells]})
+        update(id,spell) {
+            var temp = {spells:{}}
+            temp.spells[id] = spell
+            this.$emit('update',[{task:'update',data:temp}])
         },
         showSpell(id) {
             if(this.showid == id) {
@@ -66,9 +77,8 @@ export default {
         },
         unprepare(id) {
             const index = this.spells.findIndex(o => o.equals(this.preparedSpells[id]))
-            console.log(index)
             this.spells[index].prepared = false
-            this.update()
+            this.update(index,this.spells[index])
 
         }
     }

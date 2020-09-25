@@ -14,11 +14,11 @@
                 <input class='input small' type='text' v-model='realattributes[updateid].base'>
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
-                    <div class='mod-div' v-for='mod in realattributes[updateid].modifiers' :key='mod._id'>
+                    <div class='mod-div' v-for='(mod,id) in realattributes[updateid].modifiers' :key='mod._id'>
                         <h5>Name:</h5><input class='input wide' type='text' v-model='mod.name'>
                         <h5>Value:</h5><input class='input wide' type='number' v-model='mod.value'>
                         <h5>Source:</h5><input class='input wide' type='text' v-model='mod.source'><br>
-                        <button @click='removemodifier(updateid,mod.name,mod.source)'>Remove Modifier</button>
+                        <button @click='removemodifier(updateid,id)'>Remove Modifier</button>
                     </div>
                 </div>
                 <br>
@@ -61,18 +61,20 @@ export default {
             this.atpop=false
         },
         update(){
-            var tempatt = {}
-            tempatt[this.updateid] = this.realattributes[this.updateid]
-            console.log(JSON.stringify(tempatt))
-            this.$emit('update',{keys:['attributes'],values:[tempatt]})
+            var temp = {attributes:{}}
+            temp['attributes'][this.updateid] = this.realattributes[this.updateid]
+            this.$emit('update',[{task:'update',data:temp}])
         },
         addmodifier(updateid) {
-            this.realattributes[updateid].addmodifier("",0,"")
-            this.update()
+            var temp = {attributes:{}}
+            temp.attributes[updateid] = {modifiers:{}}
+            temp.attributes[updateid].modifiers[this.attributes[updateid].modifiers.length] = {name: "",value:0,source:''}
+            this.$emit('update',[{task:'update',data:temp}])
         },
-        removemodifier(updateid,name,source) {
-            this.realattributes[updateid].removemodifier(name,source)
-            this.update()
+        removemodifier(updateid,id) {
+            var temp = {attributes:{}}
+            temp.attributes[updateid] = {modifiers:[id]}
+            this.$emit('update',[{task:'remove',data:temp}])
         }
     }
 }

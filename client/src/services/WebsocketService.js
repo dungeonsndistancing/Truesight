@@ -24,11 +24,13 @@ async function prepareSocket() {
     }
 }
 
-module.exports.send = (type,data) => {
+module.exports.send = async (type,data) => {
     if(socket.readyState == WebSocket.OPEN) {
-        socket.send(JSON.stringify({type:type,data:data}))
+        await socket.send(JSON.stringify({type:type,data:data}))
+        return true
     } else {
-        console.log('socket not open')
+        console.log('websocket closed, reconnecting')
+        return false
     }
 }
 module.exports.link = async (object) => {

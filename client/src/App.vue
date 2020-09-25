@@ -17,8 +17,8 @@ export default {
 </script>
 <style lang='scss'>
 @import './scss/variables';
-view{
-  height:100%;
+.view{
+  min-height:calc(100% - 4em);
 }
 html, body {
   height: 100%;

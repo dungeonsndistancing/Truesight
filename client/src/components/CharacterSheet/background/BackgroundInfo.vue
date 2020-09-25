@@ -6,7 +6,7 @@
             <div v-if='traitshow' class='edit-div'>
                 <textarea v-model='backgroundinfo.traits' class='editable'>
                 </textarea>
-                <button @click.stop='traitshow=false;update()'>Save</button>
+                <button @click.stop='traitshow=false;update("traits",backgroundinfo.traits)'>Save</button>
             </div>
         </div>
       <div class='inner-info clickable' @click='idealshow = true'>
@@ -15,7 +15,7 @@
             <div v-if='idealshow' class='edit-div'>
                 <textarea v-model='backgroundinfo.ideals' class='editable'>
                 </textarea>
-                <button @click.stop='idealshow=false;update()'>Save</button>
+                <button @click.stop='idealshow=false;update("ideals",backgroundinfo.ideals)'>Save</button>
             </div>
         </div>
       <div class='inner-info clickable' @click='bondshow = true'>
@@ -24,7 +24,7 @@
             <div v-if='bondshow' class='edit-div'>
                 <textarea v-model='backgroundinfo.bonds' class='editable'>
                 </textarea>
-                <button @click.stop='bondshow=false;update()'>Save</button>
+                <button @click.stop='bondshow=false;update("bonds",backgroundinfo.bonds)'>Save</button>
             </div>
         </div>
       <div class='inner-info clickable' @click='flawshow = true'>
@@ -33,7 +33,7 @@
             <div v-if='flawshow' class='edit-div'>
                 <textarea v-model='backgroundinfo.flaws' class='editable'>
                 </textarea>
-                <button @click.stop='flawshow=false;update()'>Save</button>
+                <button @click.stop='flawshow=false;update("flaws",backgroundinfo.flaws)'>Save</button>
             </div>
         </div>
   </div>
@@ -51,8 +51,10 @@ export default {
         }
     },
     methods: {
-        update() {
-            this.$emit('update',{keys:['backgroundinfo'],values:[this.backgroundinfo]})
+        update(id,value) {
+            var temp = {backgroundinfo:{}}
+            temp.backgroundinfo[id] = value
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 }

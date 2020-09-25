@@ -43,14 +43,12 @@ export default {
         }
     },
     methods: {
-        save() {
-            this.$emit('update',{keys:['cclass'],values:[this.editcclass]})
-        },
         edit() {
                 this.show= !this.show
         },
         update() {
-            this.$emit('update',{keys:['cclass'],values:[this.editcclass]})
+            var temp = {cclass:this.editcclass}
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 }

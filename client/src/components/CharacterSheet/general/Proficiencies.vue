@@ -56,18 +56,20 @@ export default {
             this.pop = false
         },
         update() {
-            var tempprof = {}
-            tempprof[this.profnum] = this.proficiencies[this.profnum]
-            this.$emit('update',{keys:['proficiencies'],values:[tempprof]})
+            var temp = {proficiencies:{}}
+            temp.proficiencies[this.profnum] = this.proficiencies[this.profnum]
+            this.$emit('update',[{task:'update',data:temp}])
         },
         del() {
+            var temp = {proficiencies:[]}
+            temp.proficiencies.push(this.profnum)
             this.pop = false
-            this.$emit('remove',{keys:['proficiencies'],values:[this.profnum]})
+            this.$emit('update',[{task:'remove',data:temp}])
         },
         newProf() {
             this.proficiencies.push(new Proficiency("name",""))
-            this.update()
             this.profnum=this.proficiencies.length-1
+            this.update()
             this.pop=true
         }
     }

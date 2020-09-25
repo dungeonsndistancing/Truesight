@@ -44,7 +44,6 @@ export default {
 <style lang='scss' scoped>
 @import '../scss/variables';
 .container{
-    height:100%;
     background-color:rgb(247, 247, 247);
 }
 .content{
@@ -56,7 +55,7 @@ export default {
     margin: 20px;
     border-style: none;
     border-radius: 20px;
-    border:2px solid rgb(182, 182, 182);
+    border:1px solid rgb(182, 182, 182);
     background-color:white;
     overflow: hidden;
 }
@@ -64,7 +63,7 @@ export default {
     background-color:rgb(230, 230, 230);
 }
 .cardheader{
-    border-bottom: 2px solid rgb(182, 182, 182);
+    border-bottom: 1px solid rgb(182, 182, 182);
     padding-top:0px;
     padding-left:0px;
     padding-right:0px;

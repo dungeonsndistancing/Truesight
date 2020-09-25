@@ -21,7 +21,7 @@
               <h5>name:</h5> <input class='input wide' v-model='attackarray[attackid].name' type='text'>
               <h5>attack:</h5> <input class='input small' v-model='attackarray[attackid].attack' type='text'>
               <h5>damage:</h5>: <input class='input wide' v-model='attackarray[attackid].damage' type='text'><br>
-              <button @click='save()'>Close</button><button @click='removeAttack(attackid)'>Delete Attack</button>
+              <button @click='save(attackid,attackarray[attackid])'>Close</button><button @click='removeAttack(attackid)'>Delete Attack</button>
           </div>
       </popup>
 
@@ -53,10 +53,10 @@ export default {
         }
     },
     methods: {
-        save() {
-            var tempattacks = {}
-            tempattacks[this.attackid] = this.attackarray[this.attackid]
-            this.$emit('update',{keys:['attacks'],values:[tempattacks]})
+        save(id,attack) {
+            var tempattacks = {attacks:{}}
+            tempattacks['attacks'][id] = attack
+            this.$emit('update',[{task:'update',data:tempattacks}])
             this.close()
         },
         close() {
@@ -67,13 +67,14 @@ export default {
             this.pop=true
         },
         newAttack() {
-            this.attackarray.push(new Attack("attack","+0","-"))
-            this.save()
-            this.edit(this.attackarray.length-1)
+            this.save(this.attackarray.length,new Attack("attack","+0","-"))
         },
         removeAttack(id){
+            var temp = {attacks:[]}
+            temp.attacks.push(id)
+            console.log(temp)
             this.close()
-            this.$emit('remove',{keys:['attacks'],values:[id]})
+            this.$emit('update',[{task:'remove',data:temp}])
         }
     }
 }

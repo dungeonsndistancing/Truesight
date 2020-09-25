@@ -70,12 +70,14 @@ export default {
             
         },
         update() {
-            var tempfeatures = {}
-            tempfeatures[this.featid] = this.featurearray[this.featid]
-            this.$emit('update',{keys:['traits'],values:[tempfeatures]})
+            var temp = {traits:{}}
+            temp.traits[this.featid] = this.featurearray[this.featid]
+            this.$emit('update',[{task:'update',data:temp}])
         },
         del() {
-            this.$emit('remove',{keys:['traits'],values:[this.featid]})
+            var temp = {traits:[]}
+            temp.traits.push(this.featid)
+            this.$emit('update',[{task:'remove',data:temp}])
             this.pop=false
         },
         addfeature() {

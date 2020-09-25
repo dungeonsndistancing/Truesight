@@ -43,8 +43,13 @@ export default {
             this.poptitle = title
         },
         close() {
-            this.$emit('update',{keys:[this.identifier],values:[this.item]})
+            this.update()
             this.pop = false
+        },
+        update() {
+            var temp = {}
+            temp[this.identifier] = this.item
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 }

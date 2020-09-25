@@ -1,7 +1,7 @@
 <template>
     <div class='known'>
         <h2>Known Spells/Abilities</h2>
-        <div class='clickable spell clickable' @click='showSpell(id)' v-for='(spell,id) in spells' :key='id'>
+        <div class='clickable spell clickable' @click='showSpell(id)' v-for='(spell,id) in sortedspells' :key='id'>
             <div class='spell-upper'>
                 <div class='spellname'>{{spell.name}} <img v-if='spell.concentration' class='concentration' src='../../../assets/icons/concentration.svg'></div>
                 <div class='spelllevel'>
@@ -58,25 +58,43 @@ export default {
             editing:false,
             editid:-1
         }
-    }, methods: {
+    },
+    computed: {
+        sortedspells: function() {
+            if(typeof this.spells === 'undefined') {
+                return new Array()
+            }
+            return this.spells.slice().sort((a,b) => {
+                if(a.level < b.level) {
+                    return -1
+                }
+                else if(b.level > a.level) {
+                    return 1
+                }
+                return 0
+            })
+        }
+    }, 
+    methods: {
         addSpell() {
             this.show=true
         },
         save() {
             if(!this.editing){
-                this.spells.push(this.editspell)
+                this.update(this.spells.length,this.editspell)
             } else {
-                this.spells[this.editid] = this.editspell
+                var index = this.spells.indexOf(this.editspell)
+                this.update(index,this.editspell)
                 this.editid = -1
                 this.editing = false
             }  
             this.editspell = new Spell('',1,'','','','','','','','',true)
             this.show = false
-            this.sortspells()
-            this.update()
         },
-        update() {
-            this.$emit('update',{keys:['spells'],values:[this.spells]})
+        update(id,spell) {
+            var temp = {spells:{}}
+            temp.spells[id] = spell
+            this.$emit('update',[{task:'update',data:temp}])
         },
         showSpell(id) {
             if(this.showid == id) {
@@ -86,34 +104,25 @@ export default {
             }
         },
         edit(id) {
-            this.editspell = this.spells[id]
+            this.editspell = this.sortedspells[id]
             this.editing = true
             this.editid = id
             this.addSpell()
         },
         remove() {
-            this.spells.splice(this.editid,1)
+            var index = this.spells.indexOf(this.editspell)
+            var temp = {spells:[]}
+            temp.spells.push(index)
+            this.$emit('update',[{task:'remove',data:temp}])
             this.editid= -1
             this.editing = false
             this.show = false
             this.editspell = new Spell('',1,'','','','','','','','',true)
-            this.update()
         },
         prepareSpell(id) {
-            console.log('boop')
-            this.spells[id].prepared = true
-            this.update()
-        },
-        sortspells() {
-            this.spells.sort((a,b) => {
-                if(a.level < b.level) {
-                    return -1
-                }
-                else if(b.level > a.level) {
-                    return 1
-                }
-                return 0
-            })
+            this.sortedspells[id].prepared = true
+            var index = this.spells.indexOf(this.sortedspells[id])
+            this.update(index,this.sortedspells[id])
         }
     }
 }

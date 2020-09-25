@@ -5,7 +5,7 @@
             <b v-if='!backshow'>{{character.background}}</b>
             <div v-if='backshow'>
                 <input v-model='character.background' class='input medium'>
-                <button @click.stop='backshow=false;update()'>Save</button>
+                <button @click.stop='backshow=false;update("background",character.background)'>Save</button>
             </div>
         </div>
         <div class='clickable' @click='raceshow=true'>
@@ -13,7 +13,7 @@
             <b v-if='!raceshow'>{{character.race}}</b>
             <div v-if='raceshow'>
                 <input v-model='character.race' class='input medium'>
-                <button @click.stop='raceshow=false;update()'>Save</button>
+                <button @click.stop='raceshow=false;update("race",character.race)'>Save</button>
             </div>
         </div>
         <div class='clickable' @click='alshow=true'>
@@ -21,7 +21,7 @@
             <b v-if='!alshow'>{{character.alignment}}</b>
             <div v-if='alshow'>
                 <input v-model='character.alignment' class='input small'>
-                <button @click.stop='alshow=false;update()'>Save</button>                
+                <button @click.stop='alshow=false;update("alignment",character.alignment)'>Save</button>                
             </div>
         </div>
     </div>
@@ -38,11 +38,10 @@ export default {
         }
     },
     methods: {
-        update() {
-            this.$emit('update',
-                {keys:['background','race','alignment'],
-                values:[this.character.background,this.character.race,this.character.alignment]
-            })
+        update(id,data) {
+            var temp = {}
+            temp[id] = data
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 }
