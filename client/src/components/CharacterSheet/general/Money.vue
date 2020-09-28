@@ -46,6 +46,7 @@
 
 <script>
 import popup from '../../Popups/Popup'
+import Money from '../../../../../shared/classes/money'
 export default {
     props:['money'],
     components: {
@@ -59,33 +60,39 @@ export default {
             pp:0,gp:0,sp:0,cp:0
         }
     },
+    computed: {
+        realmoney: function() {
+            if(typeof this.money !== 'undefined') {
+                return Money.from(this.money)
+            }
+            return new Money(0,0,0,0)
+        }
+    },
     methods: {
         up(id) {
-            console.log(this.money[id])
-            this.money[id] = parseInt(this.money[id]) + 1
-            this.update()
+            this.realmoney[id] = parseInt(this.realmoney[id]) + 1
+            this.update(id)
 
         },
         down(id) {
             console.log(id)
-            this.money[id] = parseInt(this.money[id]) - 1
-            this.update()
+            this.realmoney[id] = parseInt(this.realmoney[id]) - 1
+            this.update(id)
         },
         add() {
-            this.money.add(this.pp,this.gp,this.sp,this.cp)
+            this.realmoney.add(this.pp,this.gp,this.sp,this.cp)
             this.pp = this.gp = this.sp = this.cp = 0
             this.popuppop = false
             this.update()
         },
         remove() {
-            
-            this.money.remove(this.pp,this.gp,this.sp,this.cp)
+            this.realmoney.remove(this.pp,this.gp,this.sp,this.cp)
             this.pp = this.gp = this.sp = this.cp = 0
             this.removepop = false
             this.update()
         },
         shift() {
-            this.money.shift()
+            this.realmoney.shift()
             this.shiftpop=false
             this.update()
         },
@@ -93,8 +100,17 @@ export default {
             this.shiftpop = this.removepop = this.popuppop = false
             this.pp = this.gp = this.sp = this.cp = 0
         },
-        update() {
-            this.$emit('update',{keys:['money'],values:[this.money]})
+        update(id) {
+            var temp = {}
+            if(typeof id === 'undefined') {
+                temp = {money:this.realmoney}
+                this.$emit('update',[{task:'update',data:temp}])
+            } else {
+                temp = {money:{}}
+                temp.money[id] = this.realmoney[id]
+                this.$emit('update',[{task:'update',data:temp}])
+            }
+
         }
     }
 }

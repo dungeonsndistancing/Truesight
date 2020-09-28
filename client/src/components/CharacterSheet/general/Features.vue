@@ -2,10 +2,10 @@
     <div class='features'>
         <h2>Features and Traits</h2>
         <div class='scroll'>
-            <div @click='toggleFeature(feature)' class='feature-info clickable' v-for='(feature,id) in features' :key='feature.id'>
+            <div @click='toggleFeature(id)' class='feature-info clickable' v-for='(feature,id) in features' :key='feature.id'>
                 <h3>{{feature.name}}</h3>
                 <h5>{{feature.source}}</h5>
-                <div v-if='feature.show' class='feature-details'>
+                <div v-if='showid == id' class='feature-details'>
                     <p>{{feature.description}}</p>
                     <button class='feature-button' @click.stop='edit(id)'>edit</button>
                 </div>
@@ -15,9 +15,9 @@
         <popup @close='close()' v-if='pop'>
             <div class='popup long'>
                 <h2>Edit Feature</h2>
-                <h5>name:</h5><input class='input' v-model='features[featid].name' type='text'>
-                <h5>source:</h5><input class='input' v-model='features[featid].source' type='text'>
-                <h5>description:</h5><textarea  v-model='features[featid].description'></textarea>
+                <h5>name:</h5><input class='input' v-model='featurearray[featid].name' type='text'>
+                <h5>source:</h5><input class='input' v-model='featurearray[featid].source' type='text'>
+                <h5>description:</h5><textarea  v-model='featurearray[featid].description'></textarea>
                 <button @click='close()'>Save</button><button @click='del()'>Delete Feature</button>
             </div>
         </popup>
@@ -36,14 +36,28 @@ export default {
         return {
             pop:false,
             featid:0,
+            showid:-1
 
         }
     },
+    computed: {
+        featurearray: function() {
+            if(typeof this.features != 'undefined') {
+                return Array.from(this.features)
+            }
+            return new Array()
+        }
+    },
     methods: {
-        toggleFeature(feature) {
-            feature.show= !feature.show
-            feature.name = feature.name + 'i'
-            feature.name = feature.name.substring(0,feature.name.length-1)  
+        toggleFeature(id) {
+            console.log("TOGGLING")
+            if(this.showid == id) {
+                console.log('off')
+                this.showid = -1
+            } else {
+                console.log('on')
+                this.showid = id
+            }
         },
         edit(id){
             this.featid = id
@@ -51,16 +65,26 @@ export default {
         },
         close(){
             //save the updates
-            this.$emit('update',{keys:['traits'],values:[this.features]})
             this.pop=false
+            this.update()
+            
+        },
+        update() {
+            var temp = {traits:{}}
+            temp.traits[this.featid] = this.featurearray[this.featid]
+            this.$emit('update',[{task:'update',data:temp}])
         },
         del() {
-            this.features.splice(this.featid,1)
-            this.close()
+            var temp = {traits:[]}
+            temp.traits.push(this.featid)
+            this.$emit('update',[{task:'remove',data:temp}])
+            this.pop=false
         },
         addfeature() {
-            this.features.push(new Feature('name','source',''))
-            this.edit(this.features.length-1)
+            this.featurearray.push(new Feature('name','source',''))
+            this.edit(this.featurearray.length-1)
+            this.update()
+            
         }
     }
 }

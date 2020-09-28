@@ -52,6 +52,7 @@ export default {
 <style scoped>
 .container{
     padding-top:0.5em;
+    background-color:rgb(235, 235, 235);
 }
 
 .logo {
@@ -60,7 +61,6 @@ export default {
 
 #login {
     text-align:center;
-    text-justify: ;
     margin-top: 2em;
     background-color: white;
     width: 30em;
@@ -70,7 +70,7 @@ export default {
     right:0;
     margin:auto;
     border-radius: 5vh;
-    border: 2px solid gray;
+    border: 1px solid rgb(201, 201, 201);
 }
 
 #form {

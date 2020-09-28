@@ -18,8 +18,8 @@
         <popup v-if='pop' @close='close'>
             <div class='popup'>
                 <h5>name:</h5>
-                <input class='input wide' v-model='counters[popid].name'>
-                <h5>max:</h5><input type='number' class='input small' v-model='counters[popid].max'><br>
+                <input class='input wide' v-model='editcounters[popid].name'>
+                <h5>max:</h5><input type='number' class='input small' v-model='editcounters[popid].max'><br>
                 <button @click='close()'>Close</button><button @click='removeCounter(popid)'>Delete</button>
             </div>
         </popup>
@@ -41,24 +41,34 @@ export default {
     }, components: {
         popup
     },
+    computed: {
+        editcounters: function() {
+            if(typeof this.counters !== 'undefined') {
+                return Object.assign([],this.counters)
+            }
+            return new Array()
+        }
+    },
     methods: {
         countup(id){
-            this.counters[id].increase()
-            this.update()
+            this.editcounters[id].increase()
+            this.update(id)
         },
         countdown(id){
-            this.counters[id].decrease()
-            this.update()
+            this.editcounters[id].decrease()
+            this.update(id)
         },
         addCounter(){
-            this.counters.push(new Counter('name',1,1))
-            this.update()
+            this.editcounters.push(new Counter('name',1,1))
+            this.update(this.editcounters.length-1)
         },
         removeCounter(id){
-            this.popid=0
-            this.counters.splice(id,1)
-            this.close()
-            
+            var temp = {counters:[]}
+            temp.counters.push(id)
+            console.log(temp)
+            this.$emit('update',[{task:'remove',data:temp}])
+            this.pop=false
+            this.popid = 0;
         },
         edit(id) {
             this.pop=true
@@ -66,10 +76,12 @@ export default {
         },
         close(){
             this.pop=false
-            this.update()
+            this.update(this.popid)
         },
-        update() {
-            this.$emit('update',{keys:['counters'],values:[this.counters]})
+        update(id) {
+            var temp = {counters:{}}
+            temp['counters'][id] = this.editcounters[id]
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 

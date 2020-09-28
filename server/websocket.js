@@ -3,11 +3,12 @@ const jwt = require("jsonwebtoken")
 const Character = require('./model/character')
 const User = require('./model/user')
 const dotenv = require('dotenv')
-const { request } = require('express')
 const Message = require('../shared/classes/data/Message')
+const { update } = require('./model/user')
+const { Error } = require('mongoose')
 dotenv.config()
-var websockets = {}
 var wss = {}
+var connections = new Map()
 console.log(process.env.CLIENT_IP)
 module.exports.createSocket = () => {
     console.log()
@@ -19,17 +20,23 @@ module.exports.createSocket = () => {
         con.on('message',async function incoming(message){
             try{
                 var msg = Message.from(JSON.parse(message))
-                console.log(msg)
                 switch(msg.type) {
                     case "character":
-                        console.log('found character websocket')
-                        con.character = await Character.findById(msg.data)
+                        con.character = ''+msg.data
+                        addConnection(msg.data,con)
                         break;
                     case "update":
-                        for(var i = 0; i < msg.data.keys.length; i++) {
-                            con.character[msg.data.keys[i]] = msg.data.values[i]
-                        }
-                        con.character.save()
+                        var character = await Character.findById(con.character)
+                        console.log(msg.data[0].data)
+                        msg.data.forEach(element => {
+                            if(element.task ==='update') { 
+                                deepMerge(character,element.data)
+                            } else if(element.task ==='remove') {
+                                deepRemove(character,element.data)
+                            }
+                        })
+                        character.save()
+                        updateConnections(''+con.character,message,con)
                         break;
                     default: 
                         console.log("message type not recognized")
@@ -43,11 +50,7 @@ module.exports.createSocket = () => {
         con.on('close',async function closing(code) {
             console.log("close!")
             console.log('saving character')
-             try{
-                 await con.character.save()
-             } catch(err) {
-                console.log('error saving character')
-             }
+            await removeConnection(con.character,con)
         })
     })
 }
@@ -68,9 +71,74 @@ module.exports.handleUpgrade = async (request, socket, head) => {
         })
 
     } else {
+        console.log
         console.log("ERROR UPGRADING")
         socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
         socket.destroy()
+    }
+}
+function deepMerge(object,attributes) {
+    var keys = Object.keys(attributes)
+    for(let i = 0; i < keys.length;i++) {
+        if(typeof object[keys[i]] === 'undefined') {
+            object[keys[i]] = {}
+        }
+        if(Array.isArray(object)) {  
+            deepMerge(object[keys[i]],attributes[keys[i]])
+            object.splice(keys[i],1,object[keys[i]])
+        }
+        else if(typeof attributes[keys[i]] === 'object') {
+            deepMerge(object[keys[i]],attributes[keys[i]])
+        } else {
+            object[keys[i]] = attributes[keys[i]]
+        }
+    }
+}
+function deepRemove(object,attributes) {
+    var keys = Object.keys(attributes)
+    for(let i = 0; i < keys.length;i++) {
+        if(Array.isArray(attributes)) {
+            if(Array.isArray(object)) {
+                object.splice(attributes[keys[i]],1)
+            } else {
+                console.log('cannot remove from non-array currently')
+                throw new Error("cannot remove attribute")
+            }
+        } else {
+            deepRemove(object[keys[i]],attributes[keys[i]])
+        }
+    }
+}
+async function addConnection(id,con) {
+    var conn = connections.get(id)
+    if(typeof conn != 'undefined') {
+        conn.sockets.push(con)
+    }else {
+        var char = await Character.findById(id)
+        connections.set(id,{character: char,sockets:new Array()})
+        connections.get(id).sockets.push(con)
+    } 
+}
+function updateConnections(id,msg,con) {
+    var cons = connections.get(id).sockets
+    for(let i = 0; i < cons.length; i++) {
+        cons[i].send(msg)
+    }
+}
+async function removeConnection(id,con) {
+    id = '' + id
+    var conn = connections.get(id).sockets
+    if(typeof conn != 'undefined') {
+        var index = conn.indexOf(con)
+        if(index >= 0) {
+            conn.splice(index,1)
+            console.log('removing connection')
+        }
+        if(conn.length == 0) {
+            console.log('clearing log')
+            await connections.get(id).character.save()
+            connections.delete(id)
+        }
     }
 }
 

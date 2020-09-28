@@ -20,7 +20,8 @@ export default {
     },
     methods: {
         update() {
-            this.$emit('update',{keys:['backgroundinfo'],values:[this.backgroundinfo]})
+            var temp = {backgroundinfo:{backstory:this.backgroundinfo.backstory}}
+            this.$emit('update',[{task:'update',data:temp}])
         },
         edit() {
             this.show = true

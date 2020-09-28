@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken")
 const User = require("../model/user")
 module.exports = async (req, res, next) => {
-    console.log("VALIDATING")
     //retrieve possible tokens
     const token = req.headers.token
     try  {
@@ -23,7 +22,6 @@ module.exports = async (req, res, next) => {
                 res.send()
             } else {
                 req.userData = decoded;
-                console.log("VALIDATED")
                 next()
             }
         }

@@ -4,12 +4,12 @@
             <h2>Backpack</h2>
             <div class='item-container'>
                 <div class='item-row'><h4>Name</h4><h4>Amount</h4><h4>Weight</h4></div>
-                <div class='item-row' draggable="true" @click='show(id)' v-for='(item,id) in inventory.backpack' :key='id'>
+                <div class='item-row' draggable="true" @click='show(id)' v-for='(item,id) in backpack' :key='id'>
                     <div style='text-align:left'>{{item.name}}</div>
                     <div class='itemcount' @click.stop='showcount(id);'>{{item.count}}
-                        <div v-if='countid==id' @click.stop='showcount(id);update()' class='countedit'>
+                        <div v-if='countid==id' @click.stop='showcount(id)' class='countedit'>
                             <input type='number' @click.stop="" v-model='item.count' class='input small '>
-                            <button @click.stop='showcount(id);update();'>save</button>
+                            <button @click.stop='showcount(id);update(id,item);'>save</button>
                         </div>
                     </div>
  
@@ -18,10 +18,10 @@
                         <div class='extraitem' v-for='(info,id) in item.display()' :key='id'>{{id}}:{{info}}</div>
                         <p class='item-description'>{{item.description}}</p>
                         <div>
-                            <button @click.stop='equipItem(item)'>Equip</button>
-                            <button v-if='typeof item.attunement !=="undefined" && !item.attuned' @click.stop='attuneItem(item)'>Attune</button>
-                            <button v-if='typeof item.attunement !=="undefined" && item.attuned' @click.stop='unattuneItem(item)'>Un-Attune</button>
-                            <button @click.stop='editItem(item,id)'>Edit</button>
+                            <button @click.stop='equipItem(id)'>Equip</button>
+                            <button v-if='typeof item.attunement !=="undefined" && !item.attuned' @click.stop='attuneItem(id)'>Attune</button>
+                            <button v-if='typeof item.attunement !=="undefined" && item.attuned' @click.stop='unattuneItem(id)'>Un-Attune</button>
+                            <button @click.stop='editItem(id)'>Edit</button>
                             </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                 <button @click='createItem()'>Create new item</button>
                 <div class='itemcreator' v-if='pop'>
                     <h5>Item kind:</h5>
-                    <select name='items' @change='updateType()' v-model='typestring' id='items'>
+                    <select class='input' name='items' @change='updateType()' v-model='typestring' id='items'>
                         <option value='item'>Normal Item</option>
                         <option value='armor'>Armor</option>
                         <option value='weapon'>Weapon</option>
@@ -85,7 +85,13 @@ export default {
             editing:false
         }
     },
-    components: {
+    computed: {
+        backpack: function () {
+            if(typeof this.inventory !== 'undefined') {
+                return Array.from(this.inventory.backpack)
+            }
+            return new Array()
+        }
     },
     methods: {
         close() {
@@ -105,54 +111,59 @@ export default {
                 this.countid = id
             }
         },
-        editItem(item,id) {
+        editItem(id) {
             this.editid = id
-            this.item = item
+            this.item = this.backpack[id]
             this.editing = true
             this.pop=true
         },
         removeItem() {
-            console.log(this.editid)
-            console.log(this.inventory.backpack[0])
-            this.inventory.remove(this.inventory.backpack[this.editid])
+            this.remove(this.editid)
             this.editid = -1
-            this.update()
             this.close()
         },
         createItem() {
             this.pop=true
+            this.item = new Item('name','type','cost',0,'description','icon','color')
         },
         saveItem(){
-            console.log(this.editing)
             if(!this.editing) {
                 this.item.count = 1
-                this.inventory.add(this.item)
+                this.update(this.backpack.length,this.item)
+
             } else{
-                this.inventory[this.editid] = this.item
+                this.update(this.editid,this.item)
                 this.editid=-1
                 this.editing = false
             }
-            this.item= new Item('name','type','cost',0,'description','icon','color')
+
             this.editing = false
-            this.update()
             this.pop = false
 
         },
-        equipItem(item) {
-            console.log('equipping item')
-            this.inventory.equip(item)
-            this.update()
+        equipItem(id) {
+            this.$emit('equip',id)
+            this.showid = -1
+
         },
-        attuneItem(item) {
-            item.attuned = true
-            this.update()
+        attuneItem(id) {
+            this.backpack[id].attuned = true
+            this.update(id,this.backpack[id])
         },
-        unattuneItem(item) {
-            item.attuned = false
-            this.update()
+        unattuneItem(id) {
+            this.backpack[id].attuned = false
+            this.update(id,this.backpack[id])
         },
-        update() {
-            this.$emit('update',{keys:['inventory'],values:[this.inventory]})
+        update(id,item) {
+            var temp = {inventory:{backpack:{}}}
+            temp.inventory.backpack[id] = item
+            console.log(temp)
+            this.$emit('update',[{task:'update',data:temp}])
+        },
+        remove(id) {
+            var temp = {inventory:{backpack:[]}}
+            temp.inventory.backpack.push(id)
+            this.$emit('update',[{task:'remove',data:temp}]) 
         },
         cancel() {
             this.item= new Item('name','type','cost',0,'description','icon','color')

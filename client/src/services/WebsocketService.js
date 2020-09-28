@@ -3,19 +3,20 @@ var socket = {}
 var frontview = {}
 async function prepareSocket() {
     socket.onmessage = function(message) {
-        console.log("message received2")
         var data = JSON.parse(message.data)
         switch(data.type) {
             case "update":
-                update(data)
+                update(data.data)
+                break
+            case "remove":
+                remove(data.data)
                 break
             default:
                 console.log(data)
                 break
         }
     }
-    socket.onclose = (code) => {
-        console.log(code)
+    socket.onclose = () => {
         frontview.connected = false
     }
     socket.onopen = () => {
@@ -23,11 +24,13 @@ async function prepareSocket() {
     }
 }
 
-module.exports.send = (type,data) => {
+module.exports.send = async (type,data) => {
     if(socket.readyState == WebSocket.OPEN) {
-        socket.send(JSON.stringify({type:type,data:data}))
+        await socket.send(JSON.stringify({type:type,data:data}))
+        return true
     } else {
-        console.log('socket not open')
+        console.log('websocket closed, reconnecting')
+        return false
     }
 }
 module.exports.link = async (object) => {
@@ -39,6 +42,8 @@ module.exports.disconnect = () => {
     socket.close()
 }
 function update(data) {
-    console.log('updating')
-    frontview.character[data.key] = data.value
+    frontview.updateCharacter(data)
+}
+function remove(data) {
+    frontview.removeCharacter(data)
 }

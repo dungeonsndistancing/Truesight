@@ -1,5 +1,5 @@
 <template>
-  <div class='name clickable' @click='show=true'>
+  <div class='name clickable' @click='show=true;editname=name'>
       <b v-if='!show'>{{name}}</b>
       <div v-if='show'><input v-model='editname' class='input' ><button @click.stop='show=false;update()'>Save</button></div>
     </div>
@@ -13,12 +13,13 @@ export default {
     data: function() {
         return {
             show:false,
-            editname:name
+            editname:''
         }
     },
     methods: {
         update() {
-            this.$emit('update',{keys:['name'],values:[this.editname]})
+            var temp = {name:this.editname}
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 }

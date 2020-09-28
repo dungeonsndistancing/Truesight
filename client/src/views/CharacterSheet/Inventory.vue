@@ -1,7 +1,7 @@
 <template>
     <div class='inventory'>
-        <backpack @update='update' :inventory='inventory' />
-        <equipped @update='update' :inventory='inventory' />
+        <backpack @equip='equip' @update='update' :inventory='inventory' />
+        <equipped @unequip='unequip' @update='update' :inventory='inventory' />
         <weight :inventory='inventory'/>
         <attuned :inventory='inventory' />
     </div>
@@ -22,9 +22,37 @@ export default {
         weight,
         attuned
     },
+    computed: {
+        backpack: function() {
+            if(typeof this.inventory !== 'undefined') {
+                return Array.from(this.inventory.backpack)
+            }
+            return new Array()
+        },
+        equipped: function() {
+            if(typeof this.inventory !== 'undefined') {
+                return Array.from(this.inventory.equipped)
+            }
+            return new Array()
+        }
+    },
     methods: {
         update(data) {
             this.$emit('update',data)
+        },
+        async equip(id) {
+            var add = {inventory:{equipped:{}}}
+            add.inventory.equipped[this.equipped.length] = this.backpack[id]
+            var remove = {inventory:{backpack:[]}}
+            remove.inventory.backpack.push(id)
+            await this.$emit('update',[{task:'update',data:add},{task:'remove',data:remove}])
+        },
+        async unequip(id) {
+            var add = {inventory:{backpack:{}}}
+            add.inventory.backpack[this.backpack.length] = this.equipped[id]
+            var remove = {inventory:{equipped:[]}}
+            remove.inventory.equipped.push(id)
+            await this.$emit('update',[{task:'update',data:add},{task:'remove',data:remove}])         
         }
     }
 }

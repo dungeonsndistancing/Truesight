@@ -1,7 +1,7 @@
 <template>
   <div class='savingthrows'>
         <div class='save-title'><h3>Savingthrows</h3></div>
-        <div class='save clickable' @click='open(saveid)' v-for='(savingthrow,saveid) in character.savingthrows' :key='saveid'>
+        <div class='save clickable' @click='open(saveid)' v-for='(savingthrow,saveid) in savingthrows' :key='saveid'>
             <h5>{{saveid}}</h5>
             <div  class='save-mod'><h2><b v-if='savingthrow.bonus(character.attributes[saveid].mod,character.proficiency) > 0'>+</b>{{savingthrow.bonus(character.attributes[saveid].mod,character.proficiency)}}</h2></div>
             <h6><i v-if='savingthrow.proficiency == 1'>Proficient</i><i v-else-if='savingthrow.proficiency == 2'>Expert</i ></h6>
@@ -14,15 +14,15 @@
                 Proficient:<input  v-model='character.savingthrows[updateid].proficiency' type='checkbox'>
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
-                    <div class='mod-div' v-for='save in character.savingthrows[updateid].modifiers' :key='save._id'>
+                    <div class='mod-div' v-for='(save,id) in character.savingthrows[updateid].modifiers' :key='save._id'>
                         <h5>Name:</h5><input class='input wide' type='text' v-model='save.name'>
                         <h5>Value:</h5><input class='input small' type='number' v-model='save.value'><br>
                         <h5>Source:</h5><input class='input wide' type='text' v-model='save.source'><br>
-                        <button @click='character.savingthrows[updateid].removemodifier(save.name,save.source)'>Remove Modifier</button>
+                        <button @click='removemodifier(updateid,id)'>Remove Modifier</button>
                     </div>
                 </div>
                 <br>
-                <button @click='character.savingthrows[updateid].addmodifier("",0,"")' >Add modifier</button>
+                <button @click='addmodifier(updateid)' >Add modifier</button>
                 <button @click='close()'>Close</button>
             </div>
         </popup>
@@ -38,6 +38,14 @@ export default {
     components:{
         popup
     },
+    computed: {
+        savingthrows: function() {
+            if(typeof this.character == 'undefined') {
+                return new Array()
+            } 
+            return this.character.savingthrows
+        }
+    },
     data: function() {
         return {
             atpop:false,
@@ -46,14 +54,32 @@ export default {
     },
     methods: {
         close(){
-            this.$emit('update',{keys:['savingthrows'],values:[this.character.savingthrows]})
+            this.update()
             this.atpop=false
+        },
+        update() {
+            var temp = {savingthrows:{}}
+            temp.savingthrows[this.updateid] = this.savingthrows[this.updateid]
+            temp.savingthrows[this.updateid] 
+            this.$emit('update',[{task:'update',data:temp}])
         },
         open(id) {
             this.updateid=id
             this.atpop=true
+        },
+        addmodifier(updateid) {
+            console.log('adding')
+            var temp = {savingthrows:{}}
+            temp.savingthrows[updateid] = {modifiers:{}}
+            temp.savingthrows[updateid].modifiers[this.savingthrows[updateid].modifiers.length] = {name: "",value:0,source:''}
+            console.log(temp)
+            this.$emit('update',[{task:'update',data:temp}])
+        },
+        removemodifier(updateid,id) { 
+            var temp = {savingthrows:{}}
+            temp.savingthrows[updateid] = {modifiers:[id]}
+            this.$emit('update',[{task:'remove',data:temp}])      
         }
-    }, created() {
     }
 
 }

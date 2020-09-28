@@ -3,7 +3,7 @@
         <div class='inner'>
         <h2>Proficiencies</h2>
         <div class='prof-cont'>
-            <div @click='edit(num)' class='prof clickable' v-for='(prof,num) in proficiencies' :key='prof.id'>
+            <div @click='edit(num)' class='prof clickable' v-for='(prof,num) in character.proficiencies' :key='num'>
                 <h3>{{prof.name}}</h3>
                 <p>{{prof.description}}</p>
             </div>
@@ -13,10 +13,10 @@
       <popup v-if='pop' @close='close'>
           <div class='popup long'>
               <h3>Name:</h3>
-              <input class='input' type='text' v-model = character.proficiencies[profnum].name><br>
+              <input class='input' type='text' v-model = proficiencies[profnum].name><br>
               <h3>Content:</h3>
-              <textarea class='input' v-model='character.proficiencies[profnum].description'></textarea>
-              <button @click='close()'>Close</button><button @click='del()'>Delete Proficiencies</button>
+              <textarea class='input' v-model='proficiencies[profnum].description'></textarea>
+              <button @click='close()'>Save</button><button @click='del()'>Delete Proficiencies</button>
           </div>
       </popup>
 
@@ -25,6 +25,7 @@
 
 <script>
 import popup from '../../Popups/Popup'
+import Proficiency from '../../../../../shared/classes/proficiency'
 export default {
     props:['character'],
     components: {
@@ -41,7 +42,7 @@ export default {
             if(typeof this.character == 'undefined') {
                 return []
             } else {
-                return this.character.proficiencies
+                return Array.from(this.character.proficiencies)
             }
         }
     },
@@ -51,16 +52,24 @@ export default {
             this.pop = true
         },
         close() {
-            this.$emit('update',{keys:['proficiencies'],values:[this.character.proficiencies]})
+            this.update()
             this.pop = false
         },
+        update() {
+            var temp = {proficiencies:{}}
+            temp.proficiencies[this.profnum] = this.proficiencies[this.profnum]
+            this.$emit('update',[{task:'update',data:temp}])
+        },
         del() {
-            this.character.removeProficiency(this.character.proficiencies[this.profnum])
-            this.close()
+            var temp = {proficiencies:[]}
+            temp.proficiencies.push(this.profnum)
+            this.pop = false
+            this.$emit('update',[{task:'remove',data:temp}])
         },
         newProf() {
-            this.character.newProficiency()
-            this.profnum=this.character.proficiencies.length-1
+            this.proficiencies.push(new Proficiency("name",""))
+            this.profnum=this.proficiencies.length-1
+            this.update()
             this.pop=true
         }
     }

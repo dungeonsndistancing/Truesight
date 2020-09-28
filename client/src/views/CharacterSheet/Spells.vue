@@ -1,6 +1,6 @@
 <template>
     <div class='spells'>
-        <known @update='update' :spells='character.spells'/>
+        <known  @update='update' :spells='character.spells'/>
         <prepared @update='update' :spells='character.spells'/>
         <spellstats @update='update' :character='character'/>
         <counters class='spellcounters' @update='update' :counters='character.counters'/>
@@ -24,6 +24,7 @@ export default {
     },
     methods: {
         update(data){
+            console.log(data)
             this.$emit('update',data)
         }
     }

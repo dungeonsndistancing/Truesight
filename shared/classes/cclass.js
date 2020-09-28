@@ -6,4 +6,9 @@ class Cclass{
         this.level = level
         this.hitdice = new Counter(hitdice,level)
     }
+
+    static from(json) {
+        return Object.assign(new Cclass(),json)
+    }
 }
+module.exports=Cclass

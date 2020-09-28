@@ -8,10 +8,10 @@
             <div class='tab' @click='load("background")' v-bind:class='{selected:page=="background"}'>Background</div>
         </div>
 
-        <general v-if='page=="general"' class='content' @update='update' :character='character' />
-        <inventory v-if='page=="inventory"' class='content' @update='update' :inventory='character.inventory' />
-        <spells v-if='page=="spells"' class='content' @update='update' :character='character' />
-        <background v-if='page=="background"' class='content' @update='update' :character='character' />
+        <general v-if='page=="general"' class='content' @remove='remove' @update='update' :character.sync='character' />
+        <inventory v-if='page=="inventory"' class='content' @remove='remove' @update='update' :inventory.sync='character.inventory' />
+        <spells v-if='page=="spells"' class='content' @remove='remove' @update='update' :character.sync='character' />
+        <background v-if='page=="background"' class='content' @remove='remove' @update='update' :character.sync='character' />
     </div>
 </template>
 
@@ -34,9 +34,13 @@ export default {
     data: function() {
         return {
             character: new Character()
-
-            }
+        }
             
+    },
+    computed: {
+        tempchar: function() {
+            return Object.assign({},this.character)
+        }
     },
     methods: {
         async getCharacter(id) {
@@ -45,17 +49,70 @@ export default {
                 this.$router.push('/403')
             }
             this.character = temp;
-            const size = new TextEncoder().encode(JSON.stringify(this.character.inventory)).length
-            const kiloBytes = size / 1024;
-            console.log(kiloBytes)
-
-
         },
-        update(data) {
-            for(var i = 0; i < data.keys.length; i++) {
-                this.character[data.keys[i]] = data.values[i]
+        async update(data) {
+            if(!wsservice.send('update',data)) {
+                await wsservice.link(this)
+                await this.start()
+                if(!wsservice.send('update',data)) {
+                    console.log("COULD NO LONGER TRANSMIT DATA")
+                }
             }
-            wsservice.send('update',data)
+        },
+        async remove(data) {
+            if(!wsservice.send('remove',data)) {
+                await wsservice.link(this)
+                await this.start()
+                if(!wsservice.send('remove',data)) {
+                    console.log("COULD NO LONGER TRANSMIT DATA")
+                }
+            }
+        },
+        updateCharacter(data) { 
+            data.forEach(element => {
+                if(element.task ==='update') { 
+                    this.deepMerge(this.character,element.data)
+                } else if(element.task ==='remove') {
+                    this.deepRemove(this.character,element.data)
+                }
+            })
+            this.character = Character.from(this.character)
+        },
+        deepMerge(object,attributes) {
+            var keys = Object.keys(attributes)
+            for(let i = 0; i < keys.length;i++) {
+                if(typeof object[keys[i]] === 'undefined') {
+                    object[keys[i]] = {}
+                }
+                if(Array.isArray(object)) {  
+                    this.deepMerge(object[keys[i]],attributes[keys[i]])
+                    object.splice(keys[i],1,object[keys[i]])
+                }
+                else if(typeof attributes[keys[i]] === 'object') {
+                    this.deepMerge(object[keys[i]],attributes[keys[i]])
+                } else {
+                    object[keys[i]] = attributes[keys[i]]
+                }
+            }
+        },
+        removeCharacter(data) {
+            this.deepRemove(this.character,data)
+            this.character = Character.from(this.tempchar)
+        },
+        deepRemove(object,attributes) {
+            var keys = Object.keys(attributes)
+            for(let i = 0; i < keys.length;i++) {
+                if(Array.isArray(attributes)) {
+                    if(Array.isArray(object)) {
+                        object.splice(attributes[keys[i]],1)
+                    } else {
+                        console.log('cannot remove from non-array currently')
+                        throw Error("cannot remove attribute")
+                    }
+                } else {
+                    this.deepRemove(object[keys[i]],attributes[keys[i]])
+                }
+            }
         },
         start() {
             wsservice.send('character',this.char)
@@ -68,7 +125,6 @@ export default {
         await this.getCharacter(this.char)
         await wsservice.link(this)
     },beforeDestroy() {
-        console.log('leaving charsheet')
         wsservice.disconnect()
     }
 }

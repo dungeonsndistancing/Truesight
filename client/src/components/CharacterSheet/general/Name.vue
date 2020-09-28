@@ -20,7 +20,8 @@ export default {
     },
     methods:{
         update() {
-            this.$emit('update',{keys:['name'],values:[this.editname]})
+            var temp = {name:this.editname}
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 }

@@ -9,7 +9,7 @@
                     <div class='itemcount' @click.stop='showcount(id);'>{{item.count}}
                         <div v-if='countid==id' @click.stop='showcount(id);update()' class='countedit'>
                             <input type='number' @click.stop="" v-model='item.count' class='input small '>
-                            <button @click.stop='showcount(id);update();'>save</button>
+                            <button @click.stop='showcount(id);update(id,item);'>save</button>
                         </div>
                     </div>
  
@@ -18,9 +18,9 @@
                         <div class='extraitem' v-for='(info,id) in item.display()' :key='id'>{{id}}:{{info}}</div>
                         <p class='item-description'>{{item.description}}</p>
                         <div>
-                            <button @click.stop='unequipItem(item)'>Unequip</button>
-                            <button v-if='typeof item.attunement !=="undefined" && !item.attuned' @click.stop='attuneItem(item)'>Attune</button>
-                            <button v-if='typeof item.attunement !=="undefined" && item.attuned' @click.stop='unattuneItem(item)'>Un-Attune</button>
+                            <button @click.stop='unequipItem(id)'>Unequip</button>
+                            <button v-if='typeof item.attunement !=="undefined" && !item.attuned' @click.stop='attuneItem(id)'>Attune</button>
+                            <button v-if='typeof item.attunement !=="undefined" && item.attuned' @click.stop='unattuneItem(id)'>Un-Attune</button>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,13 @@ export default {
             countid:-1,
         }
     },
-    components: {
+    computed: {
+        equipped: function() {
+            if(typeof this.inventory !== 'undefined') {
+                return Array.from(this.inventory.equipped)
+            }
+            return new Array()
+        }
     },
     methods: {
         close() {
@@ -64,28 +70,40 @@ export default {
             }
         },
         saveItem(){
-            this.item.count = 1
-            this.inventory.add(this.item)
+            if(!this.editing) {
+                this.item.count = 1
+                this.update(this.equipped.length,this.item)
+
+            } else{
+                this.update(this.editid,this.item)
+                this.editid=-1
+                this.editing = false
+            }
             this.item= new Item('name','type','cost',0,'description','icon','color')
-            this.update()
+            this.editing = false
             this.pop = false
 
         },
-        unequipItem(item) {
-            console.log('equipping item')
-            this.inventory.unequip(item)
-            this.update()
+        unequipItem(id) {
+            this.$emit('unequip',id)
         },
-        attuneItem(item) {
-            item.attuned = true
-            this.update()
+        attuneItem(id) {
+            this.backpack[id].attuned = true
+            this.update(id,this.backpack[id])
         },
-        unattuneItem(item) {
-            item.attuned = false
-            this.update()
+        unattuneItem(id) {
+            this.equipped[id].attuned = false
+            this.update(id,this.backpack[id])
         },
-        update() {
-            this.$emit('update',{keys:['inventory'],values:[this.inventory]})
+        update(id,item) {
+            var temp = {inventory:{backpack:{}}}
+            temp.inventory.backpack[id] = item
+            this.$emit('update',[{task:'update',data:temp}])
+        },
+        remove(id) {
+            var temp = {inventory:{backpack:[]}}
+            temp.inventory.backpack.push(id)
+            this.$emit('update',[{task:'remove',data:temp}]) 
         },
         cancel() {
             this.pop=false

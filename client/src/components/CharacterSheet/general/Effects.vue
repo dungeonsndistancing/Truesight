@@ -82,8 +82,9 @@ export default {
             this.update()
         },
         removeEffect(id) {
-            this.editeffects.splice(id,1)
-            this.update()
+            var temp = {effects:[]}
+            temp.effects.push(id)
+            this.$emit('update',[{task:'remove',data:temp}])
             this.showid=-1
         },
         mouseover(id) {
@@ -94,15 +95,14 @@ export default {
             }
         },
         update() {
-            this.$emit('update',{keys:['effects'],values:[this.editeffects]})
+            var temp = {effects:{}}
+            temp.effects[this.editeffects.length - 1] = this.editeffects[this.editeffects.length -1]
+            this.$emit('update',[{task:'update',data:temp}])
         },
         selectIcon(id) {
             this.iconshow = false
             this.neweffect.icon = effectlist[id].icon
         }
-    },
-    beforeMount() {
-        console.log(effectlist)
     }
 }
 </script>
