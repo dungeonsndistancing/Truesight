@@ -5,7 +5,7 @@ class MagicItem extends Item {
         this.class='magicitem'
         this.rarity =item.rarity
         this.attunement = item.attunement
-        this.attuned = item.attunement?item.attunement:false
+        this.attuned = item.attuned?item.attuned:false
     }
 
     display(){
