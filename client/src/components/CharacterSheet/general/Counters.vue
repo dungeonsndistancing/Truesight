@@ -51,6 +51,7 @@ export default {
     },
     methods: {
         countup(id){
+            
             this.editcounters[id].increase()
             this.update(id)
         },

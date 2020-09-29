@@ -55,7 +55,7 @@ export default {
             if(this.hitdice.current < this.character.cclass.level) {
                 this.hitdice.current++
             }
-            this.update("cclass",this.cclass)
+            this.updateHitDice()
         },
         mindice() {
             if(this.hitdice.current > 0) {

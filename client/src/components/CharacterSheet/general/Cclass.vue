@@ -1,7 +1,7 @@
 <template>
     <div class='class clickable' @click='edit()'>
         <div class='fill'>
-        <h5>Class</h5>    
+        <h5>Class(es)</h5>    
             <div > 
                 <b> {{cclass.level}}</b><i v-if="cclass.level == parseInt(1)" >st</i>
                 <i v-else-if="(cclass.level > 3 && cclass.level < 21)" >th</i>
@@ -87,6 +87,7 @@ export default {
     animation-duration: 0.5s;
 }
 .class{
+    padding-top:0.5em;
     font-size:1vw;
     position: relative;
     border:1px solid black;
