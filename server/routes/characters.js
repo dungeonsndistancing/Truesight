@@ -10,8 +10,7 @@ router.get('/list',async (req,res) => {
         result[i] = {
             _id:result[i]._id,
             name:result[i].name,
-            cclass:{name:result[i].cclass.name,
-                    level:result[i].cclass.level}
+            cclass:result[i].cclass
         }
     }
     res.status(200).json(result)
