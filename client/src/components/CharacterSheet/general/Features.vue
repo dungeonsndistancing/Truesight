@@ -1,17 +1,19 @@
 <template>
     <div class='features'>
-        <h2>Features and Traits</h2>
-        <div class='scroll'>
-            <div @click='toggleFeature(id)' class='feature-info clickable' v-for='(feature,id) in features' :key='feature.id'>
-                <h3>{{feature.name}}</h3>
-                <h5>{{feature.source}}</h5>
-                <div v-if='showid == id' class='feature-details'>
-                    <p>{{feature.description}}</p>
-                    <button class='feature-button' @click.stop='edit(id)'>edit</button>
+        <div class='inner-features'>
+            <h2>Features and Traits</h2>
+            <div class='scroll'>
+                <div @click='toggleFeature(id)' class='feature-info clickable' v-for='(feature,id) in features' :key='feature.id'>
+                    <h3>{{feature.name}}</h3>
+                    <h5>{{feature.source}}</h5>
+                    <div v-if='showid == id' class='feature-details'>
+                        <p>{{feature.description}}</p>
+                        <button class='feature-button' @click.stop='edit(id)'>edit</button>
+                    </div>
                 </div>
             </div>
+            <button class='bottom-button' @click='addfeature()'>Add Feature/Trait</button>
         </div>
-        <button @click='addfeature()'>Add Feature/Trait</button>
         <popup @close='close()' v-if='pop'>
             <div class='popup long'>
                 <h2>Edit Feature</h2>
@@ -93,7 +95,7 @@ export default {
 <style lang='scss' scoped>
 @import '../../../scss/variables';
 .scroll{
-height:90%;
+height:88%;
 overflow-y:scroll;
 }
 .features{
@@ -102,7 +104,13 @@ overflow-y:scroll;
     grid-row-start:3;
     grid-row-end:9;
     font-size:1vw;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
+}
+.inner-features{
+    position:relative;
+    height:100%;
 }
 .feature-info{
     min-height:5px;
@@ -110,6 +118,13 @@ overflow-y:scroll;
     position: relative;
     padding:0;
     margin:0;
+}
+.bottom-button{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
 }
 textarea{
     width:90%;
@@ -121,7 +136,10 @@ textarea{
     white-space: pre-wrap;
 }
 .feature-info:nth-child(even){
-    background-color:rgb(226, 226, 226);
+    background-color:$list-dark;
+}
+.feature-info:hover{
+    background-color:$selecting;
 }
 .feature-button{
     position:absolute;

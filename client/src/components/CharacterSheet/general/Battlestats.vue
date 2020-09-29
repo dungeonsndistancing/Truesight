@@ -73,8 +73,11 @@ export default {
 
 }
 .stat{
+    padding-top:0.2em;
     position:relative;
-    border: 1px solid black;
+    background-color:white;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
 }
 h5{
     font-size:0.8vw;

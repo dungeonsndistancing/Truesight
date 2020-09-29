@@ -39,8 +39,10 @@ export default {
 <style lang='scss' scoped>
 @import '../../../scss/variables';
 .experience{
-    padding-top:0em;
-    border:1px solid black;
+    padding-top:0.1em;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     grid-row-start: 1;
     grid-row-end:2;
     grid-column-start: 2;

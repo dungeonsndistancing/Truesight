@@ -63,7 +63,6 @@ export default {
             if(typeof id == 'undefined') {
                 temp.cclass = this.editcclass
             }
-            console.log(temp)
             this.$emit('update',[{task:'update',data:temp}])
         },
         addClass() {
@@ -86,7 +85,9 @@ export default {
     overflow-y:scroll;
 }
 .class-edit{
-    border:1px solid black;
+    border-radius:$border-radius;
+    background-color:white;
+    border:1px solid $border-color;
     margin:1em;
 }
 .edit-div{
@@ -117,17 +118,20 @@ export default {
     left:-1px;
     width:100%;
     height:20em;
-    background-color:white;
-    border:1px solid black;
+    border-radius:$border-radius;
+    background-color:$offwhite;
+    border:1px solid $border-color;
     z-index:3;
     animation-name: test;
     animation-duration: 0.5s;
 }
 .class{
-    padding-top:0em;
+    padding-top:0.1em;
     font-size:1vw;
     position: relative;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     grid-row-start: 1;
     grid-row-end:2;
     grid-column-start:3;

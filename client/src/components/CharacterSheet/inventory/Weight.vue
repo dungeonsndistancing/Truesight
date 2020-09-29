@@ -20,7 +20,9 @@ export default {
     grid-column-end:5;
     grid-row-start:5;
     grid-row-end:6;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
 }
 h1{
     margin:0;

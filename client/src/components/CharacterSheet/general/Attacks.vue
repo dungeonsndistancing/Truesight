@@ -109,11 +109,13 @@ export default {
     font-size:1vw;
 }
 .attacks{
+    background-color:white;
     grid-column-start:5;
     grid-column-end:7;
     grid-row-start:1;
     grid-row-end:3;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
 }
 .attack-row{
     min-height:15px;
@@ -122,7 +124,10 @@ export default {
     grid-template-columns: 3fr 1fr 3fr;
 }
 .attack-row:nth-child(odd) {
-    background-color:rgb(226, 226, 226);
+    background-color:$list-dark;
+}
+.attack-row:hover {
+    background-color:$selecting
 }
 @media only screen and (max-width:$medium-screen) {
     .attacks{

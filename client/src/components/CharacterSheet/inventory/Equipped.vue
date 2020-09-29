@@ -151,7 +151,9 @@ export default {
 }
 .equipped{
     vertical-align: bottom;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     grid-column-start: 3;
     grid-column-end:5;
     grid-row-start:1;
@@ -178,10 +180,13 @@ export default {
     grid-column-end:4;
 }
 .item-row:nth-child(even) {
-    background-color:rgb(233, 233, 233);
+    background-color:$list-dark;
 }
 .item-row:nth-child(odd) {
-    background-color:white;
+    background-color:$list-light;
+}
+.item-row:hover{
+    background-color:$selecting
 }
 h4{
     margin:0 0 0 0;

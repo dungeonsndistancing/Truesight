@@ -265,6 +265,9 @@ export default {
     margin:0.3em 15% 0.3em 15%;
     border:1px solid black;
 }
+.charcontainer{
+    background-color:$offwhite;
+}
 .charcontainer > *{
     h6{
         margin:0;
@@ -305,7 +308,7 @@ export default {
     background: #c2c9d2;
   }
   .clickable:hover{
-    background-color:rgb(240, 240, 240);
+    background-color:$selecting;
 }
 p{
     margin-bottom:0;
@@ -366,6 +369,7 @@ p{
 <style lang='scss' scoped>
 @import '../scss/variables';
 .tabcontainer{
+    background-color:white;
     font-size:1vw;
     height:3em;
     display:grid;
@@ -379,6 +383,7 @@ p{
 .tab{
     border-radius: 2em 2em 0% 0%;
     border-style: solid solid none solid;
+    border-color:$border-color;
     border-width: 1px;
     font-size:1vw;
     height:3em;
@@ -393,7 +398,7 @@ p{
     -moz-box-shadow: 6px 3px 14px -2px rgba(0,0,0,0.75);
     box-shadow: 6px 0px 14px -2px rgba(0,0,0,0.75);
     clip-path: inset(-5px -20px 0px -5px);
-    background-color: rgb(245, 245, 245);
+    background-color: $selecting;
 }
 .content{
     overflow:hidden;
@@ -413,7 +418,7 @@ p{
     -moz-box-shadow: 6px 3px 14px -2px rgba(0,0,0,0.75);
     box-shadow: 6px 0px 14px -2px rgba(0,0,0,0.75);
     clip-path: inset(-5px -20px 0px -5px);
-    background-color: white;
+    background-color: $offwhite;
 }
 
 @media only screen and (max-width:$medium-screen) {

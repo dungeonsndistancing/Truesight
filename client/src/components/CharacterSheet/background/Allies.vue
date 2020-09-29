@@ -52,7 +52,9 @@ export default {
     resize: none;
 }
 .allies{
-    border:1px solid black;
+    border-radius:$border-radius;
+    background-color:white;
+    border:1px solid $border-color;
     grid-row-start: 2;
     grid-row-end:9;
     grid-column-start: 7;

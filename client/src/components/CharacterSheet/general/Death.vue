@@ -111,8 +111,11 @@ button{
     gap: 10px;
 }
 .death-inner{
+    padding-top:0.2em;
     font-size:0.9vw;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
 }
 @media only screen and (max-width:$medium-screen) {
     .death{

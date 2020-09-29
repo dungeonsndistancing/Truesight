@@ -94,7 +94,9 @@ export default {
     grid-column-end:9;
     grid-row-start:1;
     grid-row-end:3;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     row-gap:0;
     column-gap:0;
     margin:0;
@@ -108,13 +110,16 @@ export default {
     padding: 0 50px 0 0;
 }
 .prof-cont{
-    height:70%;
+    height:68%;
     overflow-x:hidden;
     overflow-y:scroll;
     margin:0;
 }
 .prof:nth-child(odd) {
-    background-color:rgb(226, 226, 226);
+    background-color:$list-dark;
+}
+.prof:hover {
+    background-color: $selecting;
 }
 textarea{
     width:90%;

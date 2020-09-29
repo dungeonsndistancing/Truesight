@@ -94,7 +94,9 @@ export default {
     grid-column-end: 5;
     grid-row-start:3;
     grid-row-end:9;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     display:grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows:0.3fr repeat(9,1fr);

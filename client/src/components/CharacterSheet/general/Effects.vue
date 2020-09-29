@@ -140,8 +140,9 @@ textarea{
 
     padding:10px;
     position:absolute;
+    border-radius:$border-radius;
     background-color:white;
-    border:1px solid black;
+    border:1px solid $border-color;
     top:-20em;
     left:0;
     height:20em;
@@ -178,7 +179,8 @@ textarea{
     grid-column-end:7;
     grid-row-start: 7;
     grid-row-end:9;
-    background-color: rgb(228, 228, 228);
+    background-color:$light-gray;
+    border-radius:$border-radius;
 }
 .effect-card{
     border-radius:2em;

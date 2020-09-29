@@ -1,5 +1,5 @@
 <template>
-	<div id="spells">
+	<div class="spells">
 		<div class="container">
 			<form class='search-container' @submit.prevent=getSpells>
 				<input type='text' id='searchquery' v-model='querytext' placeholder='search based on name, type, attributes..'>
@@ -143,7 +143,6 @@ export default {
 }
 .vertfil{
 	flex:1;
-	background-color: #f9f9f9ff;
 }
 .search-container{
 	padding: 0.5em;
@@ -202,7 +201,7 @@ input[type=text]{
 	color:rgb(85, 85, 85);
 }
 .spell-button:hover {
-	color:rgb(172, 172, 172);
+	color:$selecting;
 }
 .spell-top{
 	text-align:left;
@@ -242,8 +241,11 @@ input[type=text]{
 	margin:0;
 	float:left;
 }
-
+.spells{
+	background-color:$offwhite;
+}
 .container{
+
 	margin:auto;
 	max-width:90%;
 	width:1000px;
@@ -277,7 +279,7 @@ input[type=text]{
 	margin:5px;
 	width:96%;
 	border-style: solid;
-	border-color: #e6e6e6;
+	border-color:$border-color;
 	border-radius:0.7em;
 	border-width:0.09em;
 }

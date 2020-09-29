@@ -84,13 +84,14 @@ export default {
     }
 }
 </script>
-<style>
-.spell:nth-child(even) {
-    background-color:rgb(216, 216, 216);
-}
-</style>
 <style lang='scss' scoped>
 @import '../../../scss/variables';
+.spell:nth-child(even) {
+    background-color:$list-dark;
+}
+.spell:hover{
+    background-color:$selecting
+}
 .extra-upper{
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -133,7 +134,9 @@ export default {
 }
 .prepared{
     position: relative;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     grid-column-start: 4;
     grid-column-end:7;
     grid-row-start:1;

@@ -51,7 +51,7 @@ export default {
     padding:1em 1em;
 }
 .menubutton:hover{
-    background-color:#386ebe;
+    background-color:$dark-blue-selected;
 }
 .navbar {
     z-index:2;
@@ -60,7 +60,7 @@ export default {
     margin:0;
     width:calc(90%);
     height:3.5em;
-    background-color: #214478;
+    background-color: $dark-blue;
     clear:both;
 }
 #navbarlogo {
@@ -73,7 +73,7 @@ export default {
     color: white;
     float: left;
     display: block;
-    background-color:#214478;
+    background-color:$dark-blue;
     height: 3.5em;
     line-height:3.5em;
     width:fit-content;
@@ -82,7 +82,7 @@ export default {
     margin:0;
 }
 .navbar a:hover {
-    background-color:#386ebe;
+    background-color:$dark-blue-selected;
 }
 #logout {
     float:right;

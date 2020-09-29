@@ -20,7 +20,6 @@ export default {
         if(!result) {
             return undefined
         }
-        console.log(result)
         return Character.from(result.data)
     },
     updateCharacter: async function(character) {

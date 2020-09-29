@@ -49,10 +49,11 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style lang='scss' scoped>
+@import '../scss/variables';
 .container{
     padding-top:0.5em;
-    background-color:rgb(235, 235, 235);
+    background-color:$offwhite;
 }
 
 .logo {
