@@ -30,7 +30,7 @@ export default {
 <style lang='scss' scoped>
 @import '../../../scss/variables';
 .name{
-    padding:0.2em;
+    padding:0em;
     font-size:2vw;
     grid-column-start:1;
     grid-column-end:2;

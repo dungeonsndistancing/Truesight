@@ -1,10 +1,13 @@
-const Counter = require('./counter')
+
 class Cclass{
-    constructor(name,subclass,level,hitdice) {
+    constructor(name,subclass,level,hitdie) {
         this.name = name
         this.subclass = subclass
         this.level = level
-        this.hitdice = new Counter(hitdice,level)
+        this.hitdice = {
+            current:level,
+            dice:hitdie
+        }
     }
 
     static from(json) {

@@ -8,22 +8,24 @@ const characterSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: "User"
     },
-    cclass: {
-        name:{
-            type: String
-        },
-        subclass:{
-            type: String
-        },
-        level: {
-            type: Number
-        },
-        hitdice: {
-            current:{type:Number},
-            dice:{type:Number}
+    cclass: [
+        {
+            name:{
+                type: String
+            },
+            subclass:{
+                type: String
+            },
+            level: {
+                type: Number
+            },
+            hitdice: {
+                current:{type:Number},
+                dice:{type:Number}
+            }
         }
         
-    },
+    ],
     looks: {
         age:Number,
         weight:Number,

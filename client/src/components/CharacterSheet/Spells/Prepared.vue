@@ -101,7 +101,6 @@ export default {
     padding:0 0.4em;
     text-align:left;
     white-space:pre-wrap;
-    font-size:0.9vw;
     padding-bottom:0.5em;
 }
 .concentration{

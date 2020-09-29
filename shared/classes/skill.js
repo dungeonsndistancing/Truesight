@@ -9,7 +9,7 @@ class Skill {
 
     value(ability,proficiency) {
         var sum = this.modifiers.reduce(function(a,b){return a + parseInt(b.value)},parseInt(0))
-        return parseInt(ability) + parseInt(sum) + parseInt(this.proficiency * parseInt(proficiency))
+        return parseInt(ability) + parseInt(sum) + Math.floor(parseInt(this.proficiency * parseInt(proficiency)))
     }
 
     addmodifier(name,value,source) {
