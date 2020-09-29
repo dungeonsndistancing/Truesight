@@ -42,15 +42,15 @@ export default {
     border:1px solid black;
     grid-row-start: 1;
     grid-row-end:2;
-    grid-column-start: 3;
-    grid-column-end:5;
+    grid-column-start: 2;
+    grid-column-end:3;
 
 }
 @media only screen and (max-width:$small-screen) {
     .experience{
-        grid-row-start: 2;
-        grid-row-end:3;
-        grid-column-start: 1;
+        grid-row-start: 1;
+        grid-row-end:2;
+        grid-column-start: 2;
         grid-column-end:3;
     }
 }

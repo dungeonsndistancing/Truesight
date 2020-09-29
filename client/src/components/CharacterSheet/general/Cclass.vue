@@ -92,8 +92,8 @@ export default {
     border:1px solid black;
     grid-row-start: 1;
     grid-row-end:2;
-    grid-column-start:2;
-    grid-column-end:3;
+    grid-column-start:3;
+    grid-column-end:5;
 }
 h6{
     margin:0.1em;
@@ -110,6 +110,12 @@ h6{
     .class{
         font-size:3.4vw;
         padding:0.3em;
+    }
+    .class{
+        grid-row-start:2;
+        grid-row-end:3;
+        grid-column-start: 1;
+        grid-column-end: 3;
     }
 }
 </style>

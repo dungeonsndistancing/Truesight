@@ -1,13 +1,13 @@
 <template>
   <div class='death'>
-      <div class='death-inner'>
+      <div class='death-inner dice'>
           <h5>Hit Dice</h5>
           Total:{{character.cclass.level}}d{{hitdice.dice}}
           <h5>Available</h5>
           {{hitdice.current}}d{{hitdice.dice}}
           <button @click='plusdice()'>+</button><button @click='mindice()'>-</button>
       </div>
-      <div class='death-inner'>
+      <div class='death-inner saves'>
           <h5>Saving Throws</h5>
           <div>
             <div>successes:{{saves.succes}}</div>
@@ -69,6 +69,18 @@ export default {
 
 <style lang='scss' scoped>
 @import '../../../scss/variables';
+.saves{
+    grid-column-start:1;
+    grid-column-end: 2;
+    grid-row-start:2;
+    grid-row-end: 3;
+}
+.dice {
+    grid-column-start: 2;
+    grid-column-end:3;
+    grid-row-start:1;
+    grid-row-end:3;
+}
 button{
     font-size:1vw;
     margin:0;
@@ -81,10 +93,11 @@ button{
     font-size:1.1vw;
     grid-column-start: 1;
     grid-column-end: 3;
-    grid-row-start: 4;
+    grid-row-start: 3;
     grid-row-end:5;
     display:grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     column-gap: 10px;
 }
 .death-inner{
@@ -104,7 +117,7 @@ button{
     .death{
         grid-column-start: 1;
         grid-column-end: 3;
-        grid-row-start: 6;
+        grid-row-start: 5;
         grid-row-end:7; 
         font-size:3.5vw;       
     }
