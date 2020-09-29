@@ -29,10 +29,8 @@
 					<div class="item-content" v-if="item.show">
 						<div class="item-top">
 							<p>cost:{{item.cost}} weight:{{item.weight}}</p>
-							
 						</div>
-							<div class="item-top">
-							<div class='item-extra'><div v-for='[key,value] in Object.entries(item.display())' :key='key'><b>{{key}}:</b><i>{{value}}</i></div></div>
+							<div class='item-extra'><div v-for='[key,value] in Object.entries(item.display())' :key='key'><b>{{key}}:</b><i>{{value}}</i></div>
 							
 						</div>
 						<div class="item-bottom">
@@ -100,9 +98,10 @@ export default {
 			return n == this.curpage
 		},
 		show(item) {
+			console.log('showing')
 			item.show = !item.show
-			item._id += '1'
-			item._id = item._id.substring(0, item._id.length -1)
+			item.name += '1'
+			item.name = item.name.substring(0, item.name.length -1)
 		},load(url) {
 			this.$router.push(url)
 		},
@@ -202,10 +201,12 @@ input[type=checkbox] {
 	padding:0.3em 0;
 	margin-top:0.95em;
 	border-top: 0.09em solid #e6e6e6;
-	border-bottom: 0.09em solid #e6e6e6;
-
 }
-.item-top p {
+.item-extra{
+	border-top: 0.09em solid #e6e6e6;
+	border-bottom: 0.09em solid #e6e6e6;
+}
+p {
 	margin:0;
 	padding:0;
 }

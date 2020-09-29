@@ -31,8 +31,6 @@
 
 <script>
 //import icons from '../assets/icons.json'
-import Item from '../../../../../shared/classes/items/item'
-
 export default {
     props:{
         inventory: Object,
@@ -69,40 +67,25 @@ export default {
                 this.countid = id
             }
         },
-        saveItem(){
-            if(!this.editing) {
-                this.item.count = 1
-                this.update(this.equipped.length,this.item)
-
-            } else{
-                this.update(this.editid,this.item)
-                this.editid=-1
-                this.editing = false
-            }
-            this.item= new Item('name','type','cost',0,'description','icon','color')
-            this.editing = false
-            this.pop = false
-
-        },
         unequipItem(id) {
             this.$emit('unequip',id)
         },
         attuneItem(id) {
-            this.backpack[id].attuned = true
-            this.update(id,this.backpack[id])
+            this.equipped[id].attuned = true
+            this.update(id,this.equipped[id])
         },
         unattuneItem(id) {
             this.equipped[id].attuned = false
-            this.update(id,this.backpack[id])
+            this.update(id,this.equipped[id])
         },
         update(id,item) {
-            var temp = {inventory:{backpack:{}}}
-            temp.inventory.backpack[id] = item
+            var temp = {inventory:{equipped:{}}}
+            temp.inventory.equipped[id] = item
             this.$emit('update',[{task:'update',data:temp}])
         },
         remove(id) {
-            var temp = {inventory:{backpack:[]}}
-            temp.inventory.backpack.push(id)
+            var temp = {inventory:{equipped:[]}}
+            temp.inventory.equipped.push(id)
             this.$emit('update',[{task:'remove',data:temp}]) 
         },
         cancel() {
