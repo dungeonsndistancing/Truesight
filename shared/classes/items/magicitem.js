@@ -1,11 +1,11 @@
 const Item = require('./item')
 class MagicItem extends Item {
-    constructor(name,type,cost,weight,description,rarity,attunement,icon,color) {
-        super(name,type,cost,weight,description,icon,color)
+    constructor(item) {
+        super(item)
         this.class='magicitem'
-        this.rarity =rarity
-        this.attunement = attunement
-        this.attuned = false
+        this.rarity =item.rarity
+        this.attunement = item.attunement
+        this.attuned = item.attunement?item.attunement:false
     }
 
     display(){

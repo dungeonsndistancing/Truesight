@@ -1,13 +1,15 @@
 class Item{
-    constructor(name,type,cost,weight,description,icon,color){
+    constructor(item){
+        
         this.class = 'item'
-        this.name = name
-        this.type = type
-        this.cost = cost
-        this.weight = weight
-        this.description = description
-        this.icon = icon
-        this.color = color
+        this.name = item.name
+        this.type = item.type
+        this.cost = item.cost
+        this.weight = item.weight
+        this.description = item.description
+        this.icon = item.icon
+        this.color = item.color
+        this.count = item.count?item.count:1
     }
     display(){
         return {}

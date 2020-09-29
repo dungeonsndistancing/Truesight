@@ -7,25 +7,25 @@ const MagicWeapon = require('./items/magicweapon')
 module.exports.parse= (json) => {
     switch(json.class) {
         case "item":
-          return Item.from(json)
+          return new Item(json)
 
         case 'armor':
-          return Armor.from(json)
+          return new Armor(json)
 
         case 'weapon':
-          return Weapon.from(json)
+          return new Weapon(json)
 
         case 'magicitem':
-            return MagicItem.from(json)
+            return new MagicItem(json)
 
         case 'magicarmor':
-            return MagicArmor.from(json)
+            return new MagicArmor(json)
 
         case 'magicweapon':
-            return  MagicWeapon.from(json)
+            return  new MagicWeapon(json)
 
         default:
-            return Item.from(json)
+            return new Item(json)
 
       }
 }
