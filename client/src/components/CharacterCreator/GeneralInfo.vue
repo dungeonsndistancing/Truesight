@@ -2,11 +2,11 @@
     <div class='generalinfo'>
     Character name:<input type='text' class='wide input topside' v-model='character.name'>
     <h1>Class</h1>
-    Class:<input type='text' class='wide input topside' v-model='character.cclass.name'><br>
-    subclass:<input type='text' class='wide input' v-model='character.cclass.subclass'><br>
-    level:<input type='number' class='small input' v-model='character.cclass.level'>
+    Class:<input type='text' class='wide input topside' v-model='character.cclass[0].name'><br>
+    subclass:<input type='text' class='wide input' v-model='character.cclass[0].subclass'><br>
+    level:<input type='number' class='small input' v-model='character.cclass[0].level'>
 
-    hitdice: {{character.cclass.level}}d<input type='number' class='small input' v-model='character.cclass.hitdice.dice'><br>
+    hitdice: {{character.cclass[0].level}}d<input type='number' class='small input' v-model='character.cclass[0].hitdice.dice'><br>
     <h1>Description</h1>
     Race:<input type='text' class='wide input' v-model='character.race'><br>
     Background:<input type='text' class='wide input' v-model='character.background'><br>
