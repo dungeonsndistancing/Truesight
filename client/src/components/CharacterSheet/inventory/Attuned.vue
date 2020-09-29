@@ -17,7 +17,9 @@ export default {
 <style lang='scss' scoped>
 @import '../../../scss/variables';
 .attuned{
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     grid-column-start: 3;
     grid-column-end: 5;
     grid-row-start: 6;

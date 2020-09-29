@@ -4,9 +4,12 @@
       <div class='stat clickable' @click='show("initiative","Initiative")'><h5>Initiative</h5><h2 ><b v-if='character.initiative > 0'>+</b>{{character.initiative}}</h2></div>
       <div class='stat clickable' @click='show("movement","Speed")'><h5>Speed</h5><h2 >{{character.movement}} ft</h2></div>
       <div class='stat clickable' @click='show("proficiency","Proficiency Bonus")'><h5>Proficiency Bonus</h5><h2 >+{{character.proficiency}}</h2></div>
-      <div class='stat clickable' @click='show("maxhp","Maximum Health")'><h5>Max Health</h5><h2 >{{character.maxhp}}</h2></div>
-      <div class='stat clickable' @click='show("currenthp","Current Health")'><h5>Current Health</h5><h2 >{{character.currenthp}}</h2></div>
-      <div class='stat clickable' @click='show("temporaryhp","Temporary Health")'><h5>Temporary Health</h5><h2 >{{character.temporaryhp}}</h2></div>
+      <div class='stat clickable'>
+          <h5>Health</h5>
+          <h3><b @click='show("maxhp","Maximum Health")'>{{character.maxhp}}</b>/<b @click='show("currenthp","Current Health")'>{{character.currenthp}}</b></h3>
+          <h5>Temporary</h5>
+          <h3 @click='show("temporaryhp","Temporary Health")'>{{character.temporaryhp}}</h3>
+          </div>
       <div class='stat'><h5>Passive Perception</h5><h2>{{character.passivePerception}}</h2></div>
       <popup v-show='pop' @close='close'>
           <div class='popup short' >
@@ -70,8 +73,11 @@ export default {
 
 }
 .stat{
+    padding-top:0.2em;
     position:relative;
-    border: 1px solid black;
+    background-color:white;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
 }
 h5{
     font-size:0.8vw;

@@ -1,7 +1,7 @@
 <template>
   <div class='experience clickable' @click='edit()'>
       <div>
-        <h2>Experience</h2>
+        <h5>Experience</h5>
         <h3 v-if='!show'>{{experience}}</h3>
         <div v-if='show'>
             <input @click.stop class='input wide' v-model='editexp' type="number">
@@ -39,18 +39,21 @@ export default {
 <style lang='scss' scoped>
 @import '../../../scss/variables';
 .experience{
-    border:1px solid black;
+    padding-top:0.1em;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     grid-row-start: 1;
     grid-row-end:2;
-    grid-column-start: 3;
-    grid-column-end:5;
+    grid-column-start: 2;
+    grid-column-end:3;
 
 }
 @media only screen and (max-width:$small-screen) {
     .experience{
-        grid-row-start: 2;
-        grid-row-end:3;
-        grid-column-start: 1;
+        grid-row-start: 1;
+        grid-row-end:2;
+        grid-column-start: 2;
         grid-column-end:3;
     }
 }

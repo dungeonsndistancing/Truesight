@@ -30,13 +30,15 @@ export default {
 <style lang='scss' scoped>
 @import '../../../scss/variables';
 .name{
-    padding:0.2em;
+    padding:0.1em;
     font-size:2vw;
     grid-column-start:1;
     grid-column-end:2;
     grid-row-start:1;
     grid-row-end:2;
-    border: 1px solid black;
+    border: 1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
 }
 .name p {
     margin:0em;

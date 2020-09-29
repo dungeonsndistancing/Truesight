@@ -12,6 +12,25 @@
         <inventory v-if='page=="inventory"' class='content' @remove='remove' @update='update' :inventory.sync='character.inventory' />
         <spells v-if='page=="spells"' class='content' @remove='remove' @update='update' :character.sync='character' />
         <background v-if='page=="background"' class='content' @remove='remove' @update='update' :character.sync='character' />
+        <transition name='fade'>
+            <popup v-if='!connected'>
+                <div class='popup'><h2>You are currently not connected!</h2>
+                <br>
+                <h3>Reconnect?</h3>
+                <button @click='reconnect'>Reconnect!</button>
+                </div>
+            </popup>
+        </transition>
+        <transition name='fade'>
+        <popup v-if='loading'>
+            <div class="lds-default">
+                <div></div><div></div><div></div>
+                <div></div><div></div><div></div>
+                <div></div><div></div><div></div>
+                <div></div><div></div><div></div>
+            </div>
+        </popup>
+        </transition>
     </div>
 </template>
 
@@ -23,32 +42,44 @@ import inventory from '../views/CharacterSheet/Inventory'
 import spells from '../views/CharacterSheet/Spells'
 import background from '../views/CharacterSheet/Background'
 import wsservice from '../services/WebsocketService'
+import popup from '../components/Popups/Popup'
 export default {
     components: {
         general,
         inventory,
         spells,
-        background
+        background,
+        popup
     },
     props: ['char','page'],
     data: function() {
         return {
-            character: new Character()
+            character: new Character(),
+            connected: true,
+            loading:true
         }
             
     },
     computed: {
         tempchar: function() {
             return Object.assign({},this.character)
+        },
+        wsservice: function() {
+            return wsservice
         }
     },
     methods: {
         async getCharacter(id) {
             var temp = await characterService.getCharacter(id)
-            if(temp == '403') {
-                this.$router.push('/403')
+            this.loading = false
+            if(!temp) {
+                this.connected = false
             }
-            this.character = temp;
+            else if(temp == '403') {
+                this.$router.push('/403')
+            } else {
+                this.character = temp;
+            }
         },
         async update(data) {
             if(!wsservice.send('update',data)) {
@@ -61,11 +92,7 @@ export default {
         },
         async remove(data) {
             if(!wsservice.send('remove',data)) {
-                await wsservice.link(this)
-                await this.start()
-                if(!wsservice.send('remove',data)) {
-                    console.log("COULD NO LONGER TRANSMIT DATA")
-                }
+                this.connected = false
             }
         },
         updateCharacter(data) { 
@@ -115,10 +142,16 @@ export default {
             }
         },
         start() {
+            this.connected = true
             wsservice.send('character',this.char)
         },
         load(pg) {
             this.$router.push('/charsheet/' +this.char +'/' + pg)
+        },
+        async reconnect() {
+            this.loading = true
+            await this.getCharacter(this.char)
+            await wsservice.link(this)
         }
 
     },async beforeMount() {
@@ -130,6 +163,95 @@ export default {
 }
 </script>
 <style lang='scss'>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+.lds-default {
+  display: inline-block;
+  position: relative;
+  top:50%;
+  width: 80px;
+  height: 80px;
+}
+.lds-default div {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  animation: lds-default 1.2s linear infinite;
+}
+.lds-default div:nth-child(1) {
+  animation-delay: 0s;
+  top: 37px;
+  left: 66px;
+}
+.lds-default div:nth-child(2) {
+  animation-delay: -0.1s;
+  top: 22px;
+  left: 62px;
+}
+.lds-default div:nth-child(3) {
+  animation-delay: -0.2s;
+  top: 11px;
+  left: 52px;
+}
+.lds-default div:nth-child(4) {
+  animation-delay: -0.3s;
+  top: 7px;
+  left: 37px;
+}
+.lds-default div:nth-child(5) {
+  animation-delay: -0.4s;
+  top: 11px;
+  left: 22px;
+}
+.lds-default div:nth-child(6) {
+  animation-delay: -0.5s;
+  top: 22px;
+  left: 11px;
+}
+.lds-default div:nth-child(7) {
+  animation-delay: -0.6s;
+  top: 37px;
+  left: 7px;
+}
+.lds-default div:nth-child(8) {
+  animation-delay: -0.7s;
+  top: 52px;
+  left: 11px;
+}
+.lds-default div:nth-child(9) {
+  animation-delay: -0.8s;
+  top: 62px;
+  left: 22px;
+}
+.lds-default div:nth-child(10) {
+  animation-delay: -0.9s;
+  top: 66px;
+  left: 37px;
+}
+.lds-default div:nth-child(11) {
+  animation-delay: -1s;
+  top: 62px;
+  left: 52px;
+}
+.lds-default div:nth-child(12) {
+  animation-delay: -1.1s;
+  top: 52px;
+  left: 62px;
+}
+@keyframes lds-default {
+  0%, 20%, 80%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
 @import '../scss/variables';
 .scrollcontainer{
     border-style:solid none solid none;
@@ -142,6 +264,9 @@ export default {
     padding:0.5em;
     margin:0.3em 15% 0.3em 15%;
     border:1px solid black;
+}
+.charcontainer{
+    background-color:$offwhite;
 }
 .charcontainer > *{
     h6{
@@ -183,7 +308,7 @@ export default {
     background: #c2c9d2;
   }
   .clickable:hover{
-    background-color:rgb(240, 240, 240);
+    background-color:$selecting;
 }
 p{
     margin-bottom:0;
@@ -244,6 +369,7 @@ p{
 <style lang='scss' scoped>
 @import '../scss/variables';
 .tabcontainer{
+    background-color:white;
     font-size:1vw;
     height:3em;
     display:grid;
@@ -257,6 +383,7 @@ p{
 .tab{
     border-radius: 2em 2em 0% 0%;
     border-style: solid solid none solid;
+    border-color:$border-color;
     border-width: 1px;
     font-size:1vw;
     height:3em;
@@ -271,7 +398,7 @@ p{
     -moz-box-shadow: 6px 3px 14px -2px rgba(0,0,0,0.75);
     box-shadow: 6px 0px 14px -2px rgba(0,0,0,0.75);
     clip-path: inset(-5px -20px 0px -5px);
-    background-color: rgb(245, 245, 245);
+    background-color: $selecting;
 }
 .content{
     overflow:hidden;
@@ -291,7 +418,7 @@ p{
     -moz-box-shadow: 6px 3px 14px -2px rgba(0,0,0,0.75);
     box-shadow: 6px 0px 14px -2px rgba(0,0,0,0.75);
     clip-path: inset(-5px -20px 0px -5px);
-    background-color: white;
+    background-color: $offwhite;
 }
 
 @media only screen and (max-width:$medium-screen) {

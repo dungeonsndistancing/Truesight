@@ -1,16 +1,18 @@
 <template>
     <div class='money'>
-        <div v-for='(value,id) in money' :key='id'>
-            <h3>{{id}}:{{value}}</h3>
-            <div>
-                <button @click='up(id)'>+</button>
-                <button @click='down(id)'>-</button>
+        <div class='inner-money'>
+            <div v-for='(value,id) in money' :key='id'>
+                <h3>{{id}}:{{value}}</h3>
+                <div>
+                    <button @click='up(id)'>+</button>
+                    <button @click='down(id)'>-</button>
+                </div>
             </div>
-        </div>
-        <div class='money-button'>
-            <button @click='popuppop=true'>Add</button>
-            <button @click='removepop=true'>Remove</button>
-            <button @click='shiftpop=true'>Shift</button>
+            <div class='money-button'>
+                <button @click='popuppop=true'>Add</button>
+                <button @click='removepop=true'>Remove</button>
+                <button @click='shiftpop=true'>Shift</button>
+            </div>
         </div>
         <popup v-show='popuppop' @close='cancel'>
             <div class='popup'>
@@ -41,6 +43,7 @@
                 <button @click='shift()'>Confirm</button><button @click='cancel()'>Cancel</button>
             </div>
         </popup>
+
   </div>
 </template>
 
@@ -75,7 +78,6 @@ export default {
 
         },
         down(id) {
-            console.log(id)
             this.realmoney[id] = parseInt(this.realmoney[id]) - 1
             this.update(id)
         },
@@ -117,33 +119,43 @@ export default {
 </script>
 <style lang='scss' scoped>
 @import '../../../scss/variables';
-
+h3{
+    font-size:1vw;
+}
 button{
-    padding:0.1em 0.2em;
-    font-size:0.9vw;
+    padding:0em 0.2em;
     margin:0;
 }
 .money{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    grid-template-rows: 3fr 2fr;
-    column-gap:10px;
     grid-column-start: 3;
     grid-column-end:5;
     grid-row-start:2;
     grid-row-end:3;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
+}
+.inner-money{
+    padding:0.5em;
+    display:grid;
+    column-gap:10px;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: 2fr 1fr;
+
 }
 .money-button{
     display:grid;
-    padding:2px;
     grid-template-columns:3fr 3fr 1fr;
     column-gap:10px;
     row-gap:10px;
     grid-column-start:1;
     grid-column-end:5;
 }
-
+.money-button button{
+    padding:0;
+    margin:0;
+    height:1.5em;
+}
 .test{
     position:absolute;
     width:300px;

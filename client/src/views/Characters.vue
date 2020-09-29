@@ -60,7 +60,7 @@ export default {
     overflow: hidden;
 }
 .charactercard:hover{
-    background-color:rgb(230, 230, 230);
+    background-color:$selecting;
 }
 .cardheader{
     border-bottom: 1px solid rgb(182, 182, 182);

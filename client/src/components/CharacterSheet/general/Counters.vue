@@ -51,6 +51,7 @@ export default {
     },
     methods: {
         countup(id){
+            
             this.editcounters[id].increase()
             this.update(id)
         },
@@ -96,9 +97,10 @@ export default {
     grid-column-end:7;
     grid-row-start:3;
     grid-row-end:7;
-    background-color: rgb(228, 228, 228);
+    background-color: $light-gray;
+    border-radius:$border-radius;
     margin:0;
-    padding:0;
+    padding:0 0 0 0.5em;
 }
 .spellcounters{
     grid-column-start: 7;
@@ -120,11 +122,19 @@ export default {
     align-content: center;
     align-items: center;
     height:5em;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
     background-color:white;
 }
 .add{
     height:5em;
+    border-radius:$border-radius;
+    outline:none;
+    background-color:white;
+    border:1px solid $border-color;
+}
+.add:hover{
+    background-color:$selecting;
 }
 .count-inner{
     float:left;

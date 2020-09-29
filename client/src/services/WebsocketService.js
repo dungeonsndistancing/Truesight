@@ -29,14 +29,18 @@ module.exports.send = async (type,data) => {
         await socket.send(JSON.stringify({type:type,data:data}))
         return true
     } else {
-        console.log('websocket closed, reconnecting')
+        frontview.connected = false
         return false
     }
 }
 module.exports.link = async (object) => {
     frontview = object
-    socket =  new WebSocket(ip,['access_token', localStorage.getItem('token')])
-    await prepareSocket()
+    try{
+        socket =  new WebSocket(ip,['access_token', localStorage.getItem('token')])
+        await prepareSocket()
+    } catch(err) {
+        console.log('hm')
+    }
 }
 module.exports.disconnect = () => {
     socket.close()

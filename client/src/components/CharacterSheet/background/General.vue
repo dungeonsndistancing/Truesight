@@ -50,13 +50,17 @@ export default {
 <style lang='scss' scoped>
 @import '../../../scss/variables';
 .general{
+    padding:0.5em;
+    overflow:hidden;
     display:grid;
     grid-template-columns:repeat(3,33.3%);
     grid-column-start:3;
     grid-column-end:5;
     grid-row-start:1;
     grid-row-end:2;
-    border: 1px solid black;
+    border-radius:$border-radius;
+    background-color:white;
+    border:1px solid $border-color;
     font-size:1.2vw;
     font-weight: bolder;
 }

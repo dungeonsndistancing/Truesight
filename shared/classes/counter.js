@@ -6,10 +6,12 @@ class Counter{
     }
 
     decrease() {
-        this.current -= 1
+        if(this.current > 0)
+            this.current -= 1
     }
 
     increase() {
+        if(this.current < this.max)
         this.current +=1
     }
     

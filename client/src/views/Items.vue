@@ -1,5 +1,5 @@
 <template>
-	<div id="items">
+	<div class="items">
 		<div class="container">
 			<div class='search-container'>
 			<form @submit.prevent=getItems>
@@ -269,6 +269,9 @@ input[type=checkbox] {
 .item-extra div {
 	padding: 1px 5px 1px 5px;
 }
+.items{
+	background-color:$offwhite;
+}
 .item-card{
 	background-color: white;
 	max-height:3.5em;
@@ -276,7 +279,7 @@ input[type=checkbox] {
 	margin:5px;
 	width:96%;
 	border-style: solid;
-	border-color: #e6e6e6;
+	border-color: $border-color;
 	border-radius:0.7em;
 	border-width:0.09em;
 }

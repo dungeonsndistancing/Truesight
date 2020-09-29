@@ -74,7 +74,8 @@ export default {
 }
 .backgroundinfo {
     padding:10px;
-    background-color: rgb(211, 211, 211);
+    background-color:$light-gray;
+    border-radius:$border-radius;
     grid-row-start: 2;
     grid-row-end:9;
     grid-column-start:3;
@@ -85,8 +86,9 @@ export default {
     gap:10px;
 }
 .inner-info{
-    border:1px solid black;
+    border-radius:$border-radius;
     background-color:white;
+    border:1px solid $border-color;
 }
 @media only screen and (max-width:$small-screen) {
     .backgroundinfo {

@@ -15,7 +15,7 @@
  
                     <div style='text-align:right'>{{item.weight}} lbs</div>
                     <div v-if='showid==id' class='iteminfo'>
-                        <div class='extraitem' v-for='(info,id) in item.display()' :key='id'>{{id}}:{{info}}</div>
+                        <div class='extraitem' v-for='(info,id) in item.display()' :key='id'><b>{{id}}:</b>{{info}}</div>
                         <p class='item-description'>{{item.description}}</p>
                         <div>
                             <button @click.stop='equipItem(id)'>Equip</button>
@@ -127,6 +127,7 @@ export default {
             this.item = new Item('name','type','cost',0,'description','icon','color')
         },
         saveItem(){
+            console.log(this.item)
             if(!this.editing) {
                 this.item.count = 1
                 this.update(this.backpack.length,this.item)
@@ -176,15 +177,16 @@ export default {
                 if(this.typestring.includes('weapon')) {
                     this.weapon = true
                     this.armor = false
-                    this.item = MagicWeapon.from(this.item)
+                    this.item = new MagicWeapon(this.item)
                 } else {
                     this.weapon = false
                     if(this.typestring.includes('armor')) {
-                        this.item = MagicArmor.from(this.item)
+                        this.item = new MagicArmor(this.item)
                         this.armor = true
                     } else {
                         this.armor = false
-                        this.item = MagicItem.from(this.item)
+                        console.log(this.item)
+                        this.item = new MagicItem(this.item)
                     }
                 } 
             } else {
@@ -192,15 +194,15 @@ export default {
                 if(this.typestring.includes('weapon')) {
                     this.weapon = true
                     this.armor = false
-                    this.item = Weapon.from(this.item)
+                    this.item = new Weapon(this.item)
                 } else {
                     this.weapon = false
                     if(this.typestring.includes('armor')) {
-                        this.item = Armor.from(this.item)
+                        this.item = new Armor(this.item)
                         this.armor = true
                     } else {
                         this.armor = false
-                        this.item = Item.from(this.item)
+                        this.item = new Item(this.item)
                     }
                 } 
             }
@@ -211,6 +213,10 @@ export default {
 
 <style lang='scss' scoped>
 @import '../../../scss/variables';
+.extraitem{
+    display:inline-block;
+    margin:0 0.5em;
+}
 .buttonclass{
     position:absolute;
     bottom:0;
@@ -249,7 +255,9 @@ export default {
 }
 .backpack{
     vertical-align: bottom;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     grid-column-start: 1;
     grid-column-end:3;
     grid-row-start:1;
@@ -276,10 +284,13 @@ export default {
     grid-column-end:4;
 }
 .item-row:nth-child(even) {
-    background-color:rgb(233, 233, 233);
+    background-color:$list-dark;
 }
 .item-row:nth-child(odd) {
     background-color:white;
+}
+.item-row:hover{
+    background-color:$selecting
 }
 h4{
     margin:0 0 0 0;

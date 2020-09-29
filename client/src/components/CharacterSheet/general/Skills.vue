@@ -12,7 +12,12 @@
                 <h3>{{character.skills[skillid].name}}</h3>
                 <h3><b v-if='character.skills[skillid].value(character.attributes[skills[skillid].ability].mod,character.proficiency) > 0'>+</b>{{skills[skillid].value(character.attributes[skills[skillid].ability].mod,character.proficiency)}}</h3>
                 <h5>Proficiency:</h5>
-                Proficient:<input class='checkbox' v-model='skills[skillid].proficiency' type='checkbox'>
+                Proficiency:<select class='input' v-model='skills[skillid].proficiency' type='checkbox'>
+                    <option value='0'>None</option>
+                    <option value='0.5'>Half Proficient</option>
+                    <option value='1'>Proficient</option>
+                    <option value='2'>Expert</option>
+                    </select>
                 <h5>Modifiers:</h5>
                 <div class='scrollcontainer'>
                     <div class='mod-div' v-for='(mod,id) in skills[skillid].modifiers' :key='mod._id'>
@@ -89,7 +94,9 @@ export default {
     grid-column-end: 5;
     grid-row-start:3;
     grid-row-end:9;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     display:grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows:0.3fr repeat(9,1fr);

@@ -26,6 +26,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+@import'../../../scss/variables.scss';
 .input {
     text-align:center;
     width:90%;
@@ -33,7 +34,9 @@ export default {
 }
 .name {
     font-weight: bolder;
-    border:1px solid black;
+    border-radius:$border-radius;
+    background-color:white;
+    border:1px solid $border-color;
     grid-row-end: 2;
     grid-row-start: 1;
     grid-column-start: 1;

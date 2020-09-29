@@ -4,9 +4,11 @@ export default {
     getCharacters: async function() {
         const url = '/characters/list'
         const result = await authService.authenticateRequest(url,"get",'');
-        if(result.data != 'disconnected') {
-            return result.data
-            
+        if(!result) {
+            return undefined
+        }
+        if(result != 'disconnected') {
+            return result.data   
         }
         
 
@@ -14,12 +16,11 @@ export default {
     getCharacter: async function(id) {
         let url = '/characters/single'
         url += "?id=" + id 
-        try{
-            const result = await authService.authenticateRequest(url,"get",'')
-            return Character.from(result.data)
-        } catch(err) {
-            return err.response.status
+        const result = await authService.authenticateRequest(url,"get",'')
+        if(!result) {
+            return undefined
         }
+        return Character.from(result.data)
     },
     updateCharacter: async function(character) {
         let url = '/characters/update'

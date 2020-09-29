@@ -110,11 +110,13 @@ export default {
     display:grid;
     grid-template-columns: repeat(2,1fr);
     grid-template-rows:0.1fr 1fr 1fr 1fr;
-    background-color: rgb(228, 228, 228);
+    background-color: $light-gray;
+    border-radius:$border-radius;
     
 }
 .save{
-    border: 1px solid black;
+    border-radius:$border-radius;
+    border: 1px solid $border-color;
     background-color:white;
 }
 .save-mod{

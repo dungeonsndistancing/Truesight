@@ -93,7 +93,9 @@ export default {
 .looks{
   text-align: left;
   font-size:1.3vw;
-  border:1px solid black;
+    border-radius:$border-radius;
+    background-color:white;
+    border:1px solid $border-color;
   grid-column-start:1;
   grid-column-end: 3;
   grid-row-start:2;

@@ -15,7 +15,7 @@
  
                     <div style='text-align:right'>{{item.weight}} lbs</div>
                     <div v-if='showid==id' class='iteminfo'>
-                        <div class='extraitem' v-for='(info,id) in item.display()' :key='id'>{{id}}:{{info}}</div>
+                        <div class='extraitem' v-for='(info,id) in item.display()' :key='id'><b>{{id}}:</b>{{info}}</div>
                         <p class='item-description'>{{item.description}}</p>
                         <div>
                             <button @click.stop='unequipItem(id)'>Unequip</button>
@@ -114,6 +114,10 @@ export default {
 
 <style lang='scss' scoped>
 @import '../../../scss/variables';
+.extraitem{
+    display:inline-block;
+    margin:0 0.5em
+}
 .buttonclass{
     position:absolute;
     bottom:0;
@@ -151,7 +155,9 @@ export default {
 }
 .equipped{
     vertical-align: bottom;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
     grid-column-start: 3;
     grid-column-end:5;
     grid-row-start:1;
@@ -178,10 +184,13 @@ export default {
     grid-column-end:4;
 }
 .item-row:nth-child(even) {
-    background-color:rgb(233, 233, 233);
+    background-color:$list-dark;
 }
 .item-row:nth-child(odd) {
-    background-color:white;
+    background-color:$list-light;
+}
+.item-row:hover{
+    background-color:$selecting
 }
 h4{
     margin:0 0 0 0;

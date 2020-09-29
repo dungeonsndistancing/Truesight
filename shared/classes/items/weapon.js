@@ -1,10 +1,10 @@
 const Item = require('./item')
 class Weapon extends Item{
-    constructor(name,type,cost,weight,description,damage,properties,icon,color){
-        super(name,type,cost,weight,description,icon,color)
+    constructor(item){
+        super(item)
         this.class='weapon'
-        this.damage = damage
-        this.properties = properties
+        this.damage = item.damage
+        this.properties = item.properties
     }
     display(){
         var x = super.display()

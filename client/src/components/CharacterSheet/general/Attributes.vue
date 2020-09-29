@@ -105,14 +105,16 @@ export default {
     display:grid;
     grid-template-columns: repeat(2,1fr);
     grid-template-rows:0.1fr 1fr 1fr 1fr;
-    background-color: rgb(228, 228, 228);
+    background-color: $light-gray;
+    border-radius:$border-radius;
 }
 .attr{
     overflow:hidden;
     background-color:white;
     margin:0;
     padding:0;
-    border: 1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
 }
 .mod{
     border: 1px solid black;

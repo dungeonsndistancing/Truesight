@@ -1,13 +1,17 @@
 <template>
   <div class='death'>
-      <div class='death-inner'>
-          <h5>Hit Dice</h5>
-          Total:{{character.cclass.level}}d{{hitdice.dice}}
-          <h5>Available</h5>
-          {{hitdice.current}}d{{hitdice.dice}}
-          <button @click='plusdice()'>+</button><button @click='mindice()'>-</button>
+      <div class='death-inner dice'>
+          <h4>Hit Dice Total:</h4>
+          <div v-for='(cls,id) in cclass' :key='id'>
+              <h5>{{cls.name}}</h5>
+              {{cls.level}}d{{cls.hitdice.dice}}</div>
+          <h4>Available</h4>
+          <div v-for='(cls,id) in cclass' :key='id+cclass.length'> 
+              {{cls.hitdice.current}}d{{cls.hitdice.dice}}
+            <button @click='plusdice(id)'>+</button><button @click='mindice(id)'>-</button>
+          </div>
       </div>
-      <div class='death-inner'>
+      <div class='death-inner saves'>
           <h5>Saving Throws</h5>
           <div>
             <div>successes:{{saves.succes}}</div>
@@ -35,9 +39,9 @@ export default {
             }
             return {}
         },
-        hitdice: function() {
+        cclass: function() {
             if(typeof this.character !== 'undefined') {
-                return Object.assign({},this.character.cclass.hitdice)
+                return Object.assign({},this.character.cclass)
             }
             return {}            
         }
@@ -47,21 +51,23 @@ export default {
             var temp = {saves:this.saves}
             this.$emit('update',[{task:'update',data:temp}])
         },
-        updateHitDice() {
-            var temp = {cclass:{hitdice:this.hitdice}}
+        updateHitDice(id) {
+            var temp = {cclass:{}}
+            temp.cclass[id] = {}
+            temp.cclass[id].hitdice = this.cclass[id].hitdice
             this.$emit('update',[{task:'update',data:temp}])
         },
-        plusdice() {
-            if(this.hitdice.current < this.character.cclass.level) {
-                this.hitdice.current++
+        plusdice(id) {
+            if(this.cclass[id].hitdice.current < this.cclass[id].level) {
+                this.cclass[id].hitdice.current++
             }
-            this.update("cclass",this.cclass)
+            this.updateHitDice(id)
         },
-        mindice() {
-            if(this.hitdice.current > 0) {
-                this.hitdice.current--
+        mindice(id) {
+            if(this.cclass[id].hitdice.current > 0) {
+                this.cclass[id].hitdice.current--
             }
-            this.updateHitDice()
+            this.updateHitDice(id)
         }
     }
 }
@@ -69,6 +75,22 @@ export default {
 
 <style lang='scss' scoped>
 @import '../../../scss/variables';
+p{
+    margin:0.1em;
+}
+.saves{
+    grid-column-start:1;
+    grid-column-end: 2;
+    grid-row-start:2;
+    grid-row-end: 3;
+}
+.dice {
+    grid-column-start: 2;
+    grid-column-end:3;
+    grid-row-start:1;
+    grid-row-end:3;
+    overflow-y:scroll;
+}
 button{
     font-size:1vw;
     margin:0;
@@ -81,15 +103,19 @@ button{
     font-size:1.1vw;
     grid-column-start: 1;
     grid-column-end: 3;
-    grid-row-start: 4;
+    grid-row-start: 3;
     grid-row-end:5;
     display:grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
 }
 .death-inner{
+    padding-top:0.2em;
     font-size:0.9vw;
-    border:1px solid black;
+    border:1px solid $border-color;
+    border-radius:$border-radius;
+    background-color:white;
 }
 @media only screen and (max-width:$medium-screen) {
     .death{
@@ -104,7 +130,7 @@ button{
     .death{
         grid-column-start: 1;
         grid-column-end: 3;
-        grid-row-start: 6;
+        grid-row-start: 5;
         grid-row-end:7; 
         font-size:3.5vw;       
     }

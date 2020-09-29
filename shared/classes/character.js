@@ -11,18 +11,13 @@ const Attack = require('./attack')
 const Effect = require('./effect')
 const Savingthrow = require('./stats/savingthrow')
 const Counter = require('./counter')
+const Cclass = require('./cclass')
 class Character {
         constructor() {
             this.name = ''
-            this.cclass = {
-                name:'',
-                subclass:'',
-                level:1,
-                hitdice:{
-                    current:1,
-                    dice:8
-                }
-            }
+            this.cclass = [
+                new Cclass('','',1,0)
+            ]
             this.looks = {
                 age:0,
                 weight:0,
@@ -144,6 +139,9 @@ class Character {
                 character.attacks[o] = Attack.from(character.attacks[o])
             }
             character.inventory = Inventory.from(character.inventory)
+            for(let i = 0; i < character.cclass.length;i++) {
+                character.cclass[i] = Cclass.from(character.cclass[i])
+            }
             character.money = Money.from(character.money)
             for(let attr in character.attributes) {
                 character.attributes[attr] = Attribute.from(character.attributes[attr])

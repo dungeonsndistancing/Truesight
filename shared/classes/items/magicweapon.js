@@ -1,11 +1,11 @@
 const MagicItem = require('./magicitem')
 class MagicWeapon extends MagicItem {
 
-    constructor(name,type,cost,weight,description,rarity,attunement,damage,properties,icon,color) {
-        super(name,type,cost,weight,description,rarity,attunement,icon,color)
+    constructor(item) {
+        super(item)
         this.class='magicweapon'
-        this.damage = damage
-        this.properties = properties
+        this.damage = item.damage
+        this.properties = item.properties
     }
 
     display(){
