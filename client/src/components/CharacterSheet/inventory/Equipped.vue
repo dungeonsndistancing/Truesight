@@ -15,7 +15,7 @@
  
                     <div style='text-align:right'>{{item.weight}} lbs</div>
                     <div v-if='showid==id' class='iteminfo'>
-                        <div class='extraitem' v-for='(info,id) in item.display()' :key='id'>{{id}}:{{info}}</div>
+                        <div class='extraitem' v-for='(info,id) in item.display()' :key='id'><b>{{id}}:</b>{{info}}</div>
                         <p class='item-description'>{{item.description}}</p>
                         <div>
                             <button @click.stop='unequipItem(id)'>Unequip</button>
@@ -114,6 +114,10 @@ export default {
 
 <style lang='scss' scoped>
 @import '../../../scss/variables';
+.extraitem{
+    display:inline-block;
+    margin:0 0.5em
+}
 .buttonclass{
     position:absolute;
     bottom:0;
