@@ -46,19 +46,29 @@ export default {
         try{
             const token = localStorage.getItem("token")
             const headers = {headers:{'token':token}}
+            var val = {}
             switch(type) {
                 case "get":
-                    return await axios.get(url, headers)
+                    val = await axios.get(url, headers)
+                    break
                 case "post":
-                    return await axios.post(url,body,headers)
+                    val = await axios.post(url,body,headers)
+                    break
                 case "put":
-                    return await axios.put(url,body,headers)
+                    val = await axios.put(url,body,headers)
+                    break
                 case "delete":
-                    return await axios.delete(url,headers)
+                    val = await axios.delete(url,headers)
+                    break
                 default:
                     throw new Error("NOT IMPLEMENTED")
             }
+            return val
         } catch(err) {
+            console.log('error found')
+            if(typeof err.response == 'undefined') {
+                return ''
+            }
             if(err.response.status == '401') {
                 const longtoken = localStorage.getItem("longtoken")
                 if(longtoken) {
