@@ -27,14 +27,12 @@ module.exports.createSocket = () => {
                         break;
                     case "update":
                         var character = await Character.findById(con.character)
-                        console.log(msg.data[0].data)
                         msg.data.forEach(element => {
                             if(element.task ==='update') { 
                                 deepMerge(character,element.data)
                             } else if(element.task ==='remove') {
                                 deepRemove(character,element.data)
                             } else if(element.task === 'insert') {
-                                console.log('inserting')
                                 deepInsert(character,element.data)
                             }
                         })
@@ -93,7 +91,6 @@ function deepMerge(object,attributes) {
             deepMerge(object[keys[i]],attributes[keys[i]])
         } else {
             object[keys[i]] = attributes[keys[i]]
-            console.log(object[keys[i]])
         }
     }
 }
@@ -117,7 +114,6 @@ function deepInsert(object,attributes) {
     for(let i = 0; i < keys.length;i++) {
         if(Array.isArray(object)) { 
             if(!isNaN(parseInt(keys[i]))) {
-                console.log('inserting')
                 object.splice(keys[i],0,attributes[keys[i]])
             } else {
                 deepInsert(object[keys[i]],attributes[keys[i]])
