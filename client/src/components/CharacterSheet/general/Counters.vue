@@ -2,7 +2,7 @@
     <div class='counters'>
         <h2>Counters</h2>
         <div class='scrolldiv'>
-            <div @click='edit(id)' class='count-div clickable' v-for='(counter,id) in counters' :key='id'>
+            <div @click='edit(id)' class='count-div clickable' v-for='(counter,id) in counters' :key='id' draggable="true" @dragover="allowDrop($event)" @drop='drop($event,id)' @dragstart="drag($event,id)">
                 <h5>{{counter.name}}</h5>
                 <div class='count-inner'>
                     <h4>Total:{{counter.max}}</h4><h4>Current:{{counter.current}}</h4>
@@ -82,6 +82,20 @@ export default {
         update(id) {
             var temp = {counters:{}}
             temp['counters'][id] = this.editcounters[id]
+            this.$emit('update',[{task:'update',data:temp}])
+        },
+        allowDrop(ev) {
+            ev.preventDefault()
+        },
+        drag(ev,id) {
+            ev.dataTransfer.setData('id',id)
+        },
+        drop(ev,id) {
+            var oldid = parseInt(ev.dataTransfer.getData('id'))
+            var temp = {counters:{}}
+            temp.counters[oldid] = this.editcounters[id]
+            temp.counters[id] = this.editcounters[oldid]
+            console.log(temp)
             this.$emit('update',[{task:'update',data:temp}])
         }
     }
