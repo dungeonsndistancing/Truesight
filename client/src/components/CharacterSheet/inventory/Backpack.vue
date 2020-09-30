@@ -228,7 +228,6 @@ export default {
             remove.inventory.backpack.push(oldid)
             var insert = {inventory:{backpack:{}}}
             insert.inventory.backpack[id] = this.backpack[oldid]
-            console.log(insert)
             this.$emit('update',[{task:'remove',data:remove},{task:'insert',data:insert}])
         },
         swap(oldid,id) {

@@ -89,14 +89,17 @@ export default {
         },
         drag(ev,id) {
             ev.dataTransfer.setData('id',id)
+            ev.dataTransfer.setData('origin','counters')
         },
         drop(ev,id) {
-            var oldid = parseInt(ev.dataTransfer.getData('id'))
-            var temp = {counters:{}}
-            temp.counters[oldid] = this.editcounters[id]
-            temp.counters[id] = this.editcounters[oldid]
-            console.log(temp)
-            this.$emit('update',[{task:'update',data:temp}])
+            if(ev.dataTransfer.getData('origin') === 'counters') {
+                var oldid = parseInt(ev.dataTransfer.getData('id'))
+                var temp = {counters:{}}
+                temp.counters[oldid] = this.editcounters[id]
+                temp.counters[id] = this.editcounters[oldid]
+                console.log(temp)
+                this.$emit('update',[{task:'update',data:temp}])
+            }
         }
     }
 
