@@ -114,6 +114,7 @@ export default {
         editItem(id) {
             this.editid = id
             this.item = this.backpack[id]
+            console.log(this.item)
             this.editing = true
             this.pop=true
         },

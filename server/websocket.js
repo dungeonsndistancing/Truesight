@@ -78,10 +78,11 @@ module.exports.handleUpgrade = async (request, socket, head) => {
     }
 }
 function deepMerge(object,attributes) {
+    console.log(attributes)
     var keys = Object.keys(attributes)
     for(let i = 0; i < keys.length;i++) {
         if(typeof object[keys[i]] === 'undefined') {
-            object[keys[i]] = {}
+            object[keys[i]] = attributes[keys[i]]
         }
         if(Array.isArray(object)) {  
             deepMerge(object[keys[i]],attributes[keys[i]])
@@ -91,6 +92,7 @@ function deepMerge(object,attributes) {
             deepMerge(object[keys[i]],attributes[keys[i]])
         } else {
             object[keys[i]] = attributes[keys[i]]
+            console.log(object[keys[i]])
         }
     }
 }

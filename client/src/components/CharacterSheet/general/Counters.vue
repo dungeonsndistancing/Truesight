@@ -5,10 +5,10 @@
             <div @click='edit(id)' class='count-div clickable' v-for='(counter,id) in counters' :key='id'>
                 <h5>{{counter.name}}</h5>
                 <div class='count-inner'>
-                    <h4>Total:{{counter.max}}</h4>
+                    <h4>Total:{{counter.max}}</h4><h4>Current:{{counter.current}}</h4>
                 </div>
                 <div>
-                    <h4>Current:{{counter.current}}</h4>
+                    
                 </div>
                 <button @click.stop='countup(id)' class='count-inner fill'>+</button>
                 <button @click.stop='countdown(id)' class='count-inner fill'>-</button>
@@ -92,6 +92,10 @@ export default {
 
 <style lang='scss' scoped>
 @import '../../../scss/variables';
+h4{
+    display: inline-block;
+    padding:0 0.3em;
+}
 .counters{
     grid-column-start: 5;
     grid-column-end:7;
@@ -117,10 +121,11 @@ export default {
     row-gap:10px;
 }
 .count-div{
+    font-size:1vw;
     text-align: center;
-    padding:0 0 0 7%;
     align-content: center;
     align-items: center;
+    justify-content: center;
     height:5em;
     border:1px solid $border-color;
     border-radius:$border-radius;
@@ -135,9 +140,6 @@ export default {
 }
 .add:hover{
     background-color:$selecting;
-}
-.count-inner{
-    float:left;
 }
 .fill{
     margin:auto;
