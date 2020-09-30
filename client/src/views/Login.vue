@@ -35,6 +35,8 @@ export default {
             const longtoken = result.data.longtoken
             if(longtoken) {
                 localStorage.setItem("longtoken",longtoken)
+            } else {
+                localStorage.removeItem('longtoken')
             }
             if(token) {
                 localStorage.setItem("token",token)

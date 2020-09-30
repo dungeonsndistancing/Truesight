@@ -22,8 +22,9 @@ router.get('/single',async (req,res) => {
     
     if(result.user != req.userData._id) {
         res.status(403).json({error:'Forbidden!'})
+    } else {
+        res.status(200).json(result)
     }
-    res.status(200).json(result)
 })
 router.put('/update', async (req,res) => {
     console.log('HI!')

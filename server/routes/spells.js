@@ -24,13 +24,13 @@ router.get('/count',auth,async(req,res) => {
 })
 
 router.get('/get',auth, async(req,res) => {
-    res.status(200).json(await Spell.findById(req.query.id))
+    var temp = await Spell.findById(req.query.id)
+    res.status(200).json(temp)
 })
 router.put('/update',auth,async(req,res) => {
     try{ 
-        console.log(req.body.spell.name)
         var spell = await Spell.findById(req.body.spell._id)
-        if(spell.user == req.body.spell.user) {
+        if(spell.user === req.userData._id) {
             await Spell.findByIdAndUpdate(req.body.spell._id,req.body.spell)
             res.status(201).send("success")
         } else {
@@ -58,7 +58,7 @@ router.post('/add',auth, async (req, res) => {
 router.delete('/remove',auth,async (req,res) => {
     try{
         var spell = await Spell.findById(req.query.id)
-        if(spell.user == req.userData._id){
+        if(spell.user === req.userData._id){
             await Spell.findByIdAndDelete(req.query.id)
             
         res.status(201).send("success")
