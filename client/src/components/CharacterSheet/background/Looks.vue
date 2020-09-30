@@ -92,7 +92,7 @@ export default {
 }
 .looks{
   text-align: left;
-  font-size:1.3vw;
+  font-size:1.1vw;
     border-radius:$border-radius;
     background-color:white;
     border:1px solid $border-color;

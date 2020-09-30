@@ -25,7 +25,7 @@
                         <h5>Level</h5>
                         <input class='input small' v-model='temp.level' type="number">
                         <h5>Hitdice</h5>
-                        <input class='input small' v-model='temp.hitdice.dice' type="number"><br>
+                        {{temp.level}}d<input class='input small' v-model='temp.hitdice.dice' type="number"><br>
                         <button @click='removeClass(id)'>Remove class</button>
                     </div>
                 </div>
