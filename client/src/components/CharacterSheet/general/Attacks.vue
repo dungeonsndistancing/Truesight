@@ -8,7 +8,8 @@
                 <div><b>Attack</b></div>
                 <div><b>Damage</b></div>
             </div>
-            <div @click='edit(id)' class='attack-row clickable ' v-for='(attack,id) in attacks' :key='(attack.name + attack.attack + attack.damage)'>
+            <div @click='edit(id)' class='attack-row clickable ' v-for='(attack,id) in attacks' :key='(attack.name + attack.attack + attack.damage)'
+                draggable="true" @dragover='allowDrop($event)' @dragstart='drag($event,id)' @drop='drop($event,id)'>
                 <div class='attack content'>{{attack.name}}</div>
                 <div class='attack content'>{{attack.attack}}</div>
                 <div class='attack content'>{{attack.damage}}</div>
@@ -75,7 +76,27 @@ export default {
             console.log(temp)
             this.close()
             this.$emit('update',[{task:'remove',data:temp}])
-        }
+        },
+        drag(ev,id) {
+            ev.dataTransfer.setData('id',id)
+            ev.dataTransfer.setData('origin','attacks')
+        },
+        allowDrop(ev) {
+            ev.preventDefault()
+        },
+        drop(ev,id) {
+            if(ev.dataTransfer.getData('origin') === 'attacks') {
+                let oldid = parseInt(ev.dataTransfer.getData('id'))
+                this.insert(oldid,id)
+            }
+        },
+        insert(oldid,id) {
+            var remove = {attacks:[]}
+            remove.attacks.push(oldid)
+            var insert = {attacks:{}}
+            insert.attacks[id] = this.attacks[oldid]
+            this.$emit('update',[{task:'remove',data:remove},{task:'insert',data:insert}])
+        },
     }
 }
 </script>
