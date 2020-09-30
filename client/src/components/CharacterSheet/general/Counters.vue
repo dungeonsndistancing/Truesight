@@ -2,13 +2,13 @@
     <div class='counters'>
         <h2>Counters</h2>
         <div class='scrolldiv'>
-            <div @click='edit(id)' class='count-div clickable' v-for='(counter,id) in counters' :key='id'>
+            <div @click='edit(id)' class='count-div clickable' v-for='(counter,id) in counters' :key='id' draggable="true" @dragover="allowDrop($event)" @drop='drop($event,id)' @dragstart="drag($event,id)">
                 <h5>{{counter.name}}</h5>
                 <div class='count-inner'>
-                    <h4>Total:{{counter.max}}</h4>
+                    <h4>Total:{{counter.max}}</h4><h4>Current:{{counter.current}}</h4>
                 </div>
                 <div>
-                    <h4>Current:{{counter.current}}</h4>
+                    
                 </div>
                 <button @click.stop='countup(id)' class='count-inner fill'>+</button>
                 <button @click.stop='countdown(id)' class='count-inner fill'>-</button>
@@ -83,6 +83,23 @@ export default {
             var temp = {counters:{}}
             temp['counters'][id] = this.editcounters[id]
             this.$emit('update',[{task:'update',data:temp}])
+        },
+        allowDrop(ev) {
+            ev.preventDefault()
+        },
+        drag(ev,id) {
+            ev.dataTransfer.setData('id',id)
+            ev.dataTransfer.setData('origin','counters')
+        },
+        drop(ev,id) {
+            if(ev.dataTransfer.getData('origin') === 'counters') {
+                var oldid = parseInt(ev.dataTransfer.getData('id'))
+                var temp = {counters:{}}
+                temp.counters[oldid] = this.editcounters[id]
+                temp.counters[id] = this.editcounters[oldid]
+                console.log(temp)
+                this.$emit('update',[{task:'update',data:temp}])
+            }
         }
     }
 
@@ -92,6 +109,10 @@ export default {
 
 <style lang='scss' scoped>
 @import '../../../scss/variables';
+h4{
+    display: inline-block;
+    padding:0 0.3em;
+}
 .counters{
     grid-column-start: 5;
     grid-column-end:7;
@@ -117,10 +138,11 @@ export default {
     row-gap:10px;
 }
 .count-div{
+    font-size:1vw;
     text-align: center;
-    padding:0 0 0 7%;
     align-content: center;
     align-items: center;
+    justify-content: center;
     height:5em;
     border:1px solid $border-color;
     border-radius:$border-radius;
@@ -135,9 +157,6 @@ export default {
 }
 .add:hover{
     background-color:$selecting;
-}
-.count-inner{
-    float:left;
 }
 .fill{
     margin:auto;

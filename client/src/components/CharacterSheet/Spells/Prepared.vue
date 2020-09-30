@@ -1,27 +1,29 @@
 <template>
     <div class='prepared'>
         <h2>Prepared Spells/Abilities</h2>
-        <div class='clickable spell' @click='showSpell(id)' v-for='(spell,id) in preparedSpells'  :key='id'>
-            <div class='spell-upper'>
-                <div class='spellname'>{{spell.name}} <img v-if='spell.concentration' class='concentration' src='../../../assets/icons/concentration.svg'></div>
-                <div class='spelllevel'>
-                    <h5>{{spell.level}}<i v-if="spell.level == parseInt(1)" >st</i>
-                    <i v-else-if="((spell.level > 3 && spell.level < 21) || spell.level == 0)" >th</i>
-                    <i v-else-if="spell.level == 2">nd</i>
-                    <i v-else>rd</i>
-                    level {{spell.school}}<i>  ({{spell.components}})</i></h5>
+        <div class='scroll' @dragover="allowDrop($event)" @drop='drop($event)'>
+            <div class='clickable spell' @click='showSpell(id)' v-for='(spell,id) in preparedSpells'  :key='id' draggable="true" @dragstart="drag($event,id)">
+                <div class='spell-upper'>
+                    <div class='spellname'>{{spell.name}} <img v-if='spell.concentration' class='concentration' src='../../../assets/icons/concentration.svg'></div>
+                    <div class='spelllevel'>
+                        <h5>{{spell.level}}<i v-if="spell.level == parseInt(1)" >st</i>
+                        <i v-else-if="((spell.level > 3 && spell.level < 21) || spell.level == 0)" >th</i>
+                        <i v-else-if="spell.level == 2">nd</i>
+                        <i v-else>rd</i>
+                        level {{spell.school}}<i>  ({{spell.components}})</i></h5>
+                    </div>
+                    <div class='action'><h5>Casting:{{spell.castingtime}}</h5></div>
+                    <div class='distance'><h5>Distance: {{spell.distance}}</h5></div>
+                    <div class='attack'><h5>Attack/Save: {{spell.attack}}</h5></div>
                 </div>
-                <div class='action'><h5>Casting:{{spell.castingtime}}</h5></div>
-                <div class='distance'><h5>Distance: {{spell.distance}}</h5></div>
-                <div class='attack'><h5>Attack/Save: {{spell.attack}}</h5></div>
-            </div>
-            <div class='extra-spell' v-if='showid == id'>
-                <div class='extra-upper'>
-                    <div><h5>Duration:{{spell.duration}}</h5></div>
-                    <div><h5>Effect/Damage:{{spell.effect}}</h5></div>
+                <div class='extra-spell' v-if='showid == id'>
+                    <div class='extra-upper'>
+                        <div><h5>Duration:{{spell.duration}}</h5></div>
+                        <div><h5>Effect/Damage:{{spell.effect}}</h5></div>
+                    </div>
+                    <div class='spell-description'>{{spell.description}}</div>
+                    <div class='spell-buttons'><button @click.stop='unprepare(id)'>Un-Prepare</button></div>
                 </div>
-                <div class='spell-description'>{{spell.description}}</div>
-                <div class='spell-buttons'><button @click.stop='unprepare(id)'>Un-Prepare</button></div>
             </div>
         </div>
     </div>
@@ -79,18 +81,36 @@ export default {
             const index = this.spells.findIndex(o => o.equals(this.preparedSpells[id]))
             this.spells[index].prepared = false
             this.update(index,this.spells[index])
-
+        },
+        allowDrop(ev) {
+            ev.preventDefault()
+        },
+        drag(ev,id) {
+            const index = this.spells.findIndex(o => o.equals(this.preparedSpells[id]))
+            ev.dataTransfer.setData('id',index)
+            ev.dataTransfer.setData('task','unprepare')
+        },
+        drop(ev) {
+            if(ev.dataTransfer.getData('task') === 'prepare') {
+                let id = parseInt(ev.dataTransfer.getData('id'))
+                this.spells[id].prepared = true
+                this.update(id,this.spells[id])
+            }
         }
     }
 }
 </script>
 <style lang='scss' scoped>
 @import '../../../scss/variables';
-.spell:nth-child(even) {
+.spell:nth-child(odd) {
     background-color:$list-dark;
 }
 .spell:hover{
     background-color:$selecting
+}
+.scroll{
+    height:85%;
+    overflow-y:scroll;
 }
 .extra-upper{
     display:grid;
@@ -169,7 +189,7 @@ export default {
     grid-template-rows:1fr 1fr;
 }
 .spellname{
-    font-size:1.1vw;
+    font-size:1.2vw;
     font-weight: bold;
     padding: 0 0.2em;
     text-align: left;

@@ -18,7 +18,7 @@ export default {
         url += "?id=" + id 
         const result = await authService.authenticateRequest(url,"get",'')
         if(!result) {
-            return undefined
+            return '403'
         }
         return Character.from(result.data)
     },

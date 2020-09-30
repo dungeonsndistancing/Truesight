@@ -101,6 +101,10 @@ export default {
                     this.deepMerge(this.character,element.data)
                 } else if(element.task ==='remove') {
                     this.deepRemove(this.character,element.data)
+                } else if(element.task === 'insert') {
+                    //NOT USABLE FOR ARRAYS WITHIN ARRAYS YES
+                    //E.G. modifiers inside a skill since skills are in an array
+                    this.deepInsert(this.character,element.data)
                 }
             })
             this.character = Character.from(this.character)
@@ -138,6 +142,21 @@ export default {
                     }
                 } else {
                     this.deepRemove(object[keys[i]],attributes[keys[i]])
+                }
+            }
+        },
+        deepInsert(object,attributes) {
+            var keys = Object.keys(attributes)
+            for(let i = 0; i < keys.length;i++) {
+                if(Array.isArray(object)) { 
+                    if(!isNaN(parseInt(keys[i]))) {
+                        object.splice(keys[i],0,attributes[keys[i]])
+                    } else {
+                        this.deepInsert(object[keys[i]],attributes[keys[i]])
+                    }
+                }
+                else {
+                    this.deepInsert(object[keys[i]],attributes[keys[i]])
                 }
             }
         },

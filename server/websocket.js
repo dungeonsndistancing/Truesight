@@ -27,12 +27,13 @@ module.exports.createSocket = () => {
                         break;
                     case "update":
                         var character = await Character.findById(con.character)
-                        console.log(msg.data[0].data)
                         msg.data.forEach(element => {
                             if(element.task ==='update') { 
                                 deepMerge(character,element.data)
                             } else if(element.task ==='remove') {
                                 deepRemove(character,element.data)
+                            } else if(element.task === 'insert') {
+                                deepInsert(character,element.data)
                             }
                         })
                         character.save()
@@ -71,7 +72,6 @@ module.exports.handleUpgrade = async (request, socket, head) => {
         })
 
     } else {
-        console.log
         console.log("ERROR UPGRADING")
         socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
         socket.destroy()
@@ -81,7 +81,7 @@ function deepMerge(object,attributes) {
     var keys = Object.keys(attributes)
     for(let i = 0; i < keys.length;i++) {
         if(typeof object[keys[i]] === 'undefined') {
-            object[keys[i]] = {}
+            object[keys[i]] = attributes[keys[i]]
         }
         if(Array.isArray(object)) {  
             deepMerge(object[keys[i]],attributes[keys[i]])
@@ -106,6 +106,21 @@ function deepRemove(object,attributes) {
             }
         } else {
             deepRemove(object[keys[i]],attributes[keys[i]])
+        }
+    }
+}
+function deepInsert(object,attributes) {
+    var keys = Object.keys(attributes)
+    for(let i = 0; i < keys.length;i++) {
+        if(Array.isArray(object)) { 
+            if(!isNaN(parseInt(keys[i]))) {
+                object.splice(keys[i],0,attributes[keys[i]])
+            } else {
+                deepInsert(object[keys[i]],attributes[keys[i]])
+            }
+        }
+        else {
+            deepInsert(object[keys[i]],attributes[keys[i]])
         }
     }
 }

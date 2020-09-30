@@ -1,7 +1,7 @@
 <template>
     <div class='inventory'>
-        <backpack @equip='equip' @update='update' :inventory='inventory' />
-        <equipped @unequip='unequip' @update='update' :inventory='inventory' />
+        <backpack @move='move' @equip='equip' @update='update' :inventory='inventory' />
+        <equipped @move='move' @unequip='unequip' @update='update' :inventory='inventory' />
         <weight :inventory='inventory'/>
         <attuned :inventory='inventory' />
     </div>
@@ -53,6 +53,17 @@ export default {
             var remove = {inventory:{equipped:[]}}
             remove.inventory.equipped.push(id)
             await this.$emit('update',[{task:'update',data:add},{task:'remove',data:remove}])         
+        },
+        move(ev,target,id) {
+            let origin = ev.dataTransfer.getData('origin')
+            let originid = parseInt(ev.dataTransfer.getData('id'))
+            var remove = {inventory:{}}
+            remove.inventory[origin] = []
+            remove.inventory[origin].push(originid)
+            var insert = {inventory:{}}
+            insert.inventory[target] = {}
+            insert.inventory[target][id] = this.inventory[origin][originid]
+            this.$emit('update',[{task:'remove',data:remove},{task:'insert',data:insert}])
         }
     }
 }

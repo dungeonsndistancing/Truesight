@@ -1,12 +1,13 @@
 <template>
     <div class="container">
-        <div class="savebutton">
-            <h1>Save</h1>
-            <button @click='save()'>Save</button>
-        </div>
+
         <h1>Create your character</h1>         
         <div class='listorganizer'>
             <generalInfo :character='character' class='lista' />
+            <div class="savebutton">
+                <h1>Save</h1>
+            <button @click='save()'>Save</button>
+        </div>
         </div>
     </div>
 </template>
@@ -33,37 +34,6 @@ export default {
 }
 
 </script>
-<style>
-.lista{
-    border-radius:1%;
-    overflow-x:hidden;
-      border-style: solid;
-     border-color: #e6e6e6;
-    border-radius:0.7em;
-    border-width:0.09em;
-    height:80vh;
-    overflow-y:scroll;
-    margin:0.5em 0 0.5em 0;
-    padding: 0;
-}
-.topside{
-    margin-top:5%;
-    margin-bottom:-3%;
-}
-h4{
-    font-size:11pt;
-    margin:0;
-    padding:0;
-}
-textarea{
-    border-radius:1em;
-    padding:1em;
-    height:10em;
-    width:90%;
-    resize: none;
-    border-color:rgb(170, 170, 170);
-}
-</style>
 <style scoped>
 .skills{
     width: 23em;
@@ -77,8 +47,6 @@ textarea{
     float:left;
 }
 .listorganizer{
-    display:flex;
-    flex-wrap: wrap;
     justify-content:space-around;
 
 }
@@ -87,13 +55,7 @@ textarea{
 }
 
 .lista{
-    border-radius:1%;
     overflow-x:hidden;
-    border-style: solid;
-    border-color: #e6e6e6;
-    border-radius:0.7em;
-    border-width:0.09em;
-    height:80vh;
     overflow-y:scroll;
     margin:0.5em 0 0.5em 0;
     padding: 0;
@@ -114,11 +76,4 @@ textarea{
     border-radius: 8px;
     background: #c2c9d2;
   }
-.savebutton{
-    position:fixed;
-    bottom:0;
-    right:0;
-    border: 1px solid #e6e6e6;
-    border-radius:15%;
-}
 </style>

@@ -2,8 +2,8 @@
     <div class='features'>
         <div class='inner-features'>
             <h2>Features and Traits</h2>
-            <div class='scroll'>
-                <div @click='toggleFeature(id)' class='feature-info clickable' v-for='(feature,id) in features' :key='feature.id'>
+            <div class='scroll' @dragover='allowDrop($event)' @drop.self='drop($event,features.length)'>
+                <div @click='toggleFeature(id)' class='feature-info clickable' v-for='(feature,id) in features' :key='feature.id' draggable="true" @dragover="allowDrop($event)" @drop='drop($event,id)' @dragstart='drag($event,id)'>
                     <h3>{{feature.name}}</h3>
                     <h5>{{feature.source}}</h5>
                     <div v-if='showid == id' class='feature-details'>
@@ -52,12 +52,9 @@ export default {
     },
     methods: {
         toggleFeature(id) {
-            console.log("TOGGLING")
             if(this.showid == id) {
-                console.log('off')
                 this.showid = -1
             } else {
-                console.log('on')
                 this.showid = id
             }
         },
@@ -87,7 +84,27 @@ export default {
             this.edit(this.featurearray.length-1)
             this.update()
             
-        }
+        },
+        drag(ev,id) {
+            ev.dataTransfer.setData('id',id)
+            ev.dataTransfer.setData('origin','features')
+        },
+        allowDrop(ev) {
+            ev.preventDefault()
+        },
+        drop(ev,id) {
+            if(ev.dataTransfer.getData('origin') === 'features') {
+                let oldid = parseInt(ev.dataTransfer.getData('id'))
+                this.insert(oldid,id)
+            }
+        },
+        insert(oldid,id) {
+            var remove = {traits:[]}
+            remove.traits.push(oldid)
+            var insert = {traits:{}}
+            insert.traits[id] = this.features[oldid]
+            this.$emit('update',[{task:'remove',data:remove},{task:'insert',data:insert}])
+        },
     }
 }
 </script>

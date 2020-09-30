@@ -10,8 +10,7 @@ router.get('/list',async (req,res) => {
         result[i] = {
             _id:result[i]._id,
             name:result[i].name,
-            cclass:{name:result[i].cclass.name,
-                    level:result[i].cclass.level}
+            cclass:result[i].cclass
         }
     }
     res.status(200).json(result)
@@ -23,8 +22,9 @@ router.get('/single',async (req,res) => {
     
     if(result.user != req.userData._id) {
         res.status(403).json({error:'Forbidden!'})
+    } else {
+        res.status(200).json(result)
     }
-    res.status(200).json(result)
 })
 router.put('/update', async (req,res) => {
     console.log('HI!')

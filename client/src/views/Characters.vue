@@ -4,8 +4,16 @@
             <div class="charactercard" v-for="character in characters" :key="character._id" @click='loadCharacter(character)'>
                 <div class="cardheader"><h1>{{ character.name }}</h1></div>
                 <div class="details">
-                    <p>class: {{character.cclass.name}}</p>
-                    <p>level: {{character.cclass.level}}</p>
+                    <div v-for='(temp,id) in character.cclass' :key='id'> 
+                        <div v-if='id < 2'>
+                            <b> {{temp.level}}</b><i v-if="temp.level == parseInt(1)" >st</i>
+                            <i v-else-if="(temp.level > 3 && temp.level < 21)" >th</i>
+                            <i v-else-if="temp.level == 2">nd</i>
+                            <i v-else>rd</i>
+                            level <i><b>{{temp.name}}</b></i>
+                            <h5><i>{{temp.subclass}}</i></h5>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="charactercard" @click="makeCharacter">Make a new Character</div>
@@ -43,6 +51,9 @@ export default {
 
 <style lang='scss' scoped>
 @import '../scss/variables';
+h5{
+    margin:0;
+}
 .container{
     background-color:rgb(247, 247, 247);
 }

@@ -22,7 +22,7 @@ router.get('/get',async (req,res) => {
 router.put('/update',auth,async (req,res) => {
     try{
         var item = await Item.findById(req.body.item._id)
-        if(item.user == req.body.item.user){
+        if(item.user == req.userData._id){
             await Item.findByIdAndUpdate(req.body.item._id,req.body.item)
             res.status(201).send("success")
         } else {

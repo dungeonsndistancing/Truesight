@@ -3,7 +3,8 @@
         <div class='inner'>
         <h2>Proficiencies</h2>
         <div class='prof-cont'>
-            <div @click='edit(num)' class='prof clickable' v-for='(prof,num) in character.proficiencies' :key='num'>
+            <div @click='edit(num)' class='prof clickable' v-for='(prof,num) in character.proficiencies' :key='num'
+                draggable=" = true" @dragstart="drag($event,num)" @dragover='allowDrop($event)' @drop='drop($event,num)'> 
                 <h3>{{prof.name}}</h3>
                 <p>{{prof.description}}</p>
             </div>
@@ -71,7 +72,27 @@ export default {
             this.profnum=this.proficiencies.length-1
             this.update()
             this.pop=true
-        }
+        },
+        drag(ev,id) {
+            ev.dataTransfer.setData('id',id)
+            ev.dataTransfer.setData('origin','proficiencies')
+        },
+        allowDrop(ev) {
+            ev.preventDefault()
+        },
+        drop(ev,id) {
+            if(ev.dataTransfer.getData('origin') === 'proficiencies') {
+                let oldid = parseInt(ev.dataTransfer.getData('id'))
+                this.insert(oldid,id)
+            }
+        },
+        insert(oldid,id) {
+            var remove = {proficiencies:[]}
+            remove.proficiencies.push(oldid)
+            var insert = {proficiencies:{}}
+            insert.proficiencies[id] = this.proficiencies[oldid]
+            this.$emit('update',[{task:'remove',data:remove},{task:'insert',data:insert}])
+        },
     }
 }
 </script>
