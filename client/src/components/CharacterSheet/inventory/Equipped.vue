@@ -2,9 +2,9 @@
     <div class='equipped'>
         <div class='inner'>
             <h2>Equipped</h2>
-            <div class='item-container'>
+            <div class='item-container' @dragover='allowDrop($event)' @drop.self='drop($event,equipped.length)'>
                 <div class='item-row'><h4>Name</h4><h4>Amount</h4><h4>Weight</h4></div>
-                <div class='item-row' draggable="true" @click='show(id)' v-for='(item,id) in inventory.equipped' :key='id'>
+                <div class='item-row' draggable="true" @click='show(id)' v-for='(item,id) in inventory.equipped' :key='id' @dragover="allowDrop($event)" @dragstart='drag($event,id)' @drop='drop($event,id)'>
                     <div style='text-align:left'>{{item.name}}</div>
                     <div class='itemcount' @click.stop='showcount(id);'>{{item.count}}
                         <div v-if='countid==id' @click.stop='showcount(id);update()' class='countedit'>
@@ -84,13 +84,46 @@ export default {
             this.$emit('update',[{task:'update',data:temp}])
         },
         remove(id) {
-            var temp = {inventory:{equipped:[]}}
+            var temp = {equipped:{equipped:[]}}
             temp.inventory.equipped.push(id)
             this.$emit('update',[{task:'remove',data:temp}]) 
         },
         cancel() {
             this.pop=false
         },
+                drag(ev,id) {
+            ev.dataTransfer.setData('id',id)
+            ev.dataTransfer.setData('origin','equipped')
+        },
+        allowDrop(ev) {
+            ev.preventDefault()
+        },
+        drop(ev,id) {
+            if(ev.dataTransfer.getData('origin') === 'equipped') {
+                let oldid = parseInt(ev.dataTransfer.getData('id'))
+                if(Math.abs(oldid - id) === 1) 
+                    this.swap(oldid,id)
+                else if (oldid != id)
+                    this.insert(oldid,id)
+            } else {
+                this.$emit('move',ev,'equipped',id)
+            }
+
+        },
+        insert(oldid,id) {
+            var remove = {inventory:{equipped:[]}}
+            remove.inventory.equipped.push(oldid)
+            var insert = {inventory:{equipped:{}}}
+            insert.inventory.equipped[id] = this.equipped[oldid]
+            console.log(insert)
+            this.$emit('update',[{task:'remove',data:remove},{task:'insert',data:insert}])
+        },
+        swap(oldid,id) {
+            var temp= {inventory:{equipped:{}}}
+            temp.inventory.equipped[oldid] = this.equipped[id]
+            temp.inventory.equipped[id] = this.equipped[oldid]
+            this.$emit('update',[{task:'update',data:temp}])
+        }
     }
 }
 </script>
@@ -187,7 +220,7 @@ h2{
 }
 .item-container{
     overflow-y:scroll;
-    max-height:85%;
+    height:85%;
 }
 textarea{
     width:90%;

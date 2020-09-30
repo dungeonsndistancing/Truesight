@@ -4,7 +4,7 @@
             <h2>Backpack</h2>
             <div class='item-container' @dragover='allowDrop($event)' @drop.self='drop($event,backpack.length)' >
                 <div class='item-row'><h4>Name</h4><h4>Amount</h4><h4>Weight</h4></div>
-                <div class='item-row' draggable @click='show(id)' v-for='(item,id) in backpack' :key='id' @dragover="allowDrop($event)" @dragstart='drag($event,id)' @drop='drop($event,id) '>
+                <div class='item-row' draggable @click='show(id)' v-for='(item,id) in backpack' :key='id' @dragover="allowDrop($event)" @dragstart='drag($event,id)' @drop='drop($event,id)'>
                     <div style='text-align:left'>{{item.name}}</div>
                     <div class='itemcount' @click.stop='showcount(id);'>{{item.count}}
                         <div v-if='countid==id' @click.stop='showcount(id)' class='countedit'>
@@ -218,7 +218,8 @@ export default {
                     this.swap(oldid,id)
                 else if (oldid != id)
                     this.insert(oldid,id)
-
+            } else {
+                this.$emit('move',ev,'backpack',id)
             }
 
         },
