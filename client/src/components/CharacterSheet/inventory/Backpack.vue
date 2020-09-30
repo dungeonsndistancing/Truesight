@@ -2,9 +2,9 @@
     <div class='backpack'>
         <div class='inner'>
             <h2>Backpack</h2>
-            <div class='item-container'>
+            <div class='item-container' @dragover='allowDrop($event)' @drop.self='drop($event,backpack.length)' >
                 <div class='item-row'><h4>Name</h4><h4>Amount</h4><h4>Weight</h4></div>
-                <div class='item-row' draggable="true" @click='show(id)' v-for='(item,id) in backpack' :key='id'>
+                <div class='item-row' draggable @click='show(id)' v-for='(item,id) in backpack' :key='id' @dragover="allowDrop($event)" @dragstart='drag($event,id)' @drop='drop($event,id) '>
                     <div style='text-align:left'>{{item.name}}</div>
                     <div class='itemcount' @click.stop='showcount(id);'>{{item.count}}
                         <div v-if='countid==id' @click.stop='showcount(id)' class='countedit'>
@@ -114,7 +114,6 @@ export default {
         editItem(id) {
             this.editid = id
             this.item = this.backpack[id]
-            console.log(this.item)
             this.editing = true
             this.pop=true
         },
@@ -128,7 +127,6 @@ export default {
             this.item = new Item('name','type','cost',0,'description','icon','color')
         },
         saveItem(){
-            console.log(this.item)
             if(!this.editing) {
                 this.item.count = 1
                 this.update(this.backpack.length,this.item)
@@ -159,7 +157,6 @@ export default {
         update(id,item) {
             var temp = {inventory:{backpack:{}}}
             temp.inventory.backpack[id] = item
-            console.log(temp)
             this.$emit('update',[{task:'update',data:temp}])
         },
         remove(id) {
@@ -186,7 +183,6 @@ export default {
                         this.armor = true
                     } else {
                         this.armor = false
-                        console.log(this.item)
                         this.item = new MagicItem(this.item)
                     }
                 } 
@@ -207,6 +203,38 @@ export default {
                     }
                 } 
             }
+        },
+        drag(ev,id) {
+            ev.dataTransfer.setData('id',id)
+            ev.dataTransfer.setData('origin','backpack')
+        },
+        allowDrop(ev) {
+            ev.preventDefault()
+        },
+        drop(ev,id) {
+            if(ev.dataTransfer.getData('origin') === 'backpack') {
+                let oldid = parseInt(ev.dataTransfer.getData('id'))
+                if(Math.abs(oldid - id) === 1) 
+                    this.swap(oldid,id)
+                else if (oldid != id)
+                    this.insert(oldid,id)
+
+            }
+
+        },
+        insert(oldid,id) {
+            var remove = {inventory:{backpack:[]}}
+            remove.inventory.backpack.push(oldid)
+            var insert = {inventory:{backpack:{}}}
+            insert.inventory.backpack[id] = this.backpack[oldid]
+            console.log(insert)
+            this.$emit('update',[{task:'remove',data:remove},{task:'insert',data:insert}])
+        },
+        swap(oldid,id) {
+            var temp= {inventory:{backpack:{}}}
+            temp.inventory.backpack[oldid] = this.backpack[id]
+            temp.inventory.backpack[id] = this.backpack[oldid]
+            this.$emit('update',[{task:'update',data:temp}])
         }
     }
 }
@@ -305,7 +333,8 @@ h2{
 }
 .item-container{
     overflow-y:scroll;
-    max-height:85%;
+    height:85%;
+    padding-bottom:1em;
 }
 textarea{
     width:90%;
