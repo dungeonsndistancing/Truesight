@@ -36,10 +36,8 @@ export default {
 <style scoped>
 .container{
   text-align:center;
-  background-color:red;
   display:grid;
   min-width:50%;
-  width:400px;
   grid-template-columns: 1fr;
 }
 h3{
