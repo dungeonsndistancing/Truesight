@@ -4,7 +4,7 @@
             <img class='logo' src='../assets/logo.svg'/>
             <div id="login">
                 <div id="form" @submit="login">
-                    <input v-model="email" placeholder="enter your email">
+                    <input v-model="email" placeholder="enter your username">
                     <input v-model="password" type="password" placeholder="enter your password" v-on:keyup.enter="login"><br>
                     Stay signed in:<br><input v-model="long" type="checkbox" id="long"><br>
                     <button @click="register">Register</button><button @click="login">Login</button>
