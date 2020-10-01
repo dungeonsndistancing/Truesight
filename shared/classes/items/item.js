@@ -10,6 +10,7 @@ class Item{
         this.icon = item.icon
         this.color = item.color
         this.count = item.count?item.count:1
+        this._id = item._id
     }
     display(){
         return {}

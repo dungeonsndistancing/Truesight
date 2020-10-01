@@ -12,7 +12,7 @@
             <p>Name: <input v-model='item.name' type="text">
             type: <input v-model='item.type' type="text">
             cost: <input v-model='item.cost' type="text">
-            weight: <input v-model='item.weight' type="text"></p>
+            weight: <input v-model='item.weight' type="number"></p>
             <p v-if='armor'>Armor Class: <input v-model='item.ac' type="text">
             Strength: <input v-model='item.strength' type="number">
             Stealth: <input v-model='item.stealth' type="text"></p>
@@ -59,7 +59,7 @@ export default {
 
             iconarray: [],
             show: false,
-            item: new Item('','',0,0,'','potion.png','#444444'),
+            item: new Item({name:'',type:'',cost:0,weight:0,description:'',icon:'potion.png',color:'#444444'}),
             typestring: 'Normal Item',
             magic: false,
             weapon: false,
@@ -81,15 +81,15 @@ export default {
                 if(this.typestring.includes('weapon')) {
                     this.weapon = true
                     this.armor = false
-                    this.item = new MagicWeapon(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','','','',this.item.icon,this.item.color)
+                    this.item = new MagicWeapon(this.item)
                 } else {
                     this.weapon = false
                     if(this.typestring.includes('armor')) {
-                        this.item = new MagicArmor(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','','','','',this.item.icon,this.item.color)
+                        this.item = new MagicArmor(this.item)
                         this.armor = true
                     } else {
                         this.armor = false
-                        this.item = new MagicItem(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','',this.item.icon,this.item.color)
+                        this.item = new MagicItem(this.item)
                     }
                 } 
             } else {
@@ -97,15 +97,15 @@ export default {
                 if(this.typestring.includes('weapon')) {
                     this.weapon = true
                     this.armor = false
-                    this.item = new Weapon(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','',this.item.icon,this.item.color)
+                    this.item = new Weapon(this.item)
                 } else {
                     this.weapon = false
                     if(this.typestring.includes('armor')) {
-                        this.item = new Armor(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','','',this.item.icon,this.item.color)
+                        this.item = new Armor(this.item)
                         this.armor = true
                     } else {
                         this.armor = false
-                        this.item = new Item(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,this.item.icon,this.item.color)
+                        this.item = new Item(this.item)
                     }
                 } 
             }
