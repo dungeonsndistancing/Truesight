@@ -59,7 +59,7 @@ export default {
 
             iconarray: [],
             show: false,
-            item: new Item('','',0,0,'','potion.png','#444444'),
+            item: new Item({name:'',type:'',cost:0,weight:0,description:'',icon:'potion.png',color:'#444444'}),
             typestring: 'Normal Item',
             magic: false,
             weapon: false,
