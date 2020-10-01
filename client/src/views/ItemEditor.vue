@@ -4,7 +4,7 @@
             Name: <input v-model='edititem.name' type="text">
             type: <input v-model='edititem.type' type="text">
             cost: <input v-model='edititem.cost' type="text">
-            weight: <input v-model='edititem.weight' type="text">
+            weight: <input v-model='edititem.weight' type="number">
             <p v-if='armor'>Armor Class: <input v-model='edititem.ac' type="text">
             Strength: <input v-model='edititem.strength' type="number">
             Stealth: <input v-model='edititem.stealth' type="text"></p>

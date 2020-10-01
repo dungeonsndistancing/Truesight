@@ -12,7 +12,7 @@
             <p>Name: <input v-model='item.name' type="text">
             type: <input v-model='item.type' type="text">
             cost: <input v-model='item.cost' type="text">
-            weight: <input v-model='item.weight' type="text"></p>
+            weight: <input v-model='item.weight' type="number"></p>
             <p v-if='armor'>Armor Class: <input v-model='item.ac' type="text">
             Strength: <input v-model='item.strength' type="number">
             Stealth: <input v-model='item.stealth' type="text"></p>
