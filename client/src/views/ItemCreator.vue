@@ -81,15 +81,15 @@ export default {
                 if(this.typestring.includes('weapon')) {
                     this.weapon = true
                     this.armor = false
-                    this.item = new MagicWeapon(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','','','',this.item.icon,this.item.color)
+                    this.item = new MagicWeapon(this.item)
                 } else {
                     this.weapon = false
                     if(this.typestring.includes('armor')) {
-                        this.item = new MagicArmor(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','','','','',this.item.icon,this.item.color)
+                        this.item = new MagicArmor(this.item)
                         this.armor = true
                     } else {
                         this.armor = false
-                        this.item = new MagicItem(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','',this.item.icon,this.item.color)
+                        this.item = new MagicItem(this.item)
                     }
                 } 
             } else {
@@ -97,15 +97,15 @@ export default {
                 if(this.typestring.includes('weapon')) {
                     this.weapon = true
                     this.armor = false
-                    this.item = new Weapon(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','',this.item.icon,this.item.color)
+                    this.item = new Weapon(this.item)
                 } else {
                     this.weapon = false
                     if(this.typestring.includes('armor')) {
-                        this.item = new Armor(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,'','','',this.item.icon,this.item.color)
+                        this.item = new Armor(this.item)
                         this.armor = true
                     } else {
                         this.armor = false
-                        this.item = new Item(this.item.name,this.item.type,this.item.cost,this.item.weight,this.item.description,this.item.icon,this.item.color)
+                        this.item = new Item(this.item)
                     }
                 } 
             }
