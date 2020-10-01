@@ -3,7 +3,7 @@
 Hello! Truesight is a charactersheet application that allows you to keep track of a all most things related to your Character.
 
 I built this application because I wasn't quite happy with some of the other applications/websites that exist,
-while it might not have triumped any or all of the other options that exist it was a fun project It is a open source webapp that you can set up for your own group if you feel like it.
+while it might not have triumped any or all of the other options that exist it was a fun project. It is a open source webapp that you can set up for your own group if you feel like it.
 
 Both to encourage people reading the book and because of copyright reasons the application by default does not contain any material PHB or other books.
 
