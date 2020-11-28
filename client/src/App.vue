@@ -1,30 +1,31 @@
 <template>
   <div id="app">
-      <navbar/>
-      <router-view class='view' />
+    <navbar />
+    <router-view class="view" />
   </div>
 </template>
 
 <script>
 //import Login from './components/Login'
-import navbar from './components/NavBar'
+import navbar from "./components/NavBar";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    navbar
-  }
-}
+    navbar,
+  },
+};
 </script>
 <style lang='scss'>
-@import './scss/variables';
-.view{
-  min-height:calc(100% - 4em);
+@import "./scss/variables";
+.view {
+  min-height: calc(100% - 4em);
 }
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   margin: 0px;
-  padding:0px;
+  padding: 0px;
 }
 #app {
   position: relative;
@@ -35,67 +36,65 @@ html, body {
   color: #2c3e50;
   margin: 0px;
   padding: 0px;
-  height:100%;
+  height: 100%;
 }
-input[type=checkbox] {
-  height:1vw;
-  width:1.3vw;
+input[type="checkbox"] {
+  height: 1vw;
+  width: 1.3vw;
 }
-.input{
-    border-radius:1em;
-    border-style:solid;
-    border-width: 1px;
-    border-color:rgb(170, 170, 170);
-    padding:0.1em 0.3em 0.1em 0.3em;
-    display: inline-block;
-    font-size:1vw;
+.input {
+  border-radius: 1em;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(170, 170, 170);
+  padding: 0.1em 0.3em 0.1em 0.3em;
+  display: inline-block;
+  font-size: 1vw;
 }
 .small {
-    width: 2.5em;
+  width: 2.5em;
 }
 .medium {
-    width:5em;
+  width: 5em;
 }
-.wide{
-    width: 10em;
+.wide {
+  width: 10em;
 }
 
-@media only screen and (max-width:$medium-screen) {
-
+@media only screen and (max-width: $medium-screen) {
   .input {
-    font-size:2vw;
+    font-size: 2vw;
   }
   .small {
-      width: 2.5em;
+    width: 2.5em;
   }
   .medium {
-      width:5em;
+    width: 5em;
   }
-  .wide{
-      width: 8em;
+  .wide {
+    width: 8em;
   }
-  input[type="textnpx"]{
-    width:1.5em;
-    height:1.5em;
+  input[type="textnpx"] {
+    width: 1.5em;
+    height: 1.5em;
   }
 }
-@media only screen and (max-width:$small-screen) {
-
+@media only screen and (max-width: $small-screen) {
   .input {
-    font-size:3.4vw;
+    font-size: 3.4vw;
   }
   .small {
-      width: 2.5em;
+    width: 2.5em;
   }
   .medium {
-      width:4em;
+    width: 4em;
   }
-  .wide{
-      width: 8em;
+  .wide {
+    width: 8em;
   }
-  input[type="textnpx"]{
-    width:1.5em;
-    height:1.5em;
+  input[type="textnpx"] {
+    width: 1.5em;
+    height: 1.5em;
   }
 }
 </style>
