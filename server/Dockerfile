@@ -2,7 +2,7 @@ FROM dndapp-shared
 
 WORKDIR /app/server
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
