@@ -1,0 +1,14 @@
+version: '3'
+services:
+  client:
+    container_name: "dndapp-client"
+    image: dndapp-client:latest
+    env_file: "../client/.env"
+    ports:
+      - "8080:8080"
+  server:
+    container_name: "dndapp-server"
+    image: dndapp-server:latest
+    env_file: "../server/.env"
+    ports:
+      - "5000:5000"
