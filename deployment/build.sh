@@ -1,5 +1,5 @@
 #!/bin/bash
-git pull origin dockerize
+git pull origin master
 npm install
 docker build -t dndapp-shared ../shared
 docker build -t dndapp-client ../client
