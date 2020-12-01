@@ -1,3 +1,4 @@
+#!/bin/bash
 git pull origin dockerize
 npm install
 docker build -t dndapp-shared ../shared
