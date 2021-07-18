@@ -1,4 +1,4 @@
-FROM dndapp-shared
+FROM registry.jvdt.dev:5001/jordyjordy/dndapp-shared
 
 WORKDIR /app/server
 

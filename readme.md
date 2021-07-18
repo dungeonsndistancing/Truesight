@@ -7,7 +7,7 @@ while it might not have triumped any or all of the other options that exist it w
 
 Both to encourage people reading the book and because of copyright reasons the application by default does not contain any material PHB or other books.
 
-an EXAMPLE version of the project is running on https://truesight.thepineapple.dev 
+an EXAMPLE version of the project is running on https://dndapp.jordyvandertang.nl
 DON'T USE THIS FOR ACTUALLY STORING A CHARACTER LONG TERM, the database will be cleared regularly of accounts, as this is not set up to support a large amount of users.
 It is intended purely for demonstration.
 

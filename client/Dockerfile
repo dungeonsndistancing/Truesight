@@ -1,4 +1,4 @@
-FROM dndapp-shared as build-stage
+FROM registry.jvdt.dev:5001/jordyjordy/dndapp-shared as build-stage
 
 WORKDIR /app/client
 
